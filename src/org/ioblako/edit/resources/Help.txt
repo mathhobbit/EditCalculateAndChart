@@ -1,0 +1,284 @@
+To evaluate a mathematical statement
+type it in the text area then highlight it and 
+click the calculator icon from the tool bar or 
+from the edit menu. You also can press and 
+hold "Ctrl" and then "m".
+
+----------------------------------------------------------
+  
+The calculator has the following functions.
+
+"2bdcm","2qt","2dbl","rref","I","ceil",
+"floor","dgrs","rdns","cosh","sinh","tanh","cbrt",
+"log10","expm1","ln1p","asin","sin","acos","cos",
+"atan","tan","ln","exp","sqrt","abs",
+"powb","atan2","hypot","min","max",
+"det","rank","inv","lslv","random","roots",
+"polynomMin","Int","Seq"
+
+----------------------------------------------------------
+
+One can get a quick help by evaluating 
+
+          ?name_of_a_function
+
+For example 
+
+          ?sin
+
+will return a short information about sin(x).
+
+----------------------------------------------------------
+
+SEQUENCE
+
+Seq(x,y,x*y,x={1,0..3},y={-1,5..0})
+
+will create
+
+0,5,0;1,5,5;2,5,10;3,5,15;0,4,0;1,4,4;2,4,8;3,4,12;0,3,0;1,3,3;2,3,6;3,3,9;0,2,0;1,2,2;2,2,4;3,2,6;0,1,0;1,1,1;2,1,2;3,1,3;0,0,0;1,0,0;2,0,0;3,0,0
+
+----------------------------------------------------------
+
+CHARTS AND PLOTS IN 2D
+
+
+A Cartesian plot is created with
+
+plot(f(x),step_size,variable=left..right)
+
+or
+
+grPlt(f(x),step_size,variable=left..right)
+
+for one  function and
+
+plot({f1(x)..fn(x)},step_size,variable=left..right)
+grPlt({f1(x)..fn(x)},step_size,variable=left..right)
+
+for multiple functions.
+
+Example: 
+
+plot(sin(x),0.1,x=-pi..pi)
+
+or
+
+grPlt(sin(x),0.1,x=-pi..pi)
+
+For multiple plots 
+
+plot({0.5*x,sin(x)},0.1,x=-pi..pi)
+
+or
+
+grPlt({0.5*x,sin(x)},0.1,x=-pi..pi)
+
+
+If it is needed to have y=f(x) in the title
+of the plot or have s=0.1 (or some other notations for the step)
+then 
+
+plot({y=x,y=cos(x)},step=0.1,x=-pi..pi)
+
+Polar plot is created with
+
+plrPlt(1,0.1,a=0..360) 
+
+The angle "a" is in degrees.
+For plots in radians (when using sin(a), cos(a) etc.)
+use "rdns".
+
+plrPlt(1-cos(rdns(a)),0.1,a=0..360)
+
+Multiple polar plots:
+
+plrPlt({1,1-cos(rdns(a))},0.1,a=0..360)
+
+In addition to an independent variable
+("x" in previous examples) one can add
+additional parameters. This is accomplished
+by adding sliders to the plot.
+
+plot({cos(x),r*sin(w*x)},0.1,x=-pi..pi,0.1,r=1..3,0.1,w=0.5..4) 
+
+or
+
+grPlt({cos(x),r*sin(w*x)},0.1,x=-pi..pi,0.1,r=1..3,0.1,w=0.5..4)
+
+------------------------------------------
+
+PIE PLOT
+
+piePlt(Pie plot title,piece 1=0.3,{piece 1,10;piece 2,30;piece 3,40;piece 4,20}) 
+
+or
+
+piePlt(Pie plot title,{piece 1,10;piece 2,30;piece 3,40;piece 4,20}) 
+
+
+----------------------------------------------------------
+
+MEMORY
+
+To store a variable or a formula into the memory
+use (highlight and press "calc" button in the tool bar ...)
+
+X<-2*sin(X)
+
+Now "X" contains "2*sin(X)".
+To recall the value of "X" please "Calc" the following
+
+X->
+
+To evaluate (and iterate) assign the value for "X" with
+
+X<-1
+
+then iterate with highlighting the next line and clicking "Calc".
+
+X<-eval(sin(X))
+
+One can observe the results of iterations
+by repeatedly highlighting 
+
+X<-eval(sin(X))
+
+and clicking "Calc" then highlighting 
+
+X->
+
+and clicking "Calc" icon. You will get the following.
+
+X = 0.5871809965734309893358473266201438
+
+X = 0.6275718320491591388811067904537899
+
+X = 0.6784304773607402289791601264803857
+
+X = 0.745624141665557888893151070430383
+
+X = 0.8414709848078965066525023216302986
+
+----------------------------------------------------------
+
+X->Y
+
+will copy the content of "X" into "Y" and
+now "Y->" will yield the content of "X".
+----------------------------------------------------------
+
+SAVING TO A FILE
+
+X->file(path_to_a_file)
+
+will save the content of "X" into the file of your choice.
+If the file does not exist then
+ the dialog for choosing the file will pop up.
+For example "calc"
+ ( that means highlight and press "Calc" button) the following
+
+X->file(?)
+
+----------------------------------------------------------
+BAR CHART
+
+The next line creates a bar chart.
+
+barPlt(title=bar chart example,y_title=y values,x_title=x values,{1,test 1,fall;2,test 2,fall;2.3,test 3,fall;1.8,test 1,spring;2.5,test 2,spring;3,test 3,spring})
+
+One can implement it as follows
+
+C<-1,test 1,fall;2,test 2,fall;2.3,test 3,fall;1.8,test 1,spring;2.5,test 2,spring;3,test 3,spring
+
+and then
+
+barPlt(title=bar chart example,y_title=y values,x_title=x values,{C})
+
+----------------------------------------------------------
+CLEAR MEMORY
+
+To clear the specific variable in the memory use
+
+clear C
+
+To delete all variable from memory use
+
+clear
+
+----------------------------------------------------------
+LINE PLOT
+
+The next  procedure "linePlt" yields a line plot.
+
+linePlt(title=Test scores,y_title=average grade,x_title=Tests,{75,Calculus I,Test 1;60,Calculus I,Test 2;65,Calculus I,Test 3;80,Calculus I,Final Test;
+           95,Calculus II,Tes 1 1;55,Calculus II,Test 2;85,Calculus II,Test 3;75,Calculus II,Final Test})
+
+Introducing variables
+
+A<-75,Calculus I,Test 1;60,Calculus I,Test 2;65,Calculus I,Test 3;80,Calculus I,Final Test;
+
+and
+
+B<-95,Calculus II,Tes 1 1;55,Calculus II,Test 2;85,Calculus II,Test 3;75,Calculus II,Final Test
+
+we can write the same procedure as
+
+linePlt(title=Test scores,y_title=average grade,x_title=Tests,{AB})
+
+----------------------------------------------------------
+XY LINE PLOT
+
+Seq(x/(x+1),x={1,1..4})
+
+generates the sequence 1/2;2/3;3/4.
+
+After 
+
+A<-eval(Seq(x,x^3-x^2+x-1,x={0.1,0..2*pi}))
+B<-eval(Seq(x,40-x^2,x={0.1,0..2*pi}))
+
+the sequences are in the memory and you can generate graphs
+of the respective functions with "xyLinePlt" 
+
+xyLinePlt(title=example,y_title=y values,x_title=x values,{A},{B})
+----------------------------------------------------------
+XY PLOT
+
+To plot a curve use "xyPlt" instead.
+
+C<-eval(Seq(x^2-1,x^3-x,x={0.1,-2..2}))
+D<-eval(Seq(0.1*x^4-x,x^3-0.1*x^6,x={0.1,-1.5..1.5}))
+
+xyPlt(title=cubic curves,y_title=y values,x_title=x values,{C},{D})
+
+----------------------------------------------------------
+VECTOR FIELD PLOT
+
+To create a vector field plot use "vfPlt"
+
+A<-eval(Seq(x,y,y/(1+x^2+y^2),-x/(1+x^2+y^2),x={0.5,-2..2},y={0.5,-2..2}))
+vfPlt({A})
+
+or
+
+B<-eval(Seq(x,y,cos(x+y)/(2+x^2+y^2),x/(2+x^2+y^2),x={0.5,-3..3},y={0.5,-3..3}))
+vfPlt({B})
+
+----------------------------------------------------------
+
+3D PLOTS
+
+
+C<-eval(Seq(t,cos(t),sin(t),t={0.1,-pi..pi}))
+A<-eval(Seq(t,t,t,t={0.1,-pi..pi}))
+
+
+xyzPlt(title=3D curves,subtitle=helix,line,helix,{A},{C})
+
+
+Plotting a graph of a 3D function
+
+gr3DPlt(sin(x*y),x={-pi/2..pi/2},y={-pi/2..pi/2})
+
+
