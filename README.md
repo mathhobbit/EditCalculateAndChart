@@ -1,4 +1,4 @@
-<img src="http://i-oblako.org/EditCalculateAndChart/Icon128.png" align="right" />
+<img src="images/Icon128.png" align="right" />
 
 # Edit Calculate and Chart
 
