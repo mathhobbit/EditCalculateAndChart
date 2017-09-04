@@ -1,4 +1,4 @@
-<img src="src/org/ioblako/edit/resources/images/spinning_calc.png align="right" />
+<img src="http://i-oblako.org/EditCalculateAndChart/Icon128.png" align="right" />
 
 # Edit Calculate and Chart
 
