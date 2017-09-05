@@ -12,7 +12,8 @@ The calculator has the following functions/operations:
 > "abs", "cross", "dot", "powb", "atan2", "hypot", 
 > "min", "max", "det", "rank", "inv", "lslv", "random",
 > "date", "roots", "rroots", "polynomMin", "Int", "Seq",
-> "sum", "memory", "clear", "<-", "->", "plot", "xyPlt".
+> "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
+> "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt" 
 
 
   One can get a quick help by evaluating ?name.
@@ -35,7 +36,16 @@ returns
 "https://arxiv.org/abs/1405.5548".  
 A<-{1,1;1,2} defines a 2x2 matrix A. "inv(A)" delivers the inverse of "A". "det(A)" yields the determinant of "A". "rank(A)"  calculates the rank of "A". "rref(A)" delivers the reduced row echelon form for "A".
 "A<-eval(Seq(x^2-1,x^3-x,x={0.01,-2..2}))" evaluates and stores the sequence 
-"Seq(x^2-1,x^3-x,x={0.01,-2..2})" into "A".   "xyPlt({A})" creates the plot for "A".
+"Seq(x^2-1,x^3-x,x={0.01,-2..2})" into "A".   "xyPlt({A})" creates the plot for "A". "xyzPlt" is for 3D plots. For example,
+
+C<-eval(Seq(t,cos(t),sin(t),t={0.1,-pi..pi}))<br/>
+A<-eval(Seq(t,t,t,t={0.1,-pi..pi}))
+
+
+xyzPlt(title=3D curves,subtitle=helix,line,helix,{A},{C})
+
+"vfPlt" is a vector field plot.
+
 
 ## Compiling
 
