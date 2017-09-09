@@ -265,8 +265,7 @@ while(st.indexOf('^')!=-1){
                 if(part1.charAt(i-1)=='+'||
                    part1.charAt(i-1)=='-'|| 
                    part1.charAt(i-1)=='*'||
-                   part1.charAt(i-1)=='/'||
-                   part1.charAt(i-1)=='('
+                   part1.charAt(i-1)=='/'
                         )
                     vntr='-'+vntr;
             break;
