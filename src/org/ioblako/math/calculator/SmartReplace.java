@@ -71,9 +71,12 @@ st=st.replace(" ","");
             case  0:
                if(i+Var.length() < st.length()){
                   if(checkCharAt(i+Var.length(),st,false))
-                      {
-                          ret = ret + Val;
+                      {    
+                        ret = (st.charAt(i+Var.length()) =='^')? ret + '('+Val+')':ret + Val; 
+                        
+                          //ret = ret + Val;
                           i = i+Var.length();
+                          
                       }
                     else{
                        ret = ret + st.charAt(i);
@@ -111,9 +114,11 @@ st=st.replace(" ","");
                    if(checkCharAt(i-1,st,true))
                     {
                              if(checkCharAt(i+Var.length(),st,false))
-                                {
-                                     ret = ret + Val;
+                                {     
+                                    ret = (st.charAt(i+Var.length()) =='^')? ret + '('+Val+')':ret + Val; 
+                                     //ret = ret + Val;
                                      i = i+Var.length();
+                                    
                                 }
                               else
                                 {
