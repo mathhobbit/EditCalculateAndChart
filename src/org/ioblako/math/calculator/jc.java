@@ -316,15 +316,18 @@ while(st.indexOf('^')!=-1){
 }
 
 
-
+        while( st.startsWith("--"))
+              st=st.substring(2);
+        while( st.startsWith("++"))
+              st=st.substring(2);
         while( st.contains("+-"))
             st=st.replace("+-","-");
         while( st.contains("-+"))
             st=st.replace("-+","-");
         while( st.contains("--"))
-            st=st.replace("--","");
+            st=st.replace("--","+");
         while( st.contains("++"))
-            st=st.replace("++","");
+            st=st.replace("++","+");
         while( st.contains("+*"))
             st=st.replace("+*","*");
         while( st.contains("*+"))
