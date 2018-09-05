@@ -12,9 +12,10 @@ The calculator has the following functions.
 "floor","dgrs","rdns","cosh","sinh","tanh","cbrt",
 "log10","expm1","ln1p","asin","sin","acos","cos",
 "atan","tan","ln","exp","sqrt","abs",
-"powb","atan2","hypot","min","max",
+"powb", "pow", "atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
-"polynomMin","Int","Seq"
+"polynomMin","Int","Seq", "FE", "EF", "mod",
+"modInverse", "gcd"
 
 ----------------------------------------------------------
 
