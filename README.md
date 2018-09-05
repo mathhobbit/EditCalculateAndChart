@@ -35,8 +35,10 @@ returns
 "polynomMin" finds the minimum of a real polynomial on a given interval, e.g., 
 "polynomMin(0.01,-8..1,{1,2,1})" returns "-1", where "0.01" is the precision. "polynomMin" is based on the recently discovered algorithm (Leap Gradient Algorithm) presented in
 "https://arxiv.org/abs/1405.5548".  
+
 EF and FE implement Euler-Fermat algorithm introduced in "Euler-Fermat algorithm and some of its applications" posted at
-ResearchGate.net.
+"http://ResearchGate.net".
+
 A<-{1,1;1,2} defines a 2x2 matrix A. "inv(A)" delivers the inverse of "A". "det(A)" yields the determinant of "A". "rank(A)"  calculates the rank of "A". "rref(A)" delivers the reduced row echelon form for "A".
 "A<-eval(Seq(x^2-1,x^3-x,x={0.01,-2..2}))" evaluates and stores the sequence 
 "Seq(x^2-1,x^3-x,x={0.01,-2..2})" into "A".   "xyPlt({A})" creates the plot for "A". "xyzPlt" is for 3D plots. For example,
