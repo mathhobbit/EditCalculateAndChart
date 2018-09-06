@@ -81,6 +81,15 @@ if(m.compareTo(r)<0){
      setReport(m.toString()+" < "+r.toString());
      setReport("Hence, s("+r.toString()+","+m.toString()+") = s("+r.mod(m).toString()+","+m.toString()+")");
     r=r.mod(m);
+     
+    if(r.compareTo(BigInteger.ZERO)==0){
+        setReport("s("+r.toString()+","+m.toString()+") is not defined. We set it equalt to \"-1\"");
+        return "-1";
+    }
+    if(r.compareTo(BigInteger.ONE)==0){
+        setReport("s("+r.toString()+","+m.toString()+") = 1.");
+        return "1";
+    }
 }
 if(m.compareTo(r) == 0){
      setReport(m.toString()+" = "+r.toString());
