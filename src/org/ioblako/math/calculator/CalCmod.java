@@ -46,11 +46,12 @@ public class CalCmod implements CalcFunction {
        BigInteger IntArg, Module;  
         
        String[] values = argv.split(",");
+       
        if(values.length >2)
              throw new Exception("mod(n,m) requires two arguments.");
        
-        IntArg = new BigInteger(values[0]);
-        Module = new BigInteger(values[1]);
+        IntArg = new BigInteger(jc.eval(values[0]));
+        Module = new BigInteger(jc.eval(values[1]));
         
         return IntArg.mod(Module).toString();
     }
