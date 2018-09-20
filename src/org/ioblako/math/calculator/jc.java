@@ -29,6 +29,7 @@ import org.ioblako.math.linearalgebra.Fraction.Fraction;
 
 
 public class jc{
+public static String[] SpecialFunctions ={"Seq","Int","lslv","mod","modInverse","pow","EF","modPow","gcd"};
 public static MathContext MC=MathContext.DECIMAL128;
 public static boolean writeReport=false;
 public static void setMathContext(MathContext newMC){
@@ -150,6 +151,17 @@ if(fn == null)
 }
 
 //check for special functions
+
+for(String SpF:SpecialFunctions)
+    while(st.trim().contains(SpF+"(")){
+    fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+SpF).newInstance();
+    hndl = jc.hInside(SpF+"(", st,'(',')');
+    st=hndl[0]+fn.eval(hndl[1])+hndl[2];
+    Report=fn.getReport();
+    //return st;
+}
+    
+/*    
 if(st.trim().startsWith("lslv(")){
     fn = new CalClslv();
     st=fn.eval(jc.hInside("lslv(", st,'(',')')[1]);
@@ -169,6 +181,7 @@ while(st.trim().contains("Int(")){
     Report=fn.getReport();
     //return st;
 }
+    */
 //done with special functions
 
 while(st.contains("}^")){
