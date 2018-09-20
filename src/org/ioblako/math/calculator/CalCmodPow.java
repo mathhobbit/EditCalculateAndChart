@@ -42,7 +42,7 @@ public class CalCmodPow implements CalcFunction {
        String[] values = argv.split(",");
        if(values.length != 3)
             throw new Exception("modPow(n,p,m) requires three arguments.");
-       return (new BigInteger(values[0])).modPow(new BigInteger(values[1]), new BigInteger(values[2])).toString();        
+       return (new BigInteger(jc.eval(values[0]))).modPow(new BigInteger(jc.eval(values[1])), new BigInteger(jc.eval(values[2]))).toString();        
     }
     
 }
