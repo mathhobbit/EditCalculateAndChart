@@ -42,7 +42,7 @@ public class CalCgcd implements CalcFunction {
        String[] values = argv.split(",");
        if(values.length != 2)
             throw new Exception("gcd(m,n) requires two arguments.");
-       return (new BigInteger(values[0])).gcd(new BigInteger(values[1])).toString(0);
+       return (new BigInteger(jc.eval(values[0]))).gcd(new BigInteger(jc.eval(values[1]))).toString(0);
     }
     
 }
