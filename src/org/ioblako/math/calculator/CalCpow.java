@@ -43,7 +43,7 @@ public class CalCpow implements CalcFunction{
        String[] values=argv.split(",");
        if(values.length != 2)
             throw new Exception("pow(n,p) requires two integer arguments");
-       return (new BigInteger(values[0])).pow(Integer.parseInt(values[1])).toString();
+       return (new BigInteger(jc.eval(values[0]))).pow(Integer.parseInt(jc.eval(values[1]))).toString();
     }
     
 }
