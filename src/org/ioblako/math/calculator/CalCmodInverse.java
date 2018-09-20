@@ -43,7 +43,7 @@ public class CalCmodInverse implements CalcFunction {
         String[] values = argv.split(",");
         if(values.length!=2)
             throw new Exception("modInverse(m,n) requires two arguments.");  
-        return (new BigInteger(values[0])).modInverse(new BigInteger(values[1])).toString();
+        return (new BigInteger(jc.eval(values[0]))).modInverse(new BigInteger(jc.eval(values[1]))).toString();
     }
     
     
