@@ -45,7 +45,7 @@ public class CalCFE implements CalcFunction{
     @Override
     public String eval(String argv) throws Exception {
         
-        BigInteger m = new BigInteger(argv);
+        BigInteger m = new BigInteger(jc.eval(argv));
         
         if(m.compareTo(BigInteger.ZERO)<=0)
                throw new Exception("FA algorithm is defined only for natural numbers");
