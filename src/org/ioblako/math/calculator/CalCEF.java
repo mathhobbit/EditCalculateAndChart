@@ -63,41 +63,15 @@ public class CalCEF implements CalcFunction{
         
         if(m.compareTo(BigInteger.ZERO)<=0 ||
              r.compareTo(BigInteger.ONE)<=0)
-               throw new Exception("Euler-Fermat algorithm is defined only for natural numbers larger than one");
+               throw new Exception("Euler-Fermat algorithm is defined only for natural numbers. Moreover, radix is to be larger than one");
         if(r.compareTo(BigInteger.ONE.add(BigInteger.ONE)) == 0){
                      CalCFE fe = new CalCFE();
                      String rt = jc.eval(fe.eval(input_number));
                      setReport(fe.getReport());
                      return rt;
         }
-        BigInteger[] divr = r.subtract(BigInteger.ONE).divideAndRemainder(m);
 
-if(divr[1].compareTo(BigInteger.ZERO) == 0){
-        setReport("r^1 - 1 = "+m.toString()+"*"+divr[0].toString());
-        setReport("where r = "+r.toString());
-        return "1";                
-}
-if(m.compareTo(r)<0){
-     setReport(m.toString()+" < "+r.toString());
-     setReport("Hence, s("+r.toString()+","+m.toString()+") = s("+r.mod(m).toString()+","+m.toString()+")");
-    r=r.mod(m);
-     
-    if(r.compareTo(BigInteger.ZERO)==0){
-        setReport("s("+r.toString()+","+m.toString()+") is not defined. We set it equalt to \"-1\"");
-        return "-1";
-    }
-    if(r.compareTo(BigInteger.ONE)==0){
-        setReport("s("+r.toString()+","+m.toString()+") = 1.");
-        return "1";
-    }
-}
-if(m.compareTo(r) == 0){
-     setReport(m.toString()+" = "+r.toString());
-     setReport("s("+r.toString()+","+m.toString()+") = 1");                 
-                                return "1";
-}
-
-BigInteger n = BigInteger.ONE, k = BigInteger.ZERO, s = BigInteger.ZERO;
+BigInteger n = BigInteger.ONE, k = BigInteger.ZERO, s = BigInteger.ONE;
 BigInteger d = m.gcd(r);
 while(d.compareTo(BigInteger.ONE)>0 && m.compareTo(BigInteger.ONE)>0){
 m = m.divide(d);
@@ -107,7 +81,13 @@ d = m.gcd(r);
 }
 
 if(m.compareTo(BigInteger.ONE)==0){
-     setReport("r^"+k.toString()+"*( r - 1 ) = "+input_number+"*"+n.toString()+"*(r-1)");
+    if(n.compareTo(BigInteger.ONE)==0)
+        setReport("r^"+k.toString()+" = "+input_number);
+    else
+     setReport("r^"+k.toString()+" = "+input_number+"*"+n.toString());
+    
+     setReport("s("+r.toString()+","+input_number+") = 1");
+      setReport("where r = "+r.toString());
                                 return "1";
 }
 
