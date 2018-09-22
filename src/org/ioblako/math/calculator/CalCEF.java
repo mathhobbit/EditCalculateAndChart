@@ -99,12 +99,40 @@ if(getTheFirstIndexForValueLessThan(m,radixMinusOne,r)==-1){
 if(k.compareTo(BigInteger.ZERO)>0)
      output = input_number+"*"+n.toString()+" = "+r.toString()+"^"+k.toString()+"*(r^"+getLength(m,r)+"-1)";
 else
-     output = input_number+" = r^"+getLength(m,r)+"-1";
+     output = input_number+"*"+n.toString()+" = r^"+getLength(m,r)+"-1";
 
      setReport(output);
      setReport("where r = "+r.toString());
                      
                      return Integer.toString(getLength(m,r));
+}
+
+
+ArrayList<BigInteger> rPresentation = getNumeralRepresentation(m,r);
+Iterator<BigInteger> it = rPresentation.iterator();
+
+BigInteger atNull = rPresentation.get(0);
+boolean NotAllEqual = false;
+
+while(it.hasNext() && !NotAllEqual){
+    if(it.next().compareTo(atNull)!=0)
+        NotAllEqual = true;
+}
+ 
+if(!NotAllEqual){
+    BigInteger[] ht = radixMinusOne.divideAndRemainder(atNull);
+    if(ht[1].compareTo(BigInteger.ZERO)==0){
+        n=n.multiply(ht[0]);
+     if(k.compareTo(BigInteger.ZERO)>0)
+         output = input_number+"*"+n.toString()+" = "+r.toString()+"^"+k.toString()+"*(r^"+getLength(m,r)+"-1)";
+     else
+         output = input_number+"*"+n.toString()+" = r^"+getLength(m,r)+"-1";
+
+     setReport(output);
+     setReport("where r = "+r.toString());  
+     
+        return Integer.toString(getLength(m,r));
+    }
 }
 
 boolean special = false;
@@ -114,7 +142,8 @@ m = m.multiply(M);
 BigInteger h = m.multiply(radixMinusOne);
 BigInteger q = radixMinusOne;
 
-ArrayList<BigInteger> rPresentation = getNumeralRepresentation(m,r);
+
+   //rPresentation = getNumeralRepresentation(m,r);
 //Iterator<BigInteger> it = rPresentation.iterator();
 
 
