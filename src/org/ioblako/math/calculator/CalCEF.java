@@ -108,39 +108,13 @@ else
 }
 
 
-ArrayList<BigInteger> rPresentation = getNumeralRepresentation(m,r);
-Iterator<BigInteger> it = rPresentation.iterator();
-
-BigInteger atNull = rPresentation.get(0);
-boolean NotAllEqual = false;
-
-while(it.hasNext() && !NotAllEqual){
-    if(it.next().compareTo(atNull)!=0)
-        NotAllEqual = true;
-}
- 
-if(!NotAllEqual){
-    BigInteger[] ht = radixMinusOne.divideAndRemainder(atNull);
-    if(ht[1].compareTo(BigInteger.ZERO)==0){
-        n=n.multiply(ht[0]);
-     if(k.compareTo(BigInteger.ZERO)>0)
-         output = input_number+"*"+n.toString()+" = "+r.toString()+"^"+k.toString()+"*(r^"+getLength(m,r)+"-1)";
-     else
-         output = input_number+"*"+n.toString()+" = r^"+getLength(m,r)+"-1";
-
-     setReport(output);
-     setReport("where r = "+r.toString());  
-     
-        return Integer.toString(getLength(m,r));
-    }
-}
-
 boolean special = false;
-BigInteger M=m.modInverse(r);
-n = n.multiply(M);
-m = m.multiply(M);
-BigInteger h = m.multiply(radixMinusOne);
-BigInteger q = radixMinusOne;
+BigInteger M=m.modInverse(r), mlt;
+//n = n.multiply(M);
+//m = m.multiply(M);
+mlt=M.multiply(radixMinusOne).mod(r);
+BigInteger h = m.multiply(mlt);
+BigInteger q = mlt;
 
 
    //rPresentation = getNumeralRepresentation(m,r);
@@ -153,8 +127,9 @@ while((c=getTheFirstIndexForValueLessThan(h,radixMinusOne,r))!=-1 && ValueLess !
 MPower = MPower + c;
 h=RightShift(c, h, r);
 bf = radixMinusOne.subtract(ValueLess);
-h = h.add(m.multiply(bf));
-q=q.add(bf.multiply(r.pow(MPower)));
+mlt=M.multiply(bf).mod(r);
+h = h.add(m.multiply(mlt));
+q=q.add(mlt.multiply(r.pow(MPower)));
 //System.out.println(q.toString());
 }//while
 MPower=MPower+getLength(h,r);
