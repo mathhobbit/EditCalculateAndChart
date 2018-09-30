@@ -14,7 +14,7 @@ The calculator has the following functions/operations:
 > "date", "roots", "rroots", "polynomMin", "Int", "Seq",
 > "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
 > "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt"
-> "EF", "FE", "mod", "modInverse", "pow"
+> "EF", "FE", "mod", "modInverse", "pow", "getNR"
 
 
   One can get a quick help by evaluating ?name.
