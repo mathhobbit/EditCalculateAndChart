@@ -15,7 +15,7 @@ The calculator has the following functions.
 "powb", "pow", "atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
 "polynomMin","Int","Seq", "FE", "EF", "mod",
-"modInverse", "gcd"
+"modInverse", "gcd". "getNR"
 
 ----------------------------------------------------------
 
