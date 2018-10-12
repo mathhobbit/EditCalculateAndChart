@@ -113,7 +113,8 @@ String Report="";
              ret=ret+";";
          }
 
-        return (ret.endsWith(";"))?ret.substring(0,ret.length()-1):ret;
+         ret=(ret.endsWith(";"))?ret.substring(0,ret.length()-1):ret;
+         return "{"+ret+"}";
 
      //      return FunctionString;
     }
