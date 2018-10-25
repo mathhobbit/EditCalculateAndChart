@@ -38,8 +38,8 @@ public class CalCEF implements CalcFunction{
 
     @Override
     public String getHelp() {
-        return "EF(r,n) returns the integer s = s(r,n). For r < n EF calculates integers k, s and q such that  n * q = r^k*(r^s - 1). "+System.lineSeparator()
-                + " If r = n then s(r,n)=1. For r > n EF returns s(r mod n, n). EF stays for Euler-Fermat algorithm related"+System.lineSeparator()
+        return "EF(r,n) returns the integer s = s(r,n). EF calculates smallest integers k, s and q such that  n * q = r^k*(r^s - 1). "+System.lineSeparator()
+                + " EF stays for Euler-Fermat algorithm related"+System.lineSeparator()
                 +"to statement c^E(a)=1 mod(a) for coprime a and c, "+System.lineSeparator()
                 + "where E(a) is the Euler function:"+System.lineSeparator()
                 + " the count of numbers coprime with and smaller than a."+System.lineSeparator()
