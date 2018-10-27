@@ -36,7 +36,7 @@ returns
 "polynomMin(0.01,-8..1,{1,2,1})" returns "-1", where "0.01" is the precision. "polynomMin" is based on the recently discovered algorithm (Leap Gradient Algorithm) presented in
 "https://arxiv.org/abs/1405.5548".  
 
-EF and FE implement Euler-Fermat algorithm introduced in "Euler-Fermat algorithm and some of its applications" posted at
+EF and FE implement Euler-Fermat algorithm introduced in "Euler-Fermat algorithm" posted at
 "http://ResearchGate.net".
 
 A<-{1,1;1,2} defines a 2x2 matrix A. "inv(A)" delivers the inverse of "A". "det(A)" yields the determinant of "A". "rank(A)"  calculates the rank of "A". "rref(A)" delivers the reduced row echelon form for "A".
