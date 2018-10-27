@@ -47,7 +47,7 @@ C<-eval(Seq(t,cos(t),sin(t),t={0.1,-pi..pi}))<br/>
 A<-eval(Seq(t,t,t,t={0.1,-pi..pi}))
 
 
-xyzPlt(title=3D curves,subtitle=helix,line,helix,{A},{C})
+xyzPlt(title=3D curves,subtitle=helix,line,helix,A,C)
 
 "vfPlt" is a vector field plot.
 
