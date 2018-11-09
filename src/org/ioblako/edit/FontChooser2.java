@@ -1,18 +1,36 @@
-/* 
- * Copyright (C) 2017 Sergey Nikitin and others
+/*
+ * Copyright (c) Ian F. Darwin, http://www.darwinsys.com/, 1996-2002.
+ * All rights reserved. Software written by Ian F. Darwin and others.
+ * $Id: LICENSE,v 1.8 2004/02/09 03:33:38 ian Exp $
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS''
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * Java, the Duke mascot, and all variants of Sun's Java "steaming coffee
+ * cup" logo are trademarks of Sun Microsystems. Sun's, and James Gosling's,
+ * pioneering role in inventing and promulgating (and standardizing) the Java 
+ * language and environment is gratefully acknowledged.
+ * 
+ * The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T, for
+ * inventing predecessor languages C and C++ is also gratefully acknowledged.
  */
 package org.ioblako.edit;
 
@@ -27,7 +45,6 @@ import java.awt.List;
 import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.MathContext;
 
 import javax.swing.JButton;
@@ -50,7 +67,7 @@ import org.ioblako.math.calculator.jc;
  * @version $Id: FontChooser.java,v 1.19 2004/03/20 20:44:56 ian Exp $
  */
 public class FontChooser2 extends JDialog {
-static final long serialVersionUID=1004;
+static final long  serialVersionUID=1910;
   // Results:
   
   /** The font the user has chosen */
@@ -103,11 +120,16 @@ static final long serialVersionUID=1004;
   /**
    * Construct a FontChooser -- Sets title and gets array of fonts on the
    * system. Builds a GUI to let the user choose one font at one size.
-     * @param f
+     * @param ed
    */
   public FontChooser2(TextEdit ed) {
     super(ed.getFrame(), "Preferences", true);
-    
+     Initialize(ed);
+  }
+  private void Initialize(TextEdit ed){
+      
+      if(ed == null)
+           return;
     //setResizable(false);
     Container cp = getContentPane();
     
@@ -115,10 +137,10 @@ static final long serialVersionUID=1004;
     Panel PrecisionPanel = new Panel();
     PrecisionPanel.setLayout(new GridLayout(0,2));
     
- int currentPrecision=7;
- if(ed != null)
+ int currentPrecision;
+ 
      currentPrecision=ed.getConfig().getInt("PRECISION", 7);
- SpinnerNumberModel Precision = new SpinnerNumberModel(currentPrecision, 2, 34, 1); 
+ SpinnerNumberModel Precision = new SpinnerNumberModel(currentPrecision, 2, 2000, 1); 
  JSpinner jsp =  addLabeledSpinner(PrecisionPanel,
                                         "Precision",
                                          Precision);
@@ -186,26 +208,21 @@ cp.add(NorthContainer, BorderLayout.NORTH);
 
     JButton okButton = new JButton("Apply");
     bot.add(okButton);
-    okButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+    okButton.addActionListener((ActionEvent e) -> {
         previewFont();
         dispose();
         setVisible(false);
-      }
     });
 
     JButton pvButton = new JButton("Preview");
     bot.add(pvButton);
-    pvButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+    pvButton.addActionListener((ActionEvent e) -> {
         previewFont();
-      }
     });
 
     JButton canButton = new JButton("Cancel");
     bot.add(canButton);
-    canButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+    canButton.addActionListener((ActionEvent e) -> {
         // Set all values to null. Better: restore previous.
         resultFont = null;
         resultName = null;
@@ -215,7 +232,6 @@ cp.add(NorthContainer, BorderLayout.NORTH);
 
         dispose();
         setVisible(false);
-      }
     });
 
     cp.add(bot, BorderLayout.SOUTH);
@@ -233,7 +249,7 @@ cp.add(NorthContainer, BorderLayout.NORTH);
   protected void previewFont() {
     resultName = fontNameChoice.getSelectedItem();
     String resultSizeName = fontSizeChoice.getSelectedItem();
-    int resultSize = Integer.parseInt(resultSizeName);
+    int resultSize_local = Integer.parseInt(resultSizeName);
     isBold = bold.getState();
     isItalic = italic.getState();
     int attrs = Font.PLAIN;
@@ -241,29 +257,36 @@ cp.add(NorthContainer, BorderLayout.NORTH);
       attrs = Font.BOLD;
     if (isItalic)
       attrs |= Font.ITALIC;
-    resultFont = new Font(resultName, attrs, resultSize);
+    resultFont = new Font(resultName, attrs, resultSize_local);
     // System.out.println("resultName = " + resultName + "; " +
     //     "resultFont = " + resultFont);
     previewArea.setFont(resultFont);
     pack(); // ensure Dialog is big enough.
   }
 
-  /** Retrieve the selected font name. */
+  /** Retrieve the selected font name.
+     * @return  */
   public String getSelectedName() {
     return resultName;
   }
 
-  /** Retrieve the selected size */
+  /** Retrieve the selected size
+     * @return  */
   public int getSelectedSize() {
     return resultSize;
   }
 
-  /** Retrieve the selected font, or null */
+  /** Retrieve the selected font, or null
+     * @return  */
   public Font getSelectedFont() {
     return resultFont;
   }
 
-  /** Simple main program to start it running */
+  /** Simple main program to start it running
+     * @param c
+     * @param label
+     * @param model
+     * @return  */
   /*
   public static void main(String[] args) {
     final JFrame f = new JFrame("FontChooser Startup");
