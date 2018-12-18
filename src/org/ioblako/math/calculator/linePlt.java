@@ -71,10 +71,10 @@ public class linePlt extends AbstractFramePlt implements FramePlt {
                         );
          chart.setBackgroundPaint(Color.white);
          LineAndShapeRenderer renderer = (LineAndShapeRenderer)( (CategoryPlot)chart.getPlot()).getRenderer(); 
-         renderer.setShapesVisible(true);
+         //renderer.setShapesVisible(true);
          renderer.setDrawOutlines(true);
          renderer.setUseFillPaint(true);
-         renderer.setFillPaint(Color.white);
+         //renderer.setFillPaint(Color.white);
 
          
          /*
