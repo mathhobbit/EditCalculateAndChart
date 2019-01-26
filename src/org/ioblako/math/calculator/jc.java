@@ -29,7 +29,7 @@ import org.ioblako.math.linearalgebra.Fraction.Fraction;
 
 
 public class jc{
-public static String[] SpecialFunctions ={"Seq","Int","lslv","mod","modInverse","pow","EF","modPow","gcd"};
+public static String[] SpecialFunctions ={"Seq","Int","mod","modInverse","pow","EF","modPow","gcd"};
 public static MathContext MC=MathContext.DECIMAL128;
 public static boolean writeReport=false;
 public static void setMathContext(MathContext newMC){
@@ -151,6 +151,12 @@ if(fn == null)
 }
 
 //check for special functions
+if(st.trim().startsWith("lslv(")){
+    fn = new CalClslv();
+    st=fn.eval(jc.hInside("lslv(", st,'(',')')[1]);
+    Report=fn.getReport();
+    return st;
+}
 
 for(String SpF:SpecialFunctions)
     while(st.trim().contains(SpF+"(")){
