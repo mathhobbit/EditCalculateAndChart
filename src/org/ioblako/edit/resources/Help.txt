@@ -12,10 +12,10 @@ The calculator has the following functions.
 "floor","dgrs","rdns","cosh","sinh","tanh","cbrt",
 "log10","expm1","ln1p","asin","sin","acos","cos",
 "atan","tan","ln","exp","sqrt","abs",
-"powb", "pow", "atan2","hypot","min","max",
+"powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
-"polynomMin","Int","Seq", "FE", "EF", "mod",
-"modInverse", "gcd". "getNR"
+"polynomMin","Int","Seq", "EF", "FE", "mod",
+"modInverse", "pow","getNR"
 
 ----------------------------------------------------------
 
@@ -33,11 +33,11 @@ will return a short information about sin(x).
 
 SEQUENCE
 
-Seq(x,y,x*y,x={1,0..3},y={-1,5..0})
+Seq(x,y,x*y,x={1,0..3},y={-1,2..0})
 
 will create
 
-{0,5,0;1,5,5;2,5,10;3,5,15;0,4,0;1,4,4;2,4,8;3,4,12;0,3,0;1,3,3;2,3,6;3,3,9;0,2,0;1,2,2;2,2,4;3,2,6;0,1,0;1,1,1;2,1,2;3,1,3;0,0,0;1,0,0;2,0,0;3,0,0}
+Seq(x,y,x*y,x={1,0..3},y={-1,2..0})={0,2,0;1,2,2;2,2,4;3,2,6;0,1,0;1,1,1;2,1,2;3,1,3;0,0,0;1,0,0;2,0,0;3,0,0}
 
 ----------------------------------------------------------
 
@@ -203,7 +203,7 @@ To clear the specific variable in the memory use
 
 clear C
 
-To delete all variable from memory use
+To delete all variables from memory use
 
 clear
 
@@ -232,7 +232,7 @@ XY LINE PLOT
 
 Seq(x/(x+1),x={1,1..4})
 
-generates the sequence {1/2;2/3;3/4}.
+generates the sequence 1/2;2/3;3/4.
 
 After 
 
@@ -283,3 +283,16 @@ Plotting a graph of a 3D function
 gr3DPlt(sin(x*y),x={-pi/2..pi/2},y={-pi/2..pi/2})
 
 
+------------------------------------------------------------
+
+EF and FE are implementations of Euler-Fermat algorithm introduced
+by S.Nikitin, see 
+"Euler-Fermat algorithm"
+ posted at ResearchGate.net
+
+"polynomMin" implements Leap-Gradient algorithm developed by S. Nikitin, see
+
+"Leap Gradient Algorithm"
+
+posted at ResearchGate.net, and 
+https://arxiv.org/abs/1405.5548
