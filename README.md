@@ -54,12 +54,13 @@ xyzPlt(title=3D curves,subtitle=helix,line,helix,A,C)
 
 ## Compiling
 
-One needs the following libraries
-
-- [ioblako.jar](http://i-oblako.org)
-- [orsoncharts-1.5.jar](http://www.object-refinery.com)
-- [jfreechart-1.0.19.jar](http://www.jfree.org) 
-- [jcommon-1.0.23.jar](http://www.jfree.org)
+One needs the following
+ 
+- [openjdk](https://github.com/openjdk/jdk)
+- [orson-charts](http://github.com/jfree/orson-charts)
+- [jfreechart](http://github.com/jfree/jfreechart) 
+- [jcommon](http://github.com/jfree/jcommon)
+- [Apache Commons Math] (http://commons.apache.org/proper/commons-math/download_math.cgi)
 
 
 
