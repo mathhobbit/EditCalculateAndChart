@@ -19,7 +19,7 @@ package org.ioblako.math.calculator;
 import java.math.BigDecimal;
 import static org.ioblako.math.calculator.CalCsin.PI;
 import static org.ioblako.math.calculator.CalCsin.twoPI;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 
 public class CalCcos implements CalcFunction {

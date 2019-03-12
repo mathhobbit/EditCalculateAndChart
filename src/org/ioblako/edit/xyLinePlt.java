@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,13 +26,15 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RefineryUtilities;
 
+import org.ioblako.math.calculator.jc;
+
 /**
  *
  * @author sergey_nikitin
  */
-public class xyPlt extends AbstractFramePlt implements FramePlt{
+public class xyLinePlt extends AbstractFramePlt implements FramePlt {
     static final long serialVersionUID=100001;
-      public xyPlt(){
+    public xyLinePlt(){
         super("");
     }
     
@@ -40,8 +42,7 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
     public void setInput(String txt){
     toShow=txt.trim();
 }
-      @SuppressWarnings("SuspiciousIndentAfterControlStatement")
-    public xyPlt(ArrayList<String> titles, ArrayList<String> XYdata) throws Exception{
+    public xyLinePlt(ArrayList<String> titles, ArrayList<String> XYdata) throws Exception{
         super("");
        XYSeries series;
        XYSeriesCollection dataset = new XYSeriesCollection();
@@ -96,22 +97,14 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
           
            it_next=it.next();
            String[] ct = it_next.split(";");
-           //float[][] data = new float[2][ct.length];
-          // int i = 0;
            for(String bf: ct){
             //if(bf.startsWith("("))
-              //  bf=bf.substring(1);
-           // if(bf.endsWith(")"))
-              //  bf=bf.substring(0,bf.length()-1);
-                series.add(new Double(jc.eval("2dbl("+
-                                      jc.eval(bf.substring(0,bf.indexOf(',')))+
-                                                  ")")),
-                        new Double(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")")));
-                //data[0][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(0,bf.indexOf(',')))+")"));
-                ///data[1][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")"));
-                //i++;
+               // bf=bf.substring(1);
+          //  if(bf.endsWith(")"))
+               // bf=bf.substring(0,bf.length()-1);
+                 series.add(Double.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(0,bf.indexOf(',')))+")")),
+                        Double.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")")));
         }
-           
            
                dataset.addSeries(series);
                
@@ -121,7 +114,7 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
         
         
         
-          chart = ChartFactory.createScatterPlot(
+          chart = ChartFactory.createXYLineChart(
                                title,
                                x_title,
                                y_title,
@@ -144,15 +137,15 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
     public void createAndShow() throws Exception{
         ArrayList<String> XYdata = new ArrayList<>();
         ArrayList<String> titles=new ArrayList<>();
-        xyPlt frameToShow;
+        xyLinePlt frameToShow;
         //toShow = toShow.replace(" ","");
-        if(!toShow.startsWith("xyPlt")||toShow.length()<6)
+        if(!toShow.startsWith("xyLinePlt")||toShow.length()<10)
              return;
-      String txt = jc.getInside(toShow.substring(6),'(',')'); 
+      String txt = jc.getInside(toShow.substring(10),'(',')'); 
       String data="",bf="";
       boolean addToData=false;
       if(txt.indexOf('{')==-1)
-          throw new Exception("xyPlt is not defined correctly!");
+          throw new Exception("xyLinePlt is not defined correctly!");
        for(int i = 0;i<txt.length();i++){
             switch(txt.charAt(i)){
                 case '{':
@@ -160,7 +153,7 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
                     break;
                 case '}':
                     if(!addToData)
-                        throw new Exception("xyPlt is not defined correctly!");
+                        throw new Exception("xyLinePlt is not defined correctly!");
                     data=data+","+bf;
                     XYdata.add(data);
                     data="";
@@ -184,16 +177,16 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
             }
        }
        if(txt.endsWith("{"))
-          throw new Exception("xyPlt is not defined correctly!");
+          throw new Exception("xyLinePlt is not defined correctly!");
       
        
-       frameToShow = new xyPlt(titles,XYdata);
+       frameToShow = new xyLinePlt(titles,XYdata);
        ChartPanel chartP = new ChartPanel(frameToShow.getChart());
        chartP.setPreferredSize(new java.awt.Dimension(500, 500));
        chartP.setEnforceFileExtensions(false);
       
        frameToShow.setContentPane(chartP);
-       frameToShow.setJMenuBar(xyPlt.getMenu(frameToShow.getChart(),frameToShow));
+       frameToShow.setJMenuBar(barPlt.getMenu(frameToShow.getChart(),frameToShow));
        frameToShow.pack();
         RefineryUtilities.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
@@ -206,17 +199,18 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
 
     @Override
     public String getHelp() {
-        return "XY PLOT" + System.lineSeparator()+
+        return "XY LINE PLOT" +System.lineSeparator()+
+"After " +System.lineSeparator()+
 "" +System.lineSeparator()+
-"To plot a curve use \"xyPlt\" instead." +System.lineSeparator()+
+"A<-eval(Seq(x,x^3-x,x={0.1,0..2*pi}))" +System.lineSeparator()+
+"B<-eval(Seq(x,40-x^2,x={0.1,0..2*pi}))" +System.lineSeparator()+
 "" +System.lineSeparator()+
-"C<-eval(Seq(x^2-1,x^3-x,x={0.1,-2..2}))" +System.lineSeparator()+
-"D<-eval(Seq(0.1*x^4-x,x^3-0.1*x^6,x={0.1,-1.5..1.5}))" +System.lineSeparator()+
+"the sequences are in the memory and you can generate graphs" +System.lineSeparator()+
+"of the respective functions with \"xyLinePlt\" " +System.lineSeparator()+
 "" +System.lineSeparator()+
-"xyPlt(title=cubic curves,y_title=y values,x_title=x values,{C},{D})";
+"xyLinePlt(title=example,y_title=y values,x_title=x values,{A},{B})";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
     
     
 }

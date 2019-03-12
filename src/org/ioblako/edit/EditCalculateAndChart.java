@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,8 +31,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.math.MathContext;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -47,8 +45,6 @@ import javax.swing.JTextArea;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.undo.UndoManager;
 
 import org.ioblako.core.State;
@@ -135,13 +131,13 @@ public EditCalculateAndChart() {
 		file.addSeparator();file.add(ChangePref);
                 
                 file.getItem(0).setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, 
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
                 file.getItem(1).setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, 
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
 		file.getItem(2).setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, 
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
                 file.getItem(4).setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
                 
 		file.getItem(0).setIcon(new ImageIcon(newIco)); 
                 file.getItem(1).setIcon(new ImageIcon(openIco)); 
@@ -163,7 +159,7 @@ public EditCalculateAndChart() {
 		edit.getItem(7).setText("Redo");
 		edit.getItem(8).setText("Calc");
                 edit.getItem(8).setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, 
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
                about.add(About);
                about.getItem(0).setText("About");
                 JToolBar tool = new JToolBar();

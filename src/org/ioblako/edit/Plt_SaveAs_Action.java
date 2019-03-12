@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
-import com.orsoncharts.graphics3d.Drawable3D;
-import com.orsoncharts.graphics3d.ExportUtils;
-import java.awt.event.ActionEvent;
-import java.io.File;
 import javax.swing.AbstractAction;
-import static javax.swing.Action.SHORT_DESCRIPTION;
-import javax.swing.ImageIcon;
+import javax.swing.ImageIcon;;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileFilter;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
-/**
- *
- * @author sergey_nikitin
- */
-public class SaveAs_Action3D extends AbstractAction{
-    public static final long serialVersionUID=1L;
-private final JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home"));
-private final Drawable3D TEdit;
-    public SaveAs_Action3D(Drawable3D ed, String text, ImageIcon icon,
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartUtilities;
+
+public class Plt_SaveAs_Action extends AbstractAction {
+public static final long serialVersionUID=1L;
+private JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+private JFreeChart TEdit;
+    public Plt_SaveAs_Action(JFreeChart ed, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT
             //   will be updated after "escape" command mode is introduced
@@ -48,22 +45,21 @@ private final Drawable3D TEdit;
         //fileChooser.setAcceptAllFileFilterUsed(true);
 //        putValue(MNEMONIC_KEY, mnemonic); //change it after "escape" is done
     }
-    @Override
     public void actionPerformed(ActionEvent e) {
              try{
                 if(fileChooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
                        String SelectedFileName = fileChooser.getSelectedFile().getAbsolutePath();
                  if(SelectedFileName.toUpperCase().endsWith(".JPG")||
                     SelectedFileName.toUpperCase().endsWith(".JPEG")){                     
-                       ExportUtils.writeAsJPEG(TEdit,500,500,new File(SelectedFileName));
+                       ChartUtilities.saveChartAsJPEG(new File(SelectedFileName),TEdit,500,500);
                                                             return;
                       }
 
                  if(SelectedFileName.toUpperCase().endsWith(".PNG")){
-                       ExportUtils.writeAsPNG(TEdit,500,500,new File(SelectedFileName));
+                       ChartUtilities.saveChartAsPNG(new File(SelectedFileName),TEdit,500,500);
                                                             return; 
                           }
-                       ExportUtils.writeAsPNG(TEdit,500,500,new File(SelectedFileName+".png"));
+                       ChartUtilities.saveChartAsPNG(new File(SelectedFileName+".png"),TEdit,500,500);
                         
                   }
               }
@@ -71,5 +67,6 @@ private final Drawable3D TEdit;
                    System.out.println(Ex.toString());   
               }
     }
-    
 }
+
+

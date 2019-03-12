@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,36 +14,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.VectorRenderer;
+import org.jfree.data.xy.VectorSeries;
+import org.jfree.data.xy.VectorSeriesCollection;
+import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.RefineryUtilities;
+
+import org.ioblako.math.calculator.jc;
+
 
 /**
  *
  * @author sergey_nikitin
  */
-public class xyLinePlt extends AbstractFramePlt implements FramePlt {
-    static final long serialVersionUID=100001;
-    public xyLinePlt(){
+public class vfPlt extends AbstractFramePlt implements FramePlt{
+       static final long serialVersionUID=100001;
+    public vfPlt(){
         super("");
     }
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setInput(String txt) {
+        toShow=txt.trim();
+    }
     
-        @Override
-    public void setInput(String txt){
-    toShow=txt.trim();
-}
-    public xyLinePlt(ArrayList<String> titles, ArrayList<String> XYdata) throws Exception{
+         @SuppressWarnings("SuspiciousIndentAfterControlStatement")
+    public vfPlt(ArrayList<String> titles, ArrayList<String> XYdata) throws Exception{
         super("");
-       XYSeries series;
-       XYSeriesCollection dataset = new XYSeriesCollection();
+       VectorSeries series;
+       VectorSeriesCollection dataset = new VectorSeriesCollection();
         
         Iterator<String>it = titles.iterator();
         String it_next,title=null,x_title=null,y_title=null;
@@ -74,76 +87,94 @@ public class xyLinePlt extends AbstractFramePlt implements FramePlt {
             
         }
        if(title==null)
-           title="XY Chart";
+           title="Vector Chart";
        
        if(x_title==null)
            x_title="x";
        
        if(y_title==null)
            y_title="y";
-       
        it=XYdata.iterator();
        int Title_index=0;
        while(it.hasNext()){
           if(!titles.isEmpty()){
-              series=new XYSeries(titles.get(0));
+              series=new VectorSeries(titles.get(0));
               titles.remove(0);
           }else{
-              series=new XYSeries(Integer.toString(Title_index));
+              series=new VectorSeries(Integer.toString(Title_index));
               Title_index++;
           }
           
            it_next=it.next();
            String[] ct = it_next.split(";");
+           //float[][] data = new float[2][ct.length];
+          // int i = 0;
+          String[] bfSplit;
            for(String bf: ct){
             //if(bf.startsWith("("))
-               // bf=bf.substring(1);
-          //  if(bf.endsWith(")"))
+              //  bf=bf.substring(1);
+            //if(bf.endsWith(")"))
                // bf=bf.substring(0,bf.length()-1);
-                 series.add(new Double(jc.eval("2dbl("+jc.eval(bf.substring(0,bf.indexOf(',')))+")")),
-                        new Double(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")")));
+            bfSplit=bf.split(",");
+                series.add(Double.valueOf(jc.eval("2dbl("+
+                                      jc.eval(bfSplit[0])+
+                                                  ")")),
+                        Double.valueOf(jc.eval("2dbl("+jc.eval(bfSplit[1])+")")),
+                       Double.valueOf(jc.eval("2dbl("+jc.eval(bfSplit[2])+")")),
+                       Double.valueOf(jc.eval("2dbl("+jc.eval(bfSplit[3])+")")));
+                //data[0][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(0,bf.indexOf(',')))+")"));
+                ///data[1][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")"));
+                //i++;
         }
+           
            
                dataset.addSeries(series);
                
            
        }
-       
+        NumberAxis xAxis = new NumberAxis(x_title);
+        xAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        xAxis.setLowerMargin(0.01);
+        xAxis.setUpperMargin(0.01);
+        xAxis.setAutoRangeIncludesZero(false);
         
-        
-        
-          chart = ChartFactory.createXYLineChart(
-                               title,
-                               x_title,
-                               y_title,
-                               dataset,
-                               PlotOrientation.VERTICAL,
-                               true,                     // include legend
-                               true,                     // tooltips?
-                               false                     // URLs?
-                        );
+         NumberAxis yAxis = new NumberAxis(y_title);
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setLowerMargin(0.01);
+        yAxis.setUpperMargin(0.01);
+        yAxis.setAutoRangeIncludesZero(false);
+        VectorRenderer renderer = new VectorRenderer();
+        renderer.setSeriesPaint(0, Color.blue);
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
+          plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        plot.setAxisOffset(new RectangleInsets(5, 5, 5, 5));
+        plot.setOutlinePaint(Color.black);
+
+        chart = new JFreeChart(title, plot);
+        chart.setBackgroundPaint(Color.white);
+      
           
     }
 
     
-    
-    /**
-     *
-     * @throws Exception
-     */
+
     @Override
-    public void createAndShow() throws Exception{
+    public void createAndShow() throws Exception {
         ArrayList<String> XYdata = new ArrayList<>();
         ArrayList<String> titles=new ArrayList<>();
-        xyLinePlt frameToShow;
+        vfPlt frameToShow;
+        
+        
         //toShow = toShow.replace(" ","");
-        if(!toShow.startsWith("xyLinePlt")||toShow.length()<10)
+        if(!toShow.startsWith("vfPlt")||toShow.length()<6)
              return;
-      String txt = jc.getInside(toShow.substring(10),'(',')'); 
+      String txt = jc.getInside(toShow.substring(6),'(',')'); 
       String data="",bf="";
       boolean addToData=false;
       if(txt.indexOf('{')==-1)
-          throw new Exception("xyLinePlt is not defined correctly!");
+          throw new Exception("vfPlt is not defined correctly!");
        for(int i = 0;i<txt.length();i++){
             switch(txt.charAt(i)){
                 case '{':
@@ -151,7 +182,7 @@ public class xyLinePlt extends AbstractFramePlt implements FramePlt {
                     break;
                 case '}':
                     if(!addToData)
-                        throw new Exception("xyLinePlt is not defined correctly!");
+                        throw new Exception("vfPlt is not defined correctly!");
                     data=data+","+bf;
                     XYdata.add(data);
                     data="";
@@ -175,10 +206,10 @@ public class xyLinePlt extends AbstractFramePlt implements FramePlt {
             }
        }
        if(txt.endsWith("{"))
-          throw new Exception("xyLinePlt is not defined correctly!");
+          throw new Exception("vfPlt is not defined correctly!");
       
        
-       frameToShow = new xyLinePlt(titles,XYdata);
+       frameToShow = new vfPlt(titles,XYdata);
        ChartPanel chartP = new ChartPanel(frameToShow.getChart());
        chartP.setPreferredSize(new java.awt.Dimension(500, 500));
        chartP.setEnforceFileExtensions(false);
@@ -188,27 +219,23 @@ public class xyLinePlt extends AbstractFramePlt implements FramePlt {
        frameToShow.pack();
         RefineryUtilities.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getHelp() {
-        return "XY LINE PLOT" +System.lineSeparator()+
-"After " +System.lineSeparator()+
+        return "VECTOR FIELD PLOT" + System.lineSeparator()+
 "" +System.lineSeparator()+
-"A<-eval(Seq(x,x^3-x,x={0.1,0..2*pi}))" +System.lineSeparator()+
-"B<-eval(Seq(x,40-x^2,x={0.1,0..2*pi}))" +System.lineSeparator()+
+"To create a vector field plot use \"vfPlt\"" +System.lineSeparator()+
 "" +System.lineSeparator()+
-"the sequences are in the memory and you can generate graphs" +System.lineSeparator()+
-"of the respective functions with \"xyLinePlt\" " +System.lineSeparator()+
+"A<-eval(Seq(x,y,y/(1+x^2+y^2),-x/(1+x^2+y^2),x={0.5,-2..2},y={0.5,-2..2}))" +System.lineSeparator()+
+"vfPlt({A})" +System.lineSeparator()+
 "" +System.lineSeparator()+
-"xyLinePlt(title=example,y_title=y values,x_title=x values,{A},{B})";
+"or" +System.lineSeparator()+
+"" +System.lineSeparator()+
+"B<-eval(Seq(x,y,cos(x+y)/(2+x^2+y^2),x/(2+x^2+y^2),x={0.5,-3..3},y={0.5,-3..3}))" +System.lineSeparator()+
+"vfPlt({B})";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
     
 }

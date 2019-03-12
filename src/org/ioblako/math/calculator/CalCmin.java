@@ -16,7 +16,7 @@
  */
 package org.ioblako.math.calculator;
 import java.math.BigDecimal;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 public class CalCmin implements CalcFunction {
 public String getHelp(){
 return "min(X1,..,Xn) is the smallest among X1,..Xn";

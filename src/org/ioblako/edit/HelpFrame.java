@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,7 +62,17 @@ public class HelpFrame  extends JFrame implements TextEdit {
         TEdit=ed;
          Preferences Config = TEdit.getConfig();
        //  Memory = new State();
-    area = new JTextArea(10,40);
+        if(txt == null)
+                try{
+                    BufferedReader br;
+                     br = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("org/ioblako/edit/resources/Help.txt"),"UTF-8"));
+                     for (int c = br.read(); c != -1; c = br.read()) sb.append((char)c);
+                     txt=sb.toString();
+                }
+                catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+    area = new JTextArea(txt,11,80);
     area.setEditable(true);
               String Font_Name =  Config.get("FONT_NAME","Monospaced");
               int Font_Size = Config.getInt("FONT_SIZE",12);
@@ -79,7 +89,7 @@ public class HelpFrame  extends JFrame implements TextEdit {
                 find.setText(null); find.setIcon(new ImageIcon(findIco));find.setToolTipText("Find");
                 
                 
-                
+                /*
                 if(txt == null)
                 try{
                     BufferedReader br;
@@ -91,7 +101,7 @@ public class HelpFrame  extends JFrame implements TextEdit {
                     System.out.println(e.getMessage());
                 }
                 area.setText(txt);
-                
+               */ 
                 addFocusListener(new FocusListener() {
                                                   public void focusLost(FocusEvent e) {
                                                                   return;

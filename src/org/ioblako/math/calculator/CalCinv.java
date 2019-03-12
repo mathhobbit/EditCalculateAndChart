@@ -18,7 +18,7 @@ package org.ioblako.math.calculator;
 
 import org.ioblako.math.linearalgebra.Matrix;
 import org.ioblako.math.linearalgebra.SystemSolver;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 public class CalCinv implements CalcFunction{
 String Report="";
@@ -62,7 +62,7 @@ for(int i = 0;i<N;i++)
           
 //return jc.toStr(new Matrix(agm));
                    
-A = SystemSolver.toRREF(new Matrix(agm));
+A = (new Matrix(agm)).toRREF();
 
 for(int i = 0;i<N;i++)
     for(int j = 0; j< N; j++)

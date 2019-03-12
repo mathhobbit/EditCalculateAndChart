@@ -16,7 +16,7 @@
  */
 package org.ioblako.math.calculator;
 import java.math.BigDecimal;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 public class CalClog10 implements CalcFunction {
 public String getHelp(){
 return "The base 10 logarithm.";

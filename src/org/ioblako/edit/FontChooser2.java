@@ -44,6 +44,7 @@ import java.awt.GridLayout;
 import java.awt.List;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.math.MathContext;
 
@@ -67,7 +68,7 @@ import org.ioblako.math.calculator.jc;
  * @version $Id: FontChooser.java,v 1.19 2004/03/20 20:44:56 ian Exp $
  */
 public class FontChooser2 extends JDialog {
-static final long  serialVersionUID=1910;
+static final long serialVersionUID=1004;
   // Results:
   
   /** The font the user has chosen */
@@ -124,12 +125,7 @@ static final long  serialVersionUID=1910;
    */
   public FontChooser2(TextEdit ed) {
     super(ed.getFrame(), "Preferences", true);
-     Initialize(ed);
-  }
-  private void Initialize(TextEdit ed){
-      
-      if(ed == null)
-           return;
+    
     //setResizable(false);
     Container cp = getContentPane();
     
@@ -137,8 +133,8 @@ static final long  serialVersionUID=1910;
     Panel PrecisionPanel = new Panel();
     PrecisionPanel.setLayout(new GridLayout(0,2));
     
- int currentPrecision;
- 
+ int currentPrecision=7;
+ if(ed != null)
      currentPrecision=ed.getConfig().getInt("PRECISION", 7);
  SpinnerNumberModel Precision = new SpinnerNumberModel(currentPrecision, 2, 2000, 1); 
  JSpinner jsp =  addLabeledSpinner(PrecisionPanel,
@@ -153,8 +149,9 @@ static final long  serialVersionUID=1910;
         //spinners.add(jsp,BorderLayout.NORTH);
     Panel top = new Panel();
     top.setLayout(new FlowLayout());
-
+    
     fontNameChoice = new List(8);
+    fontNameChoice.setBackground(new Color(255,255,255)); 
     top.add(fontNameChoice);
 
     Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -165,6 +162,7 @@ static final long  serialVersionUID=1910;
     // Lucida Bright, Lucida Sans...)
     fontList = GraphicsEnvironment.getLocalGraphicsEnvironment()
         .getAvailableFontFamilyNames();
+     
 String Chousen = ed.getConfig().get("FONT_NAME","Monospaced");
 int i = 0;
       for (String fontList1 : fontList) {
@@ -176,6 +174,7 @@ int i = 0;
     //fontNameChoice.select(0);
 
     fontSizeChoice = new List(8);
+    fontSizeChoice.setBackground(new Color(255,255,255));
     top.add(fontSizeChoice);
     Chousen = Integer.toString(ed.getConfig().getInt("FONT_SIZE",12));  
     i=0;
@@ -249,7 +248,7 @@ cp.add(NorthContainer, BorderLayout.NORTH);
   protected void previewFont() {
     resultName = fontNameChoice.getSelectedItem();
     String resultSizeName = fontSizeChoice.getSelectedItem();
-    int resultSize_local = Integer.parseInt(resultSizeName);
+    int resultSize = Integer.parseInt(resultSizeName);
     isBold = bold.getState();
     isItalic = italic.getState();
     int attrs = Font.PLAIN;
@@ -257,7 +256,7 @@ cp.add(NorthContainer, BorderLayout.NORTH);
       attrs = Font.BOLD;
     if (isItalic)
       attrs |= Font.ITALIC;
-    resultFont = new Font(resultName, attrs, resultSize_local);
+    resultFont = new Font(resultName, attrs, resultSize);
     // System.out.println("resultName = " + resultName + "; " +
     //     "resultFont = " + resultFont);
     previewArea.setFont(resultFont);
@@ -326,7 +325,6 @@ cp.add(NorthContainer, BorderLayout.NORTH);
         JSpinner spinner = new JSpinner(model);
         l.setLabelFor(spinner);
         c.add(spinner);
-
         return spinner;
     }
 

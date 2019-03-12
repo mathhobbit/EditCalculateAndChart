@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Chart3DPanel;
@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
 import org.jfree.ui.RefineryUtilities;
+
+import org.ioblako.math.calculator.jc;
+
 
 /**
  *
@@ -117,11 +120,11 @@ static final long serialVersionUID=100001;
               //  bf=bf.substring(1);
            // if(bf.endsWith(")"))
               //  bf=bf.substring(0,bf.length()-1);
-                 series.add(new Double(jc.eval("2dbl("+
+                 series.add(Double.valueOf(jc.eval("2dbl("+
                                       jc.eval(bf.substring(0,bf.indexOf(',')))+
                                                   ")")),
-                        new Double(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1,bf.lastIndexOf(',')))+")")),
-                        new Double(jc.eval("2dbl("+jc.eval(bf.substring(bf.lastIndexOf(',')+1))+")")) );
+                        Double.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1,bf.lastIndexOf(',')))+")")),
+                        Double.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.lastIndexOf(',')+1))+")")) );
                 //data[0][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(0,bf.indexOf(',')))+")"));
                 ///data[1][i]=Float.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")"));
                 //i++;

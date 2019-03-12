@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;;
@@ -22,10 +22,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import org.jfree.ui.ApplicationFrame;
 
-public class Quit_Action extends AbstractAction {
+public class Plt_Quit_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
 private ApplicationFrame TEdit;
-    public Quit_Action(ApplicationFrame ed, String text, ImageIcon icon,
+    public Plt_Quit_Action(ApplicationFrame ed, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT
             //   will be updated after "escape" command mode is introduced

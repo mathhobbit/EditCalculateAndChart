@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
+import com.orsoncharts.Chart3D;
+import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,31 +27,29 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.event.ChangeListener;
-import org.jfree.chart.JFreeChart;
 import org.jfree.ui.ApplicationFrame;
 
 /**
  *
  * @author sergey_nikitin
  */
-public abstract class AbstractFramePlt extends ApplicationFrame implements  ActionListener,
+public abstract class AbstractFramePlt3D extends ApplicationFrame implements  ActionListener,
                                                                             WindowListener,
-                                                                            ChangeListener{
-    static final long  serialVersionUID=1103110;
-    /**
-     *
-     */
-    public String toShow="";
-    JFreeChart chart;
-    public AbstractFramePlt(String title) {
+                                                                            ChangeListener {
+    static final long  serialVersionUID=1103210;
+    public static final Dimension DEFAULT_CONTENT_SIZE
+            = new Dimension(760, 480);
+      public String toShow="";
+    Chart3D chart;
+    public AbstractFramePlt3D(String title) {
         super(title);
     }
-    public JFreeChart getChart(){
+    public Chart3D getChart(){
     return chart;
     }
-    public static JMenuBar getMenu( JFreeChart chart,ApplicationFrame jg ){
-Action SaveAs = new SaveAs_Action(chart,"Save as...",null,"Save as...");
-Action Quit = new Quit_Action(jg,"Quit",null,"Quit");
+    public static JMenuBar getMenu( Chart3D chart,ApplicationFrame jg ){
+         Action SaveAs = new SaveAs_Action3D(chart,"Save as...",null,"Save as...");
+         Action Quit = new Plt_Quit_Action(jg,"Quit",null,"Quit");
 
     JMenuBar JMB = new JMenuBar();
                 
@@ -75,16 +75,13 @@ Action Quit = new Quit_Action(jg,"Quit",null,"Quit");
     @Override
     public void windowOpened(WindowEvent e) {}
    // public void windowClosing(WindowEvent e) {System.exit(0);}
-    @Override
      public void windowClosing(WindowEvent e) {}
    // public void windowClosed(WindowEvent e){ System.exit(0);}
-    @Override
     public void windowClosed(WindowEvent e){}
-    @Override
     public void windowActivated(WindowEvent e) {}
-    @Override
     public void windowDeactivated(WindowEvent e) {}
  void addWindowListener(Window w) {
         w.addWindowListener(this);
     }
+    
 }

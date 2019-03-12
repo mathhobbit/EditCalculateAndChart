@@ -16,7 +16,7 @@
  */
 package org.ioblako.math.calculator;
 import org.ioblako.math.linearalgebra.Matrix;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 import java.util.ArrayList;
 public class CalCdet implements CalcFunction {
 String Report="";

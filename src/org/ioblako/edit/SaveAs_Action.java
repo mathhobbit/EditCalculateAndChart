@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 public class SaveAs_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
 private TextEdit TEdit;
+    
     public SaveAs_Action(TextEdit ed, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,7 +85,7 @@ private final TextEdit TEdit;
                                if(name.indexOf('(')!=-1)
                                    name= name.substring(0,name.indexOf('('));
                                try {
-                                   CalcFunction fn=(CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+name).newInstance();
+                                   CalcFunction fn=(CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+name).getDeclaredConstructor().newInstance();
                                    insertIt=System.lineSeparator()+fn.getHelp()+System.lineSeparator();
                                    Shift=Shift+input.length();
                                    area.insert(insertIt, Shift);
@@ -96,7 +96,7 @@ private final TextEdit TEdit;
                                   try{ 
                                    if(name.contentEquals("plot"))
                                        name="grPlt";
-                                   FramePlt frPlt = (FramePlt) Class.forName("org.ioblako.math.calculator."+name).newInstance();
+                                   FramePlt frPlt = (FramePlt) Class.forName("org.ioblako.edit."+name).getDeclaredConstructor().newInstance();
                                    Shift=Shift+input.length();
                                    insertIt=System.lineSeparator()+frPlt.getHelp()+System.lineSeparator();
                                    area.insert(insertIt, Shift);
@@ -230,7 +230,7 @@ private final TextEdit TEdit;
                              if(input.trim().startsWith("plot")){
                                  Shift=Shift+input_length+1;
                               // String inputV=input.trim();
-                               FramePlt frm = (FramePlt)Class.forName("org.ioblako.math.calculator.grPlt").newInstance();
+                               FramePlt frm = (FramePlt)Class.forName("org.ioblako.edit.grPlt").getDeclaredConstructor().newInstance();
                                frm.setInput("grPlt"+input.trim().substring(4));
                                UIManager.put("swing.boldMetal", Boolean.FALSE);
                               // MathContext MathC= jc.MC;
@@ -249,7 +249,7 @@ private final TextEdit TEdit;
                                    input.substring(0,input.indexOf('(')).contains("Plt")){
                                Shift=Shift+input_length+1;
                                String inputV=input.trim();
-                               FramePlt frm = (FramePlt)Class.forName("org.ioblako.math.calculator."+inputV.substring(0,inputV.indexOf('('))).newInstance();
+                               FramePlt frm = (FramePlt)Class.forName("org.ioblako.edit."+inputV.substring(0,inputV.indexOf('('))).getDeclaredConstructor().newInstance();
                                frm.setInput(inputV);
                                UIManager.put("swing.boldMetal", Boolean.FALSE);
                               // MathContext MathC= jc.MC;

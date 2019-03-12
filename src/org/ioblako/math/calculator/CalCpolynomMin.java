@@ -71,7 +71,7 @@ public class CalCpolynomMin implements CalcFunction{
             if(next.indexOf('/')!=-1)
                  poly[i] = jc.getFraction(next).toBigDecimal(jc.MC).doubleValue();
             else
-                 poly[i]=new Double(next);
+                 poly[i]=Double.valueOf(next);
              i++;
          }
          DoubleLGA LGA = new DoubleLGA();

@@ -17,7 +17,7 @@
 package org.ioblako.math.calculator;
 
 import org.ioblako.math.linearalgebra.Matrix;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 /**
  *

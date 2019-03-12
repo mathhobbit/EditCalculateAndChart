@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;;
 import java.awt.event.ActionEvent;
 /**
  *
- * @author Evan
+ * @author Sergey Nikitin
  */
 public class About_Action extends AbstractAction{
     public static final long serialVersionUID=1L;
@@ -43,7 +43,7 @@ public class About_Action extends AbstractAction{
                                              + "evaluate highlighted text with "+System.lineSeparator()
                                              + "the built in calculator and"+System.lineSeparator()
                                              + "create charts of functions"+System.lineSeparator()+
-                                               "Build 01162017100920"+System.lineSeparator()+
+                                               "Build 1552062359818"+System.lineSeparator()+
                                                 "Copyright (c) Sergey Nikitin, 2017.  All rights reserved."
  +System.lineSeparator()+"   This Software is written by Sergey Nikitin and others." 
  +System.lineSeparator()+"   This program is free software: you can redistribute it and/or modify"

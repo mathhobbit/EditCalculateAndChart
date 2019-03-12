@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.ioblako.math.calculator;
+package org.ioblako.edit;
 
 import javax.swing.event.ChangeEvent;
 import org.jfree.chart.ChartFactory;
@@ -22,6 +22,9 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RefineryUtilities;
+
+import org.ioblako.math.calculator.jc;
+
 
 /**
  *
@@ -46,7 +49,7 @@ public class piePlt extends AbstractFramePlt implements FramePlt{
            // if(bf.endsWith(")"))
                // bf=bf.substring(0,bf.length()-1);
                  dataset.setValue(bf.substring(0,bf.indexOf(',')),
-                        new Double(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")")));
+                        Double.valueOf(jc.eval("2dbl("+jc.eval(bf.substring(bf.indexOf(',')+1))+")")));
         }
         if(title==null)
           title = "Pie Chart";
@@ -121,7 +124,7 @@ public class piePlt extends AbstractFramePlt implements FramePlt{
        if(exploded != null){
            PiePlot plot = (PiePlot) frameToShow.getChart().getPlot(); 
             plot.setExplodePercent(exploded.substring(0,exploded.indexOf('=')),
-                    new Double(jc.eval("2dbl("+jc.eval(exploded.substring(exploded.indexOf('=')+1))+")")) );
+                    Double.valueOf(jc.eval("2dbl("+jc.eval(exploded.substring(exploded.indexOf('=')+1))+")")) );
          }
        frameToShow.setContentPane(chartP);
        frameToShow.setJMenuBar(barPlt.getMenu(frameToShow.getChart(),frameToShow));

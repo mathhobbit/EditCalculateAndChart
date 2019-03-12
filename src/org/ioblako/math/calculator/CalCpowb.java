@@ -17,7 +17,7 @@
 package org.ioblako.math.calculator;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 public class CalCpowb implements CalcFunction{
 BigDecimal error;

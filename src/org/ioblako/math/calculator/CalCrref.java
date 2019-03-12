@@ -18,7 +18,7 @@ package org.ioblako.math.calculator;
 
 import org.ioblako.math.linearalgebra.Matrix;
 import org.ioblako.math.linearalgebra.SystemSolver;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 public class CalCrref implements CalcFunction{
 public String getHelp(){
@@ -36,7 +36,7 @@ if(argv.endsWith("}"))
 
 
                    
-return jc.toStr(SystemSolver.toRREF(jc.StringToMatrix(argv)));
+return jc.toStr((jc.StringToMatrix(argv)).toRREF());
 }
 String Report="";
 public void setReport(String str){

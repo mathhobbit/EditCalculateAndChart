@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import org.ioblako.math.linearalgebra.Matrix;
-import org.ioblako.math.linearalgebra.Fraction.Fraction;
+import org.ioblako.math.linearalgebra.Fraction;
 
 //date
 //8/12/16 2:08:16 PM
@@ -96,7 +96,7 @@ String name=input.substring(1);
 if(name.indexOf('(')!=-1)
   name= name.substring(0,name.indexOf('('));
 try{
-CalcFunction fn=(CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+name).newInstance();
+CalcFunction fn=(CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+name).getDeclaredConstructor().newInstance();
 System.out.println(fn.getHelp());
 }
 catch(ClassNotFoundException | IllegalAccessException | InstantiationException e){
@@ -125,26 +125,26 @@ String[] insertThem = {"random","date"};
 for(String op:insertThem){
 fn=null;
 if(st.contentEquals(op)){
-   fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).newInstance();
+   fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).getDeclaredConstructor().newInstance();
    return fn.eval("");
 }
 if(st.startsWith(op)){
 if(fn == null)
-fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).newInstance();
+fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).getDeclaredConstructor().newInstance();
   st=String.format("%s%s",fn.eval(""),st.substring(op.length()));
 }
 
 
 if(st.endsWith(op)){
 if(fn == null)
-fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).newInstance();
+fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).getDeclaredConstructor().newInstance();
    st=String.format("%s%s",st.substring(0,st.lastIndexOf(op)),fn.eval(""));
 }
 
 
 while(st.contains(op)){
 if(fn == null)
-  fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).newInstance();
+  fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+op).getDeclaredConstructor().newInstance();
        st=String.format("%s%s%s",st.substring(0,st.indexOf(op)),fn.eval(""),st.substring(st.indexOf(op)+op.length()));
 }
 }
@@ -157,10 +157,13 @@ if(st.trim().startsWith("lslv(")){
     Report=fn.getReport();
     return st;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> bd1be8cdbfaef4da174e7c13d6397495519dab0a
 for(String SpF:SpecialFunctions)
     while(st.trim().contains(SpF+"(")){
-    fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+SpF).newInstance();
+    fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+SpF).getDeclaredConstructor().newInstance();
     hndl = jc.hInside(SpF+"(", st,'(',')');
     st=hndl[0]+fn.eval(hndl[1])+hndl[2];
     Report=fn.getReport();
@@ -1005,7 +1008,7 @@ for(char c: input.toCharArray()){
                             return a+E.add(BigDecimal.ZERO,MC).negate().toPlainString();
                  }
               //done with constants
-               fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+function).newInstance();
+               fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+function).getDeclaredConstructor().newInstance();
                
                //System.out.println("a ="+a);
                bf = input.substring(i);

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2019 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import org.ioblako.math.calculator.jc;
 
 /**
  *
- * @author Evan
+ * @author Sergey Nikitin
  */
 public class Preferences_Action extends AbstractAction{
     public static final long serialVersionUID=1L;

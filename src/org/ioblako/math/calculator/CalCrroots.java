@@ -66,7 +66,7 @@ String ErrorMessage="Format error. rroots(step,{a0,...,an}).";
             if(next.indexOf('/')!=-1)
                  poly[i] = jc.getFraction(next).toBigDecimal(jc.MC).doubleValue();
             else
-                 poly[i]=new Double(next);
+                 poly[i]=Double.valueOf(next);
              i++;
          }
          setReport(LGA.PrintPoly(poly));
