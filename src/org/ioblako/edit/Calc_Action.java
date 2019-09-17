@@ -151,13 +151,14 @@ private final TextEdit TEdit;
                                }
                                continue;//return;
                            }
-                           if (input.endsWith("->")) {
+                           if (input.trim().endsWith("->")) {
                                mkey = input.trim().substring(0,input.trim().indexOf("->"));
                                if (TEdit.containsKey(mkey)) {
                                    Shift=Shift+input.length();
                                    insertIt=System.lineSeparator()+mkey+" = "+TEdit.get(mkey)+System.lineSeparator();
                                    area.insert(insertIt, Shift);
-                                   Shift=Shift+insertIt.length()+1;
+				       //Shift=Shift+insertIt.length()+1;
+                                   Shift=Shift+insertIt.length();
                                } else {
                                    TEdit.showDialog("Memory does not contain \""+mkey+"\"");
                                }
