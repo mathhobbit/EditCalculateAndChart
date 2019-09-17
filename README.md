@@ -13,8 +13,8 @@ The calculator has the following functions/operations:
 > "min", "max", "det", "rank", "inv", "lslv", "random",
 > "date", "roots", "rroots", "polynomMin", "Int", "Seq",
 > "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
-> "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt"
-> "EF", "FE", "mod", "modInverse", "pow", "getNR"
+> "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt",
+> "crvPlt","EF", "FE", "mod", "modInverse", "pow", "getNR"
 
 
   One can get a quick help by evaluating ?name.
@@ -49,7 +49,7 @@ A<-eval(Seq(t,t,t,t={0.1,-pi..pi}))
 
 xyzPlt(title=3D curves,subtitle=helix,line,helix,A,C)
 
-"vfPlt" is a vector field plot.
+"vfPlt" is a vector field plot. crvPlt({t^2-a,t^3-a*t},t={0.01,-2..2},a={0.1,-1..1}) will plot a cubic curve depending on a parameter "a".
 
 
 ## Compiling
