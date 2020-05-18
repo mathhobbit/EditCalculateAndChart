@@ -99,6 +99,7 @@ EditCalculateAndChart/build/bin
 and run
 
 sh ./imm 
+sh ./link
 
 and it will build the application. The script "ecc" will run it.
 
