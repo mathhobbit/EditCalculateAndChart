@@ -152,15 +152,13 @@ if(fn == null)
 
 //check for special functions
 if(st.trim().startsWith("lslv(")){
-    fn = new CalClslv();
+    //fn = new CalClslv(); this reference create problems when compiling
+    // ir requires bootstrapping of precompiled jar.
+  fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalClslv").getDeclaredConstructor().newInstance();
     st=fn.eval(jc.hInside("lslv(", st,'(',')')[1]);
     Report=fn.getReport();
     return st;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> bd1be8cdbfaef4da174e7c13d6397495519dab0a
 for(String SpF:SpecialFunctions)
     while(st.trim().contains(SpF+"(")){
     fn = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalC"+SpF).getDeclaredConstructor().newInstance();
@@ -251,6 +249,7 @@ if(A.m() != A.n())
 st = eval(part1+toStr(M)+part2.substring(part2.indexOf(old_tmp)+old_tmp.length()));
 }
 
+ CalcFunction  callForPowl = (CalcFunction) Class.forName("org.ioblako.math.calculator.CalCpowl").getDeclaredConstructor().newInstance();
 while(st.indexOf('^')!=-1){
     part1 = st.substring(0,st.indexOf('^'));
     part2=st.substring(st.indexOf('^')+1);
@@ -332,8 +331,11 @@ while(st.indexOf('^')!=-1){
     }
     
     st = part1+    
-           (new CalCpowl()).eval(eval(vntr)+","+eval(inside))+
+           callForPowl.eval(eval(vntr)+","+eval(inside))+
           part2;
+         //  (new CalCpowl()).eval(eval(vntr)+","+eval(inside))+
+	 //  creates problem when compiling, requires bootstrapping
+	 //  of precompiled jar
     
 }
 

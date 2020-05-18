@@ -27,8 +27,8 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.VectorRenderer;
 import org.jfree.data.xy.VectorSeries;
 import org.jfree.data.xy.VectorSeriesCollection;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 
@@ -217,7 +217,7 @@ public class vfPlt extends AbstractFramePlt implements FramePlt{
        frameToShow.setContentPane(chartP);
        frameToShow.setJMenuBar(barPlt.getMenu(frameToShow.getChart(),frameToShow));
        frameToShow.pack();
-        RefineryUtilities.centerFrameOnScreen(frameToShow);
+        UIUtils.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

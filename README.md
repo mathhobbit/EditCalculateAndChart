@@ -20,7 +20,7 @@ The calculator has the following functions/operations:
   One can get a quick help by evaluating ?name.
 For example,
 
-"?sin("
+"?sin"
  
 will return some information about sin(x).
  The procedure "Int" can calculate iterated integrals.
@@ -59,8 +59,56 @@ One needs the following
 - [openjdk](https://github.com/openjdk/jdk)
 - [orson-charts](http://github.com/jfree/orson-charts)
 - [jfreechart](http://github.com/jfree/jfreechart) 
-- [jcommon](http://github.com/jfree/jcommon)
-- [Apache Commons Math] (http://commons.apache.org/proper/commons-math/download_math.cgi)
+
+
+First, you need to update java, it needs to be version higher than 11.
+
+Second, you need to build orson-charts and jfreechart and  "jar -xvf" the respective jar files in  
+
+EditCalculateAndChart/build/modules/org.jfree.chart3d
+(for orson-charts)
+
+and
+
+EditCalculateAndChart/build/modules/org.jfree
+(for jfreechart)
+
+
+Finally, in the scripts from EditCalculateAndChart/build/bin
+
+edit the line 
+
+IOBLAKO_HOME=/Users/sergey_nikitin/work/EditCalculateAndChart
+
+and put the location of EditCalculateAndChart in your system.
+
+In the line  
+
+JDK=jvm/openjdk-15-internal
+
+put location of your JDK in my situation relative to /usr/local.
+
+If you are building EditCalc... with MS Windows then you need edit *.bat files
+from EditCalculateAndChart/build/bin.
+
+
+On Unix, you go to 
+
+EditCalculateAndChart/build/bin
+
+and run
+
+sh ./imm 
+
+and it will build the application. The script "ecc" will run it.
+
+On MS Windows you need to use the respective *.bat files.
+
+Good luck! 
+
+
+
+
 
 
 

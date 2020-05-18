@@ -19,10 +19,11 @@ package org.ioblako.edit;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.jfree.ui.ApplicationFrame;
+import org.jfree.chart.ui.ApplicationFrame;
 
 public class Quit_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
@@ -41,10 +42,10 @@ private TextEdit TEdit;
                                 //TEdit.saveOld();
                    String currentFile=TEdit.getCurrentFileName();
                         if(TEdit.getActionSave().isEnabled()) 
-                                if(JOptionPane.showConfirmDialog(TEdit.getFrame(), "Would you like to save "+ currentFile +" ?","Save",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+                                if(JOptionPane.showConfirmDialog(TEdit.getFrame(), "Would you like to save "+ currentFile +" ?","Save",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,TEdit.getAppIcon())== JOptionPane.YES_OPTION){
 				                                if(currentFile.contentEquals("Untitled")){
                                        JFileChooser dialog =  TEdit.getFileChooser();
-                                         if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
+                                         if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION)
                                              currentFile=dialog.getSelectedFile().getAbsolutePath();
                                          else
                                          currentFile=System.getProperty("user.home")+File.separator+"Untitled.txt";
@@ -53,7 +54,7 @@ private TextEdit TEdit;
 				       TEdit.writeFile(new File(currentFile));
                                 }
                                 catch(Exception writeE){
-                                    JOptionPane.showMessageDialog(TEdit.getFrame(),writeE.getMessage());
+                                    JOptionPane.showMessageDialog(TEdit.getFrame(),writeE.getMessage(),"Exception",JOptionPane.INFORMATION_MESSAGE,TEdit.getAppIcon());
                                 }  
                                     // TEdit.saveFile(currentFile);
                                 }

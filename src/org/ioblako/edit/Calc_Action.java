@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.text.Highlighter;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -126,7 +127,7 @@ private final TextEdit TEdit;
                                                JFileChooser dialog = TEdit.getFileChooser();
                                                if(fl.isDirectory())
                                                    dialog.setCurrentDirectory(fl);
-                                                 if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION) {
+                                                 if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       TEdit.put(mkey, returnFile(fl));
                                                         continue;//return;
@@ -151,13 +152,13 @@ private final TextEdit TEdit;
                                }
                                continue;//return;
                            }
-                           if (input.trim().endsWith("->")) {
+                           if (input.endsWith("->")) {
                                mkey = input.trim().substring(0,input.trim().indexOf("->"));
                                if (TEdit.containsKey(mkey)) {
                                    Shift=Shift+input.length();
                                    insertIt=System.lineSeparator()+mkey+" = "+TEdit.get(mkey)+System.lineSeparator();
                                    area.insert(insertIt, Shift);
-				       //Shift=Shift+insertIt.length()+1;
+                                //   Shift=Shift+insertIt.length()+1;
                                    Shift=Shift+insertIt.length();
                                } else {
                                    TEdit.showDialog("Memory does not contain \""+mkey+"\"");
@@ -177,7 +178,7 @@ private final TextEdit TEdit;
                                                JFileChooser dialog = TEdit.getFileChooser();
                                                
                                                dialog.setCurrentDirectory(fl);
-                                                 if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION) {
+                                                 if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       writeFile(TEdit.get(mkey), fl);
                                                         continue;//return;
@@ -188,7 +189,7 @@ private final TextEdit TEdit;
                                         else{
                                             if(fl.getParentFile()==null||!fl.getParentFile().isDirectory()){
                                                 JFileChooser dialog = TEdit.getFileChooser();
-                                                 if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION) {
+                                                 if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       writeFile(TEdit.get(mkey), fl);
                                                        continue; //return;
@@ -271,7 +272,7 @@ private final TextEdit TEdit;
                                
                                if(!fl.exists()||fl.isDirectory()){
                                     JFileChooser dialog = TEdit.getFileChooser();
-                                      if(dialog.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
+                                      if(dialog.showOpenDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                           fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                           Shift=Shift+input_length;
                                           insertIt=System.lineSeparator()+returnFile(fl)+System.lineSeparator();

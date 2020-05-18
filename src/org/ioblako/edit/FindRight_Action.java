@@ -18,6 +18,7 @@ package org.ioblako.edit;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.JTextField;
 import static javax.swing.Action.SHORT_DESCRIPTION;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -29,9 +30,10 @@ import javax.swing.JTextArea;
  */
 public class FindRight_Action  extends AbstractAction{
     static final long serialVersionUID=1003;
-        private final Find_Action TEdit;
+        private JTextField jTxt;
+        private TextEdit TEdit;
 ImageIcon  myIcon;
-    public FindRight_Action(Find_Action ed, String text, ImageIcon icon,
+    public FindRight_Action(TextEdit ed,JTextField txt, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT
             //   will be updated after "escape" command mode is introduced
@@ -39,11 +41,15 @@ ImageIcon  myIcon;
         super(text, icon);
         myIcon = icon;
         TEdit = ed; 
+	jTxt = txt; 
         Init(desc);
        // putValue(MNEMONIC_KEY, KeyEvent.VK_FIND); //change it after "escape" is done
     }
 private void Init(String desc){
     putValue(SHORT_DESCRIPTION, desc);
+}
+public void setTextEdit(TextEdit ed){
+           TEdit = ed;
 }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -51,7 +57,8 @@ private void Init(String desc){
          String txt = area.getText();
          if(txt == null)
              return;
-         String s = TEdit.getLookingFor();
+         //String s = TEdit.getLookingFor();
+         String s = jTxt.getText();
          if(s.contentEquals(""))
              return;
          if(txt.contentEquals("") || txt.length()<1)

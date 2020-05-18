@@ -16,21 +16,21 @@
  */
 package org.ioblako.edit;
 
-import com.orsoncharts.Chart3DFactory;
-import com.orsoncharts.Chart3DPanel;
-import com.orsoncharts.Range;
-import com.orsoncharts.axis.ValueAxis3D;
-import com.orsoncharts.data.function.Function3D;
-import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
-import com.orsoncharts.legend.LegendAnchor;
-import com.orsoncharts.plot.XYZPlot;
-import com.orsoncharts.renderer.RainbowScale;
-import com.orsoncharts.renderer.xyz.SurfaceRenderer;
-import com.orsoncharts.util.Orientation;
+import org.jfree.chart3d.Chart3DFactory;
+import org.jfree.chart3d.Chart3DPanel;
+import org.jfree.chart3d.data.Range;
+import org.jfree.chart3d.axis.ValueAxis3D;
+import org.jfree.chart3d.data.function.Function3D;
+import org.jfree.chart3d.graphics3d.swing.DisplayPanel3D;
+import org.jfree.chart3d.legend.LegendAnchor;
+import org.jfree.chart3d.plot.XYZPlot;
+import org.jfree.chart3d.renderer.RainbowScale;
+import org.jfree.chart3d.renderer.xyz.SurfaceRenderer;
+import org.jfree.chart3d.Orientation;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.ui.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 import org.ioblako.math.calculator.SmartReplace;
@@ -144,7 +144,7 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
         frameToShow.getContentPane().add(content);
         //frameToShow.setJMenuBar(gr3DPlt.getMenu(frameToShow.getChart(),frameToShow));
         frameToShow.pack();
-        RefineryUtilities.centerFrameOnScreen(frameToShow);
+        UIUtils.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

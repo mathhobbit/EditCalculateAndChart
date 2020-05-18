@@ -39,7 +39,7 @@ public class SystemSolver
      * @return A package of variables used to print the solutions of a
      * linear equation to a string
      */
-    public static SolutionMatrix solveForMultipleSolutions(LinearSystem reducedSystem)
+    public static SolutionMatrix solveForMultipleSolutions(LinearSystemInterface reducedSystem)
     {
         int[][] basis = new int[2][reducedSystem.getA().n()];
         basis[0] = Matrix.getBasisColumns(reducedSystem.getA());
@@ -66,7 +66,7 @@ public class SystemSolver
      * @param reducedSystem A linear system in reduced row echelon form
      * @return A specialized {@link Matrix} that holds a single row of coefficients
      */
-    public static SolutionMatrix solveForSingleSolution(LinearSystem reducedSystem)
+    public static SolutionMatrix solveForSingleSolution(LinearSystemInterface reducedSystem)
     {
         System.gc();
         Fraction[] solutions = new Fraction[reducedSystem.getA().n()];
@@ -84,7 +84,7 @@ public class SystemSolver
      * reduced
      * @return Matrix A|B of the inputted linear system, now in RREF
      */
-    public static Matrix toRREF(LinearSystem sys)
+    public static Matrix toRREF(LinearSystemInterface sys)
     {
         return (sys.getA().augmentColumn(sys.getB())).toRREF();
     }

@@ -16,7 +16,7 @@
  */
 package org.ioblako.edit;
 
-import com.orsoncharts.Chart3D;
+import org.jfree.chart3d.Chart3D;
 import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.event.ChangeListener;
-import org.jfree.ui.ApplicationFrame;
+import org.jfree.chart.ui.ApplicationFrame;
 
 /**
  *
@@ -48,14 +48,15 @@ public abstract class AbstractFramePlt3D extends ApplicationFrame implements  Ac
     return chart;
     }
     public static JMenuBar getMenu( Chart3D chart,ApplicationFrame jg ){
-         Action SaveAs = new SaveAs_Action3D(chart,"Save as...",null,"Save as...");
+       //  Action SaveAs = new SaveAs_Action3D(chart,"Save as...",null,"Save as...");
          Action Quit = new Plt_Quit_Action(jg,"Quit",null,"Quit");
 
     JMenuBar JMB = new JMenuBar();
                 
     JMenu file = new JMenu("File");
     JMB.add(file);
-    file.add(SaveAs);file.add(Quit);
+   file.add(Quit);
+   // file.add(SaveAs);file.add(Quit);
     return JMB;
 }
     @Override

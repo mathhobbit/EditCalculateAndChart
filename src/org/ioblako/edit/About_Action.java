@@ -17,7 +17,7 @@
 package org.ioblako.edit;
 
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 /**
  *
@@ -43,7 +43,7 @@ public class About_Action extends AbstractAction{
                                              + "evaluate highlighted text with "+System.lineSeparator()
                                              + "the built in calculator and"+System.lineSeparator()
                                              + "create charts of functions"+System.lineSeparator()+
-                                               "Build 1552062359818"+System.lineSeparator()+
+                                               "Build 1589407111543"+System.lineSeparator()+
                                                 "Copyright (c) Sergey Nikitin, 2017.  All rights reserved."
  +System.lineSeparator()+"   This Software is written by Sergey Nikitin and others." 
  +System.lineSeparator()+"   This program is free software: you can redistribute it and/or modify"

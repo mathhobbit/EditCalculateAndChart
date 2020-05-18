@@ -1,0 +1,3 @@
+#!/bin/sh
+IOBLAKO_HOME=/Users/sergey_nikitin/work/ECalcAndChart/
+$IOBLAKO_HOME/build/jre/bin/java  -cp $IOBLAKO_HOME/build/jre/lib/org.ioblako.edit.resources.jar -m org.ioblako.edit/org.ioblako.edit.EditCalculateAndChart 

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package org.ioblako.math.linearalgebra;
 
 /**
@@ -27,7 +26,7 @@ package org.ioblako.math.linearalgebra;
  * values to form a solution.
  * @author Robert
  */
-public class LinearSystem implements Cloneable, java.io.Serializable
+public class LinearSystem implements LinearSystemInterface,Cloneable, java.io.Serializable
 {
    public static final long serialVersionUID=100L;
    public String Report="";
@@ -124,7 +123,7 @@ public String getSolutionForJC(){
         return sysX;
     }
 
-    boolean isConsistent(Matrix reducedMatrix)
+public boolean isConsistent(Matrix reducedMatrix)
     {
         /*
         if the number of rows in B is not the same as

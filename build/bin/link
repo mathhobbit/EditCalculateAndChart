@@ -1,0 +1,35 @@
+#!/bin/sh
+IOBLAKO_HOME=/Users/sergey_nikitin/work/ECalcAndChart
+export IOBLAKO_HOME
+JDK=jvm/openjdk-15-internal
+JLINK=/usr/local/$JDK/bin/jlink
+JMOD=/usr/local/$JDK/bin/jmod
+ADDMYMODS=""
+for file in `ls $IOBLAKO_HOME/build/jmods/*.jmod`
+do
+  mymod=`$JMOD describe $file|head -n 1`
+if [ ! -z "$ADDMYMODS" ]; then
+   ADDMYMODS=$ADDMYMODS","$mymod
+else
+    ADDMYMODS=$mymod
+fi
+done
+echo $ADDMYMODS
+
+
+
+if [ -d $IOBLAKO_HOME/build/jre ] 
+then
+rm -rf $IOBLAKO_HOME/build/jre
+fi
+#$JLINK --module-path /usr/local/$JDK/jmods/ --module-path $IOBLAKO_HOME/build/jmods/ --add-modules $ADDMYMODS  --output $IOBLAKO_HOME/build/jre
+$JLINK --module-path /usr/local/$JDK/jmods:$IOBLAKO_HOME/build/jmods --add-modules $ADDMYMODS --launcher ecc=org.ioblako.edit/org.ioblako.edit.EditCalculateAndChart --output $IOBLAKO_HOME/build/jre
+if [ -f ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ]; then
+     cp ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ../jre/lib
+else
+ START_DIR=`pwd`
+ cd ../modules/org.ioblako.edit
+ jar -cvf org.ioblako.edit.resources.jar org/ioblako/edit/resources
+ cd $START_DIR
+     cp ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ../jre/lib
+fi

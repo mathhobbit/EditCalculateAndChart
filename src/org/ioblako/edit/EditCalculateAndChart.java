@@ -26,6 +26,7 @@ import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -55,8 +56,8 @@ class EditCalculateAndChart extends JFrame implements TextEdit {
 public static final long serialVersionUID=10L;
 private String lookingFor="";
 private static final Preferences Config = Preferences.userNodeForPackage(EditCalculateAndChart.class);
-
-private static final Image appIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/spinning_calc.png"));
+//private static final Image ProcessStop=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/process-stop-5.png"));
+private static final Image appIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/spinning-calc.png"));
 private static final Image newIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-new.png"));
 private static final Image openIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-open.png"));
 private static final Image saveIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-save.png"));
@@ -74,7 +75,7 @@ private static final Image deleteIco=Toolkit.getDefaultToolkit().getImage(ClassL
 private static final Image replaceIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-find-and-replace.png"));
 //private static final Image stopIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/process-stop-5.png"));
 
-
+private static ImageIcon myAppIcon = new ImageIcon(appIco.getScaledInstance(32,32,Image.SCALE_DEFAULT));
 private final JTextArea area = new JTextArea(10,40);
 	private final JFileChooser dialog = new JFileChooser(System.getProperty("user.home"));
 	private String currentFile = "Untitled";
@@ -259,7 +260,7 @@ Action Replace = new Replace_Action((TextEdit)this,"Replace",new ImageIcon(repla
 
 @Override
 public void saveFileAs() {
-    		if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
+    		if(dialog.showSaveDialog((Component)this)==JFileChooser.APPROVE_OPTION)
                      try{
                          String fileName=dialog.getSelectedFile().getAbsolutePath();
 				        writeFile(new File(fileName));
@@ -268,16 +269,16 @@ public void saveFileAs() {
                                         Save.setEnabled(false);
                                 }
                                 catch(Exception writeE){
-                                    JOptionPane.showMessageDialog(this,writeE.getMessage());
+                                    JOptionPane.showMessageDialog(this,writeE.getMessage(),"Save As",JOptionPane.INFORMATION_MESSAGE,myAppIcon);
                                 }
-		//if(dialog.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
+		//if(dialog.showSaveDialog((Component)this)==JFileChooser.APPROVE_OPTION)
 		//	saveFile(dialog.getSelectedFile().getAbsolutePath());
 	}
 
 @Override
 public void saveOld() {
 		if(changed) {
-			if(JOptionPane.showConfirmDialog(this, "Would you like to save "+ currentFile +" ?","Save",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION)
+			if(JOptionPane.showConfirmDialog(this, "Would you like to save "+ currentFile +" ?","Save",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,myAppIcon)== JOptionPane.YES_OPTION)
 				saveFile(currentFile);
 		}
 	}
@@ -298,7 +299,7 @@ public void readInFile(String fileName) {
 		}
 		catch(IOException e) {
 			Toolkit.getDefaultToolkit().beep();
-			JOptionPane.showMessageDialog(this,"Editor can't find the file called "+fileName);
+			JOptionPane.showMessageDialog(this,"Editor can't find the file called "+fileName,"Not found",JOptionPane.INFORMATION_MESSAGE,myAppIcon);
 		}
 	}
 
@@ -314,7 +315,7 @@ public void saveFile(String fileName) {
 			Save.setEnabled(false);
 		}
 		catch(IOException e) {
-                    JOptionPane.showMessageDialog(this,e.getMessage());
+                    JOptionPane.showMessageDialog(this,e.getMessage(),"Save",JOptionPane.INFORMATION_MESSAGE,myAppIcon);
 		}
 	}
 @Override
@@ -379,7 +380,7 @@ public JTextArea getTextArea(){
 }
 @Override
 public void showDialog(String txt){
-JOptionPane.showMessageDialog(this,txt);
+JOptionPane.showMessageDialog(this,txt,"Message",JOptionPane.INFORMATION_MESSAGE,myAppIcon);
 }
 @Override
 public void put(String key, String value){
@@ -434,10 +435,10 @@ public boolean writeFile(File fl) throws Exception{
      String txt=area.getText();
      PrintWriter writeIt=null;
      if(fl.exists()&&fl.length()>0){
-         if(JOptionPane.showConfirmDialog(getFrame(), fl.getName() +" is not empty! Append to it?","Save",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION)
+         if(JOptionPane.showConfirmDialog(getFrame(), fl.getName() +" is not empty! Append to it?","Save",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,myAppIcon)== JOptionPane.YES_OPTION)
 				        writeIt=new PrintWriter(new FileWriter(fl,true));
          else
-          if(JOptionPane.showConfirmDialog(getFrame(), "Overwrite "+fl.getName()+"?","Save",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION)
+          if(JOptionPane.showConfirmDialog(getFrame(), "Overwrite "+fl.getName()+"?","Save",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,myAppIcon)== JOptionPane.YES_OPTION)
                                         writeIt=new PrintWriter(new FileWriter(fl));
      }
     else
@@ -454,6 +455,15 @@ public boolean writeFile(File fl) throws Exception{
 public State getSwingPool(){
     return swingPool;
 }
+@Override
+public ImageIcon getAppIcon(){
+  return myAppIcon;
+}
+@Override
+public Image getAppImage(){
+ return appIco;
+}
+
 public  static void main(String[] arg) {
         if(arg.length > 0)
           startFile = arg[0];
@@ -466,6 +476,7 @@ public  static void main(String[] arg) {
               }
           }).start();
 	}
+
 }
 
 

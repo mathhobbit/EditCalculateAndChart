@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import com.orsoncharts.Chart3DPanel;
+import org.jfree.chart3d.Chart3DPanel;
 
 /**
  * The base class for panels created by demo applications.  Some demos will 

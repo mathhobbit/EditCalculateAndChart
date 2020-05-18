@@ -136,6 +136,7 @@ public void createAndShow() throws Exception{
                 area.setText(txt);
                 this.setTitle("Help");
                 this.pack();
+                 this.setIconImage(TEdit.getAppImage());
                 this.setVisible(true);
                
 }
@@ -284,5 +285,12 @@ public void createAndShow() throws Exception{
     public State getSwingPool(){
         return TEdit.getSwingPool();
     }
-    
+    @Override
+    public ImageIcon getAppIcon(){
+            return TEdit.getAppIcon();
+      }    
+    @Override
+    public Image getAppImage(){
+            return TEdit.getAppImage();
+      }    
 }

@@ -24,7 +24,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.ui.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 
@@ -188,7 +188,7 @@ public class xyLinePlt extends AbstractFramePlt implements FramePlt {
        frameToShow.setContentPane(chartP);
        frameToShow.setJMenuBar(barPlt.getMenu(frameToShow.getChart(),frameToShow));
        frameToShow.pack();
-        RefineryUtilities.centerFrameOnScreen(frameToShow);
+        UIUtils.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
     }
 

@@ -17,6 +17,7 @@
 package org.ioblako.edit;
 
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 import javax.swing.AbstractAction;
 import static javax.swing.Action.SHORT_DESCRIPTION;
 import javax.swing.ImageIcon;
@@ -54,7 +55,8 @@ private void Init(String desc){
     public void actionPerformed(ActionEvent e) {
         JTextArea area = TEdit.getTextArea();
         if(area.getText().length()==0){
-            JOptionPane.showMessageDialog(TEdit.getFrame(),"There is nothing to replace!");
+            //JOptionPane.showMessageDialog((Component)TEdit,"There is nothing to replace!");
+            JOptionPane.showMessageDialog((Component)TEdit,"There is nothing to replace!","Replace",JOptionPane.INFORMATION_MESSAGE,myIcon);
             return;
         }
         JTextField source = new JTextField();

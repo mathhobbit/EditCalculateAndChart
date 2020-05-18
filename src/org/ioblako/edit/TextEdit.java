@@ -16,15 +16,17 @@
  */
 package org.ioblako.edit;
 
-import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.ActionMap;
 import javax.swing.JTextArea;
 import javax.swing.JFrame;
-import java.util.Set;
-import java.util.prefs.Preferences;
+import javax.swing.ImageIcon;
 import javax.swing.undo.UndoManager;
 import javax.swing.Action;
+import java.awt.Image;
+import java.io.File;
+import java.util.Set;
+import java.util.prefs.Preferences;
 import org.ioblako.core.State;
 
 public interface TextEdit{
@@ -57,4 +59,6 @@ public Action getActionSave();
 public boolean writeFile(File fl) throws Exception;
 public Preferences getConfig();
 public State getSwingPool();
+public ImageIcon getAppIcon();
+public Image getAppImage();
 }

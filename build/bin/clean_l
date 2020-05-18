@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+rm ../lib/*.jar
+rm ../jmods/*.jmod
+rm ../modules/*/*.class

@@ -46,66 +46,63 @@ CHARTS AND PLOTS IN 2D
 
 A Cartesian plot is created with
 
-plot(f(x),step_size,variable=left..right)
+plot(f(x),variable={step_size,left..right})
 
 or
 
-grPlt(f(x),step_size,variable=left..right)
+grPlt(f(x),variable={step_size,left..right})
 
 for one  function and
 
-plot({f1(x)..fn(x)},step_size,variable=left..right)
-grPlt({f1(x)..fn(x)},step_size,variable=left..right)
+plot({f1(x)..fn(x)},variable={step_size,left..right})
+grPlt({f1(x)..fn(x)},variable={step_size,left..right})
 
 for multiple functions.
 
 Example: 
 
-plot(sin(x),0.1,x=-pi..pi)
+plot(sin(x),x={0.1,-pi..pi})
 
 or
 
-grPlt(sin(x),0.1,x=-pi..pi)
+grPlt(sin(x),x={0.1,-pi..pi})
 
 For multiple plots 
 
-plot({0.5*x,sin(x)},0.1,x=-pi..pi)
+plot({0.5*x,sin(x)},x={0.1,-pi..pi})
 
 or
 
-grPlt({0.5*x,sin(x)},0.1,x=-pi..pi)
+grPlt({0.5*x,sin(x)},x={0.1,-pi..pi})
 
 
-If it is needed to have y=f(x) in the title
-of the plot or have s=0.1 (or some other notations for the step)
-then 
-
-plot({y=x,y=cos(x)},step=0.1,x=-pi..pi)
 
 Polar plot is created with
 
-plrPlt(1,0.1,a=0..360) 
+plrPlt(1,a={0.1,0..2*pi}) 
 
-The angle "a" is in degrees.
-For plots in radians (when using sin(a), cos(a) etc.)
-use "rdns".
+The angle "a" is in radians.
 
-plrPlt(1-cos(rdns(a)),0.1,a=0..360)
+plrPlt(1-cos(a),a={0.1,0..2*pi})
 
 Multiple polar plots:
 
-plrPlt({1,1-cos(rdns(a))},0.1,a=0..360)
+plrPlt({1,1-cos(a)},a={0.1,0..2*pi})
 
 In addition to an independent variable
 ("x" in previous examples) one can add
 additional parameters. This is accomplished
 by adding sliders to the plot.
 
-plot({cos(x),r*sin(w*x)},0.1,x=-pi..pi,0.1,r=1..3,0.1,w=0.5..4) 
+plot({cos(x),r*sin(w*x)},x={0.1,-pi..pi},r={0.1,1..3},w={0.1,0.5..4}) 
 
 or
 
-grPlt({cos(x),r*sin(w*x)},0.1,x=-pi..pi,0.1,r=1..3,0.1,w=0.5..4)
+grPlt({cos(x),r*sin(w*x)},x={0.1,-pi..pi},r={0.1,1..3},w={0.1,0.5..4})
+
+and
+
+plrPlt({r-sin(a),1},a={0.01,0..2*pi},r={0.1,0.2..2})
 
 ------------------------------------------
 

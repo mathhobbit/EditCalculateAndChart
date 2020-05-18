@@ -24,7 +24,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.ui.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 
@@ -177,7 +177,7 @@ public class linePlt extends AbstractFramePlt implements FramePlt {
        frameToShow.setContentPane(chartPanel);
        frameToShow.setJMenuBar(linePlt.getMenu(frameToShow.getChart(),frameToShow));
        frameToShow.pack();
-       RefineryUtilities.centerFrameOnScreen(frameToShow);
+       UIUtils.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
     }
 

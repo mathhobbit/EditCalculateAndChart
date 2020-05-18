@@ -20,6 +20,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 
 public class Open_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
@@ -37,7 +38,7 @@ private TextEdit TEdit;
     public void actionPerformed(ActionEvent e) {
                         TEdit.saveOld();
           JFileChooser dialog = TEdit.getFileChooser();
-        if(dialog.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
+        if(dialog.showOpenDialog((Component) TEdit)==JFileChooser.APPROVE_OPTION) {
                                 TEdit.readInFile(dialog.getSelectedFile().getAbsolutePath());
                         }
                        // TEdit.updateTextArea("","Untitled");

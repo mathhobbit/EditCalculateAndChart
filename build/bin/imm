@@ -1,0 +1,256 @@
+#!/bin/sh
+IOBLAKO_HOME=/Users/sergey_nikitin/work/ECalcAndChart
+export IOBLAKO_HOME
+
+#CLASSPATH=`echo $IOBLAKO_HOME/build/lib/*.jar|tr ' ' ':'`
+
+MOD_DIR=$IOBLAKO_HOME/build/modules
+export MOD_DIR
+
+CLASSPATH=`echo $MOD_DIR/*|tr ' ' ':'`
+export CLASSPATH
+echo $CLASSPATH
+
+JDK=jvm/openjdk-15-internal
+
+JAVA=/usr/local/$JDK/bin/java
+JAVAC=/usr/local/$JDK/bin/javac
+JAR=/usr/local/$JDK/bin/jar
+JMOD=/usr/local/$JDK/bin/jmod
+
+$JAVA --version
+
+
+assembleMod(){
+echo "building $2"
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods:$MOD_DIR  -d $MOD_DIR/$1 $IOBLAKO_HOME/src/$1/module-info.java
+# $JAVAC -classpath $CLASSPATH -d $MOD_DIR/$1 $IOBLAKO_HOME/src/$1/module-info.java
+ $JAR --create --file $IOBLAKO_HOME/build/lib/$2.jar -C $MOD_DIR/$1 .
+if [ $# == 4 ]; then
+$JMOD create -p $MOD_DIR/$1 --module-path  $IOBLAKO_HOME/build/jmods:$MOD_DIR --class-path $IOBLAKO_HOME/build/lib/$2.jar  $2.jmod
+else
+ if [ $# == 3 ]; then
+$JMOD create -p $MOD_DIR/$1 --module-path  $IOBLAKO_HOME/build/jmods:$MOD_DIR --class-path $IOBLAKO_HOME/build/lib/$2.jar --main-class $3 $2.jmod
+else
+$JMOD create -p $MOD_DIR/$1 --module-path  $IOBLAKO_HOME/build/jmods:$MOD_DIR --class-path $IOBLAKO_HOME/build/lib/$2.jar --hash-modules org.ioblako.edit $2.jmod
+fi
+fi
+if [ -f $IOBLAKO_HOME/build/jmods/$2.jmod ]; then
+ rm $IOBLAKO_HOME/build/jmods/$2.jmod
+fi
+mv $2.jmod $IOBLAKO_HOME/build/jmods
+}
+compileFile(){
+echo "Compiling $1"
+file=$1
+fileClass=`echo $file|sed 's/\.java/\.class/g'`
+first=`echo $fileClass|awk -F\/src\/ '{print $1}'`
+second=`echo $fileClass|awk -F\/src\/ '{print $2}'`
+fileClass=$first"/build/modules/$2/"$second
+if [ -f $fileClass ]; then
+if test $fileClass -ot $file
+then
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+ $JAVAC -classpath $CLASSPATH -d $MOD_DIR/$2 $file
+fi
+else
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+ $JAVAC -classpath $CLASSPATH  -d $MOD_DIR/$2 $file
+fi
+}
+compileModuleFromTheDir(){
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$1 $IOBLAKO_HOME/src/$1/module-info.java
+}
+compileFilesInTheDir(){
+echo "Compiling $1"
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $IOBLAKO_HOME/src/$2/module-info.java
+for file in `ls -1 $IOBLAKO_HOME/src/$1/*.java`
+do
+fileClass=`echo $file|sed 's/\.java/\.class/g'`
+first=`echo $fileClass|awk -F\/src\/ '{print $1}'`
+second=`echo $fileClass|awk -F\/src\/ '{print $2}'`
+fileClass=$first"/build/modules/$2/"$second
+if [ -f $fileClass ]; then
+if test $fileClass -ot $file
+then
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+ $JAVAC -classpath $CLASSPATH  -d $MOD_DIR/$2 $file
+fi
+else
+# $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+ $JAVAC -classpath $CLASSPATH  -d $MOD_DIR/$2 $file
+fi
+done
+echo "Success $2"
+}
+compile(){
+echo "Compiling $1"
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $IOBLAKO_HOME/src/$2/module-info.java
+for file in `find $IOBLAKO_HOME/src/$1/ -name *.java`
+do
+fileClass=`echo $file|sed 's/\.java/\.class/g'`
+first=`echo $fileClass|awk -F\/src\/ '{print $1}'`
+second=`echo $fileClass|awk -F\/src\/ '{print $2}'`
+fileClass=$first"/build/modules/$2/"$second
+if [ -f $fileClass ]; then
+if test $fileClass -ot $file
+then
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+fi
+else
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $file
+fi
+done
+echo "Success $2"
+}
+fastCompile(){
+ $JAVAC -classpath $CLASSPATH  -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $IOBLAKO_HOME/src/$2/module-info.java  $(find $
+IOBLAKO_HOME/src/$1  -name *.java)
+echo "Success $2"
+}
+buildMod(){
+$JAVAC -classpath $CLASSPATH  -p $IOBLAKO_HOME/build/jmods  -d $MOD_DIR/$2 $IOBLAKO_HOME/src/$2/module-info.java
+for file in `find $IOBLAKO_HOME/src/$1/  -name *.java`
+do
+fileClass=`echo $file|sed 's/\.java/\.class/g'`
+first=`echo $fileClass|awk -F\/src\/ '{print $1}'`
+second=`echo $fileClass|awk -F\/src\/ '{print $2}'`
+fileClass=$first"/build/modules/$2/"$second
+if [ -f $fileClass ]; then
+if test $fileClass -ot $file
+then
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods:$JDK_MOD  -d $MOD_DIR/$2 $file
+fi
+else
+ $JAVAC -classpath $CLASSPATH -p $IOBLAKO_HOME/build/jmods:$JDK_MOD  -d $MOD_DIR/$2 $file
+fi
+done
+
+ $JAR --create --file $IOBLAKO_HOME/build/lib/$3.jar -C $MOD_DIR/$2 .
+$JMOD create -p $MOD_DIR/$2 --class-path $IOBLAKO_HOME/build/lib/$3.jar $3.jmod
+if [ -f $IOBLAKO_HOME/build/jmods/$3.jmod ]; then
+ rm $IOBLAKO_HOME/build/jmods/$3.jmod
+fi
+mv $3.jmod $IOBLAKO_HOME/build/jmods
+echo "Success $2"
+}
+
+#if [ $# != 1 ]; then
+         
+#	echo "imm all"
+#	echo " for building all modules"
+#	echo "imm module_name"
+#	echo " for building the module module_name"
+#	echo "for example,"
+#	echo "imm lina"
+#	echo " will build the linear algebra module"
+#	exit 0;
+#fi
+#if [ $1 == "all" ]; then
+#   $IOBLAKO_HOME/build/bin/imm orson
+#   $IOBLAKO_HOME/build/bin/imm jfree
+#   $IOBLAKO_HOME/build/bin/imm math
+#   $IOBLAKO_HOME/build/bin/imm core
+#   $IOBLAKO_HOME/build/bin/imm edt
+#fi
+
+
+#if [ $1 = "orson" ]; then
+#assembleMod org.jfree.chart3d org.jfree.chart3d 
+#fi
+#if [ $1 = "jfree" ]; then
+#assembleMod org.jfree org.jfree
+#fi
+#if [ $1 = "lina" ]; then
+#if [ $1 = "core" ]; then
+compileFilesInTheDir org/ioblako/core org.ioblako.core
+#fi
+#if [ $1 = "math" ]; then
+#buildMod org/ioblako/math/linearalgebra org.ioblako.math linearalgebra
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/Fraction.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/Matrix.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/SolutionMatrix.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/LinearSystemInterface.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/SystemSolver.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/linearalgebra/LinearSystem.java org.ioblako.math
+#compileFilesInTheDir org/ioblako/math/linearalgebra org.ioblako.math
+#fi
+#if [ $1 = "math" ]; then
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/Complex.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/PolynomialUtils.java org.ioblako.math
+compileFilesInTheDir org/ioblako/math org.ioblako.math
+#assembleMod org.ioblako.math math
+#fi
+#if [ $1 = "calc" ]; then
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalcFunction.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/jc.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCexp.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCln.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCpowl.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCsqrt.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCsin.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCcos.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCtan.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCsinh.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCcosh.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCFE.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCEF.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/SmartReplace.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalClslv.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCasin.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCatan.java org.ioblako.math
+#buildMod org/ioblako/math/calculator org.ioblako.math.calculator calculator
+compileFilesInTheDir org/ioblako/math/calculator org.ioblako.math
+#assembleMod org.ioblako.math org.ioblako.math org.ioblako.math.calculator.jc
+#fi
+#if [ $1 = "edt" ]; then
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Plt_Quit_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/AbstractFramePlt.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/AbstractFramePlt3D.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/TextEdit.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/FramePlt.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/FindLeft_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/FindRight_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Find_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Copy_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Open_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Save_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Quit_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Paste_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Cut_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Calc_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Undo_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/New_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/SaveAs_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Redo_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Replace_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/FontChooser2.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Preferences_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Delete_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/PltArgumentParser.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/barPlt.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/HelpFrame.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/HelpWindowEvents.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/Help_Action.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/KAdaptor.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/TEditUndoableEditListener.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/WindowEvents.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/TextAreaMouseListener.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/TextAreaKeyListener.java org.ioblako.edit
+	compileFile $IOBLAKO_HOME/src/org/ioblako/edit/DemoPanel.java org.ioblako.edit
+	compileFilesInTheDir org/ioblako/edit org.ioblako.edit
+compileModuleFromTheDir org.ioblako.core
+compileModuleFromTheDir org.ioblako.math
+compileModuleFromTheDir org.jfree
+compileModuleFromTheDir org.jfree.chart3d
+assembleMod org.ioblako.core org.ioblako.core no hash
+assembleMod org.ioblako.math org.ioblako.math no hash
+assembleMod org.jfree org.jfree no hash
+assembleMod org.jfree.chart3d org.jfree.chart3d no hash
+compileModuleFromTheDir org.ioblako.edit
+assembleMod org.ioblako.edit org.ioblako.edit org.ioblako.edit.EditCalculateAndChart
+assembleMod org.ioblako.core org.ioblako.core
+assembleMod org.ioblako.math org.ioblako.math
+assembleMod org.jfree org.jfree
+assembleMod org.jfree.chart3d org.jfree.chart3d
+

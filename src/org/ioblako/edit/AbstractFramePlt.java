@@ -26,7 +26,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.event.ChangeListener;
 import org.jfree.chart.JFreeChart;
-import org.jfree.ui.ApplicationFrame;
+import org.jfree.chart.ui.ApplicationFrame;
 
 /**
  *
@@ -48,14 +48,15 @@ public abstract class AbstractFramePlt extends ApplicationFrame implements  Acti
     return chart;
     }
     public static JMenuBar getMenu( JFreeChart chart,ApplicationFrame jg ){
-Action SaveAs = new Plt_SaveAs_Action(chart,"Save as...",null,"Save as...");
+//Action SaveAs = new Plt_SaveAs_Action(chart,"Save as...",null,"Save as...");
 Action Quit = new Plt_Quit_Action(jg,"Quit",null,"Quit");
 
     JMenuBar JMB = new JMenuBar();
                 
-    JMenu file = new JMenu("File");
-    JMB.add(file);
-    file.add(SaveAs);file.add(Quit);
+   // JMenu file = new JMenu("File");
+   // JMB.add(file);
+   //file.add(Quit);
+   // file.add(SaveAs);file.add(Quit);
     return JMB;
 }
     @Override

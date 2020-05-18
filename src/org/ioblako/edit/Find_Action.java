@@ -36,8 +36,10 @@ public class Find_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
 private static final Image leftIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/arrow-left.png"));
 private static final Image rightIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/arrow-right.png"));
-private final TextEdit TEdit;
+private TextEdit TEdit;
 ImageIcon  myIcon;
+    Action FindLeft; 
+    Action FindRight;
     public Find_Action(TextEdit ed, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT
@@ -45,7 +47,9 @@ ImageIcon  myIcon;
             // (like in "vi") 
         super(text, icon);
         myIcon = icon;
-        TEdit = ed; 
+        TEdit = ed;
+    FindLeft = new FindLeft_Action(TEdit,lookingFor,"Backward",new ImageIcon(leftIco),"Backward");
+    FindRight = new FindRight_Action(TEdit,lookingFor,"Forward",new ImageIcon(rightIco),"Forward");
         putValue(SHORT_DESCRIPTION, desc);
         putValue(MNEMONIC_KEY, KeyEvent.VK_FIND); //change it after "escape" is done
     }
@@ -78,19 +82,6 @@ ImageIcon  myIcon;
                        }
                    TEdit.setLookingFor(lookingFor.getText());
     }
- 
-    public JTextArea getTextArea(){
-        return TEdit.getTextArea();
-    }
-    public String getLookingFor(){
-        return lookingFor.getText();
-    }
-    public JFrame getFrame(){
-        return TEdit.getFrame();
-    }
-    Action FindLeft = new FindLeft_Action(this,"Backward",new ImageIcon(leftIco),"Backward");
-    Action FindRight = new FindRight_Action(this,"Forward",new ImageIcon(rightIco),"Forward");
-    
 }
 
 

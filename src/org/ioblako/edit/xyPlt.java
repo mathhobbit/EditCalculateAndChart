@@ -24,7 +24,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.ui.UIUtils;
 import org.ioblako.math.calculator.jc;
 /**
  *
@@ -195,7 +195,7 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
        frameToShow.setContentPane(chartP);
        frameToShow.setJMenuBar(xyPlt.getMenu(frameToShow.getChart(),frameToShow));
        frameToShow.pack();
-        RefineryUtilities.centerFrameOnScreen(frameToShow);
+        UIUtils.centerFrameOnScreen(frameToShow);
        frameToShow.setVisible(true);
     }
 
@@ -213,7 +213,7 @@ public class xyPlt extends AbstractFramePlt implements FramePlt{
 "C<-eval(Seq(x^2-1,x^3-x,x={0.1,-2..2}))" +System.lineSeparator()+
 "D<-eval(Seq(0.1*x^4-x,x^3-0.1*x^6,x={0.1,-1.5..1.5}))" +System.lineSeparator()+
 "" +System.lineSeparator()+
-"xyPlt(title=cubic curves,y_title=y values,x_title=x values,{C},{D})";
+"xyPlt(title=cubic curves,y_title=y values,x_title=x values,C,D)";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

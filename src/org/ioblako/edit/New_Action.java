@@ -24,12 +24,14 @@ import javax.swing.JOptionPane;
 public class New_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
 private TextEdit TEdit;
+private ImageIcon  myIcon;
     public New_Action(TextEdit ed, String text, ImageIcon icon,
                String desc) {
             //   String desc, Integer mnemonic) { like mnemomnic=KeyEvent.VK_AT
             //   will be updated after "escape" command mode is introduced
             // (like in "vi") 
         super(text, icon);
+        myIcon=icon;
         TEdit = ed; 
         putValue(SHORT_DESCRIPTION, desc);
 //        putValue(MNEMONIC_KEY, mnemonic); //change it after "escape" is done
@@ -45,7 +47,7 @@ private TextEdit TEdit;
                  "Save",
                  JOptionPane.YES_NO_CANCEL_OPTION,
                  JOptionPane.QUESTION_MESSAGE,
-                 null,
+                 myIcon,
                  options,
                  options[0]);
         if(n == 0)
