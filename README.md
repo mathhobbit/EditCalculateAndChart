@@ -86,9 +86,9 @@ In the line
 
 JDK=jvm/openjdk-15-internal
 
-put location of your JDK in my situation relative to /usr/local.
+put location of your JDKi, in my situationi it is relative to /usr/local.
 
-If you are building EditCalc... with MS Windows then you need edit *.bat files
+If you are building EditCalc... with MS Windows then you need to edit *.bat files
 from EditCalculateAndChart/build/bin.
 
 
