@@ -63,7 +63,7 @@ One needs the following
 
 First, you need to build/ java, it needs to be version higher than 11.
 
-Second, you need to build orson-charts and jfreechart and  "jar -xvf" the respective jar files in  
+Second, you need to build orson-charts, jfreechart and  "jar -xvf" the respective jar files in  
 
 EditCalculateAndChart/build/modules/org.jfree.chart3d
 (for orson-charts)
@@ -86,7 +86,7 @@ In the line
 
 JDK=jvm/openjdk-15-internal
 
-put location of your JDKi, in my situation it is relative to /usr/local.
+put location of your JDK, in my situation it is relative to /usr/local.
 
 If you are building EditCalc... with MS Windows then you need to edit *.bat files
 from EditCalculateAndChart/build/bin.
