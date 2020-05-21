@@ -61,7 +61,7 @@ One needs the following
 - [jfreechart](http://github.com/jfree/jfreechart) 
 
 
-First, you need to update java, it needs to be version higher than 11.
+First, you need to build/ java, it needs to be version higher than 11.
 
 Second, you need to build orson-charts and jfreechart and  "jar -xvf" the respective jar files in  
 
@@ -86,7 +86,7 @@ In the line
 
 JDK=jvm/openjdk-15-internal
 
-put location of your JDKi, in my situationi it is relative to /usr/local.
+put location of your JDKi, in my situation it is relative to /usr/local.
 
 If you are building EditCalc... with MS Windows then you need to edit *.bat files
 from EditCalculateAndChart/build/bin.
@@ -98,8 +98,8 @@ EditCalculateAndChart/build/bin
 
 and run
 
-sh ./imm 
-sh ./link
+<br/>imm
+<br/>link
 
 and it will build the application. The script "ecc" will run it.
 
