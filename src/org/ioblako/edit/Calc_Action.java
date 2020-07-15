@@ -291,6 +291,7 @@ private final TextEdit TEdit;
                                
                            }
                            if(input.indexOf('=')!=-1 &&
+                                   !input.contains("Rec") &&
                                    !input.contains("Seq") &&
                                    !input.contains("Int") &&
                                    !input.contains("xySeq")&&
