@@ -14,7 +14,7 @@ The calculator has the following functions.
 "atan","tan","ln","exp","sqrt","abs",
 "powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
-"polynomMin","Int","Seq", "EF", "FE", "mod",
+"polynomMin","Int","Seq","Rec","EF","FE","mod",
 "modInverse", "pow","getNR"
 
 ----------------------------------------------------------
@@ -40,6 +40,23 @@ will create
 Seq(x,y,x*y,x={1,0..3},y={-1,2..0})={0,2,0;1,2,2;2,2,4;3,2,6;0,1,0;1,1,1;2,1,2;3,1,3;0,0,0;1,0,0;2,0,0;3,0,0}
 
 ----------------------------------------------------------
+
+RECURSION
+
+Rec(f1(x1,x2,...xm),...,fn(x1,x2,...,xm),{x1=a1,...,xm=am;N})
+
+will generate the sequence starting with
+
+a=(a1,...,am)
+
+and  recursively  applying 
+
+f(x) =(f1(x1,x2,...xm),...,fn(x1,x2,...,xm))
+
+N times.
+
+a, f(a), f(f(a)),...f(f(...f(a)...))
+------------------------------------------------------
 
 CHARTS AND PLOTS IN 2D
 
