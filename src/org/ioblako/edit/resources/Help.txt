@@ -14,8 +14,8 @@ The calculator has the following functions.
 "atan","tan","ln","exp","sqrt","abs",
 "powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
-"polynomMin","Int","Seq","Rec","EF","FE","mod",
-"modInverse", "pow","getNR"
+"polynomMin","Int","Seq","Rec","head","tail",
+"EF","FE","mod","modInverse", "pow","getNR"
 
 ----------------------------------------------------------
 
@@ -57,6 +57,17 @@ N times.
 
 a, f(a), f(f(a)),...f(f(...f(a)...))
 ------------------------------------------------------
+HEAD
+
+head({a1;...aN;aN+1...},N) returns {a1;...;aN } 
+
+------------------------------------------------------
+TAIL
+
+tail({a1;...aN;aN+1...aM+m},m) returns {aN+1;...;aN+m }
+
+-------------------------------------------------------
+
 
 CHARTS AND PLOTS IN 2D
 
