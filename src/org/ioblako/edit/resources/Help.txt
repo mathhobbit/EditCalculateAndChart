@@ -15,7 +15,7 @@ The calculator has the following functions.
 "powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
 "polynomMin","Int","Seq","Rec","head","tail",
-"EF","FE","mod","modInverse", "pow","getNR"
+"pr","EF","FE","mod","modInverse", "pow","getNR"
 
 ----------------------------------------------------------
 
@@ -68,8 +68,21 @@ tail({a1;...aN;aN+1...aM+m},m) returns {aN+1;...;aN+m }
 
 -------------------------------------------------------
 
+PROJECTION
 
-CHARTS AND PLOTS IN 2D
+pr({a1,a2,a3,...;b1,b2,b3,...},i1,i2,..im) returns
+ the sequence of projections for \";\" - separated
+ vectors into the space with coordinates i1,i2,..im.
+
+For example,
+
+pr({1,101,1001;2,202,2002;3,303,3003},1,3) will return
+
+{1,1001;2,2002;3,3003}
+
+--------------------------------------------------------
+
+CHART AND PLOTS IN 2D
 
 
 A Cartesian plot is created with
