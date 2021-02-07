@@ -1,6 +1,6 @@
 REM @ECHO OFF
-SET IOBLAKO_HOME=I:\work\ECalcAndChart
-SET JAVA_HOME=I:\work\Java\jdk-13.0.2
+SET IOBLAKO_HOME=C:\Users\serge\EditCalculateAndChart
+SET JAVA_HOME=C:\Users\serge\Java\jdk-17
 SET PATH=%JAVA_HOME%\bin;%PATH%
 
 SET MOD_DIR=%IOBLAKO_HOME%\build\modules
@@ -17,11 +17,11 @@ FOR %%A IN (CalcFunction jc CalCexp CalCln CalCpowl CalCsqrt CalCsin CalCcos Cal
 javac -classpath %CLASSPATH% -d %MOD_DIR%\org.ioblako.math %IOBLAKO_HOME%\src\org\ioblako\math\calculator\*.java
 
 
-FOR %%A IN (Plt_Quit_Action AbstractFramePlt AbstractFramePlt3D TextEdit FramePlt FindRight_Action FindLeft_Action Find_Action Copy_Action Open_Action Save_Action) DO javac -classpath %CLASSPATH% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
-FOR %%A IN (Quit_Action Paste_Action Cut_Action Calc_Action Undo_Action New_Action SaveAs_Action Redo_Action Delete_Action PltArgumentParser) DO javac -classpath %CLASSPATH% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
-FOR %%A IN (barPlt HelpFrame HelpWindowEvents Help_Action KAdaptor TEditUndoableEditListener WindowEvents TextAreaMouseListener TextAreaKeyListener DemoPanel) DO javac -classpath %CLASSPATH% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
+FOR %%A IN (Plt_Quit_Action AbstractFramePlt AbstractFramePlt3D TextEdit FramePlt FindRight_Action FindLeft_Action Find_Action Copy_Action Open_Action Save_Action) DO javac -classpath %CLASSPATH% -p %MOD_DIR% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
+FOR %%A IN (Quit_Action Paste_Action Cut_Action Calc_Action Undo_Action New_Action SaveAs_Action Redo_Action Delete_Action PltArgumentParser) DO javac -classpath %CLASSPATH% -p %MOD_DIR% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
+FOR %%A IN (barPlt HelpFrame HelpWindowEvents Help_Action KAdaptor TEditUndoableEditListener WindowEvents TextAreaMouseListener TextAreaKeyListener DemoPanel) DO javac -classpath %CLASSPATH% -p %MOD_DIR% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\%%A.java
 
-javac -classpath %CLASSPATH% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\*.java
+javac -classpath %CLASSPATH% -p %MOD_DIR% -d %MOD_DIR%\org.ioblako.edit %IOBLAKO_HOME%\src\org\ioblako\edit\*.java
 
 
 FOR %%A IN (org.ioblako.core org.ioblako.math org.jfree org.jfree.chart3d) DO javac -classpath %CLASSPATH% -p %MOD_DIR%  -d %MOD_DIR%\%%A %IOBLAKO_HOME%\src\%%A\module-info.java 
