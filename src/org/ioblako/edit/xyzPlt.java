@@ -30,7 +30,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 

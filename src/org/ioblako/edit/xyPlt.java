@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.swing.UIUtils;
 import org.ioblako.math.calculator.jc;
 /**
  *

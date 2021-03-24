@@ -20,7 +20,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
-import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.swing.ApplicationFrame;
 
 public class Plt_Quit_Action extends AbstractAction {
 public static final long serialVersionUID=1L;

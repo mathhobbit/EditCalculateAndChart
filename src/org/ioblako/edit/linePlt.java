@@ -19,12 +19,12 @@ package org.ioblako.edit;
 import java.awt.Color;
 import javax.swing.event.ChangeEvent;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 

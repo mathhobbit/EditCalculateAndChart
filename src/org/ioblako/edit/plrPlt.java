@@ -30,7 +30,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import org.ioblako.math.linearalgebra.Fraction;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PolarPlot;
@@ -38,7 +38,7 @@ import org.jfree.chart.renderer.DefaultPolarItemRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 import org.ioblako.math.calculator.SmartReplace;

@@ -6,12 +6,13 @@ module org.jfree
         exports org.jfree.data;
         exports org.jfree.chart.date;
         exports org.jfree.data.xy;
-        exports org.jfree.chart.ui;
         exports org.jfree.chart.util;
-        exports org.jfree.chart.resources;
         exports org.jfree.chart.text;
         exports org.jfree.chart.renderer.xy;
         exports org.jfree.chart.plot;
+        exports org.jfree.chart.swing;
+        exports org.jfree.chart.api;
+        exports org.jfree.chart.plot.pie;
         exports org.jfree.data.category;
         exports org.jfree.chart.renderer.category;
         exports org.jfree.chart.axis;

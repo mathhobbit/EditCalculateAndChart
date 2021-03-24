@@ -20,15 +20,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
-import org.jfree.chart.ChartPanel;
+import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.VectorRenderer;
 import org.jfree.data.xy.VectorSeries;
 import org.jfree.data.xy.VectorSeriesCollection;
-import org.jfree.chart.ui.RectangleInsets;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.api.RectangleInsets;
+import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 

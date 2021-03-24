@@ -27,7 +27,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.event.ChangeListener;
-import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.swing.ApplicationFrame;
 
 /**
  *

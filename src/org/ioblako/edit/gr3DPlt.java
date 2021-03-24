@@ -30,7 +30,7 @@ import org.jfree.chart3d.Orientation;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
 import org.ioblako.math.calculator.SmartReplace;

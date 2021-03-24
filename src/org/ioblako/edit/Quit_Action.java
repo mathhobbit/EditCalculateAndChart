@@ -23,7 +23,7 @@ import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.swing.ApplicationFrame;
 
 public class Quit_Action extends AbstractAction {
 public static final long serialVersionUID=1L;

@@ -34,8 +34,8 @@ import javax.swing.JTextField;
 public class Find_Action extends AbstractAction {
     JTextField lookingFor=new JTextField();;
 public static final long serialVersionUID=1L;
-private static final Image leftIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/arrow-left.png"));
-private static final Image rightIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/arrow-right.png"));
+private static final Image leftIco=Toolkit.getDefaultToolkit().getImage(Find_Action.class.getResource("resources/images/arrow-left.png"));
+private static final Image rightIco=Toolkit.getDefaultToolkit().getImage(Find_Action.class.getResource("resources/images/arrow-right.png"));
 private TextEdit TEdit;
 ImageIcon  myIcon;
     Action FindLeft; 

@@ -52,8 +52,8 @@ public class HelpFrame  extends JFrame implements TextEdit {
    // private static State Memory;
     JTextArea area;
     
-    private static final Image copIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-copy.png"));
-    private static final Image findIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-find-5.png"));
+    private static final Image copIco=Toolkit.getDefaultToolkit().getImage(HelpFrame.class.getResource("resources/images/edit-copy.png"));
+    private static final Image findIco=Toolkit.getDefaultToolkit().getImage(HelpFrame.class.getResource("resources/images/edit-find-5.png"));
     
     Action Copy = new Copy_Action((TextEdit)this,"Copy",new ImageIcon(copIco),"Copy");
     Action Find = new Find_Action((TextEdit)this,"Find",new ImageIcon(findIco),"Find");
@@ -65,7 +65,7 @@ public class HelpFrame  extends JFrame implements TextEdit {
         if(txt == null)
                 try{
                     BufferedReader br;
-                     br = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("org/ioblako/edit/resources/Help.txt"),"UTF-8"));
+                     br = new BufferedReader(new InputStreamReader(HelpFrame.class.getResourceAsStream("resources/Help.txt"),"UTF-8"));
                      for (int c = br.read(); c != -1; c = br.read()) sb.append((char)c);
                      txt=sb.toString();
                 }
@@ -93,7 +93,7 @@ public class HelpFrame  extends JFrame implements TextEdit {
                 if(txt == null)
                 try{
                     BufferedReader br;
-                     br = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("org/ioblako/edit/resources/Help.txt"),"UTF-8"));
+                     br = new BufferedReader(new InputStreamReader(HelpFrame.class.getResourceAsStream("resources/Help.txt"),"UTF-8"));
                      for (int c = br.read(); c != -1; c = br.read()) sb.append((char)c);
                      txt=sb.toString();
                 }
@@ -128,7 +128,7 @@ public void createAndShow() throws Exception{
               	JScrollPane scroll = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.add(scroll,BorderLayout.CENTER);
                 if(txt == null){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("org/ioblako/edit/resources/Help.txt"), "UTF-8"));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("resources/Help.txt"), "UTF-8"));
                      for (int c = br.read(); c != -1; c = br.read()) sb.append((char)c);
                      txt=sb.toString();
                 }

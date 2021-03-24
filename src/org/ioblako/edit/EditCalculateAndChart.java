@@ -56,30 +56,30 @@ class EditCalculateAndChart extends JFrame implements TextEdit {
 public static final long serialVersionUID=10L;
 private String lookingFor="";
 private static final Preferences Config = Preferences.userNodeForPackage(EditCalculateAndChart.class);
-//private static final Image ProcessStop=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/process-stop-5.png"));
-private static final Image appIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/spinning-calc.png"));
-private static final Image newIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-new.png"));
-private static final Image openIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-open.png"));
-private static final Image saveIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-save.png"));
-private static final Image saveasIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/document-save-as.png"));
-private static final Image cutIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-cut.png"));
-private static final Image copIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-copy.png"));
-private static final Image pasIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-paste.png"));
-private static final Image calcIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/calc.png"));
-private static final Image findIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-find-5.png"));
-private static final Image undoIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-undo-5.png"));
-private static final Image redoIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-redo-5.png"));
-private static final Image helpIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/help.png"));
-private static final Image shutdownIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/system-shutdown-2.png"));
-private static final Image deleteIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-delete-6.png"));
-private static final Image replaceIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/edit-find-and-replace.png"));
-//private static final Image stopIco=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("org/ioblako/edit/resources/images/process-stop-5.png"));
+private static final Image appIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/spinning-calc.png"));
+private static final Image newIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/document-new.png"));
+private static final Image openIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/document-open.png"));
+private static final Image saveIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/document-save.png"));
+private static final Image saveasIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/document-save-as.png"));
+private static final Image cutIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-cut.png"));
+private static final Image copIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-copy.png"));
+private static final Image pasIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-paste.png"));
+private static final Image calcIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/calc.png"));
+private static final Image findIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-find-5.png"));
+private static final Image undoIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-undo-5.png"));
+private static final Image redoIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-redo-5.png"));
+private static final Image helpIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/help.png"));
+private static final Image shutdownIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/system-shutdown-2.png"));
+private static final Image deleteIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-delete-6.png"));
+private static final Image replaceIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/edit-find-and-replace.png"));
+//private static final Image stopIco=Toolkit.getDefaultToolkit().getImage(EditCalculateAndChart.class.getResource("resources/images/process-stop-5.png"));
 
 private static ImageIcon myAppIcon = new ImageIcon(appIco.getScaledInstance(32,32,Image.SCALE_DEFAULT));
 private final JTextArea area = new JTextArea(10,40);
-	private final JFileChooser dialog = new JFileChooser(System.getProperty("user.home"));
-	private String currentFile = "Untitled";
         public static String startFile = "Untitled";
+        public static String startDir=Config.get("startDir","Untitled");
+        private final JFileChooser dialog = new JFileChooser(System.getProperty("user.dir"));
+	private String currentFile = "Untitled";
 	private boolean changed = false;
         private static State Memory;
         private static State swingPool;
@@ -113,6 +113,14 @@ public EditCalculateAndChart() {
                 int Font_Style = Config.getInt("FONT_STYLE",Font.PLAIN);
                 int Precision = Config.getInt("PRECISION",7);
                 jc.setMathContext(new MathContext(Precision));
+               if(!startDir.startsWith("Untitled")){
+                    File dr = new File(startDir);
+                  if(dr.exists()&&dr.isDirectory())
+                    dialog.setCurrentDirectory(dr);         
+                 }
+                else
+                   dialog.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
                 dialog.setMultiSelectionEnabled(false);
                 Memory = new State();
                 swingPool = new State();
@@ -267,6 +275,9 @@ public void saveFileAs() {
                                         currentFile=fileName;
                                         setTitle(currentFile);
                                         Save.setEnabled(false);
+                                      String dr = dialog.getSelectedFile().getParent();
+                                      if(dr != null)
+                                        Config.put("startDir",dr);
                                 }
                                 catch(Exception writeE){
                                     JOptionPane.showMessageDialog(this,writeE.getMessage(),"Save As",JOptionPane.INFORMATION_MESSAGE,myAppIcon);
@@ -465,8 +476,15 @@ public Image getAppImage(){
 }
 
 public  static void main(String[] arg) {
-        if(arg.length > 0)
-          startFile = arg[0];
+        if(arg.length > 0){
+           File argFile=new File(arg[0]);
+          if(argFile.exists()&&argFile.isDirectory())
+                startDir=arg[0];           
+          else
+            if(argFile.exists()&&argFile.isFile())
+            startFile = arg[0];
+        }
+         
        // if((new File(startFile)).getParent() == null)
       //            startFile = System.getProperty("user.dir")+File.separator + startFile; 
         ( new Thread(){

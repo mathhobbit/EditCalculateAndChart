@@ -19,6 +19,7 @@ package org.ioblako.edit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.math.BigDecimal;
+import org.ioblako.math.linearalgebra.Fraction;
 import org.ioblako.math.calculator.jc;
 
 public class PltArgumentParser{
@@ -55,6 +56,7 @@ input=input.trim();
 }
 public void process(String input) throws Exception {
    input= input.replace(" ","");
+   String anend=null;
      for(String bf:input.split("},")){
 
        check(bf,"={");
@@ -63,19 +65,36 @@ public void process(String input) throws Exception {
          bf = bf.substring(bf.indexOf("={")+2);
 
            check(bf,",");
-
-              Steps.add(new BigDecimal(jc.eval(bf.substring(0,bf.indexOf(",")))));
+              anend=bf.substring(0,bf.indexOf(",")); 
+            
+              if(anend.indexOf('/')!=-1)
+                Steps.add((new Fraction(anend)).toBigDecimal());
+              else     
+                Steps.add(new BigDecimal(anend));
 
               bf = bf.substring(bf.indexOf(",")+1);
 
            check(bf,"..");
-
-              Left.add(new BigDecimal(jc.eval(bf.substring(0,bf.indexOf("..")))));
+              anend=jc.eval(bf.substring(0,bf.indexOf("..")));   
+              if(anend.indexOf('/')!=-1)
+                Left.add((new Fraction(anend)).toBigDecimal());
+              else     
+                Left.add(new BigDecimal(anend));
               bf=bf.substring(bf.indexOf("..")+2);
-             if(bf.endsWith("})"))
-               Right.add(new BigDecimal(jc.eval(bf.substring(0,bf.length() - 2))));
-             else
-              Right.add(new BigDecimal(jc.eval(bf)));
+             if(bf.endsWith("})")){
+               anend=jc.eval(bf.substring(0,bf.length() - 2));
+               if(anend.indexOf('/')!=-1)
+                 Right.add((new Fraction(anend)).toBigDecimal());
+               else     
+                 Right.add(new BigDecimal(anend));
+                }
+             else{
+               anend=jc.eval(bf);
+               if(anend.indexOf('/')!=-1)
+                  Right.add((new Fraction(anend)).toBigDecimal());
+               else     
+                  Right.add(new BigDecimal(anend));
+             }
    }//for
 
 }

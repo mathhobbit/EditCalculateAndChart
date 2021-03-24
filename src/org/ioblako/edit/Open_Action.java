@@ -40,6 +40,9 @@ private TextEdit TEdit;
           JFileChooser dialog = TEdit.getFileChooser();
         if(dialog.showOpenDialog((Component) TEdit)==JFileChooser.APPROVE_OPTION) {
                                 TEdit.readInFile(dialog.getSelectedFile().getAbsolutePath());
+                                String dr = dialog.getSelectedFile().getParent();
+                                if(dr != null)
+                                     TEdit.getConfig().put("startDir",dr);
                         }
                        // TEdit.updateTextArea("","Untitled");
                         TEdit.setEnabled("SaveAs",true); 

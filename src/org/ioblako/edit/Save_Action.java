@@ -21,6 +21,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class Save_Action extends AbstractAction {
 public static final long serialVersionUID=1L;
@@ -34,8 +35,12 @@ private TextEdit TEdit;
     }
     public void actionPerformed(ActionEvent e) {
                   String currentFile=TEdit.getCurrentFileName();
-                        if(!currentFile.equals("Untitled"))
+                        if(!currentFile.equals("Untitled")){
                                 TEdit.saveFile(currentFile);
+                                String dr = (new File(currentFile)).getParent();
+                              if(dr != null)
+                                TEdit.getConfig().put("startDir",dr);
+                         }
                         else
                                 TEdit.saveFileAs();
         //displayResult("Action for first button/menu item", e);
