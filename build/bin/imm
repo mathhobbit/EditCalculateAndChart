@@ -1,5 +1,5 @@
 #!/bin/sh
-IOBLAKO_HOME=/Users/sergey_nikitin/work/ECalcAndChart
+IOBLAKO_HOME=/Users/sergey_nikitin/EditCalculateAndChart
 export IOBLAKO_HOME
 
 #CLASSPATH=`echo $IOBLAKO_HOME/build/lib/*.jar|tr ' ' ':'`
@@ -11,12 +11,12 @@ CLASSPATH=`echo $MOD_DIR/*|tr ' ' ':'`
 export CLASSPATH
 echo $CLASSPATH
 
-JDK=jvm/openjdk-15-internal
-
-JAVA=/usr/local/$JDK/bin/java
-JAVAC=/usr/local/$JDK/bin/javac
-JAR=/usr/local/$JDK/bin/jar
-JMOD=/usr/local/$JDK/bin/jmod
+#JAVA_HOME=`/usr/libexec/java_home`
+JAVA_HOME=/usr/local/jvm/openjdk-17-internal
+JAVA=$JAVA_HOME/bin/java
+JAVAC=$JAVA_HOME/bin/javac
+JAR=$JAVA_HOME/bin/jar
+JMOD=$JAVA_HOME/bin/jmod
 
 $JAVA --version
 

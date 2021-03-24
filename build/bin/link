@@ -1,9 +1,11 @@
 #!/bin/sh
-IOBLAKO_HOME=/Users/sergey_nikitin/work/ECalcAndChart
+IOBLAKO_HOME=/Users/sergey_nikitin/EditCalculateAndChart
 export IOBLAKO_HOME
-JDK=jvm/openjdk-15-internal
-JLINK=/usr/local/$JDK/bin/jlink
-JMOD=/usr/local/$JDK/bin/jmod
+#JAVA_HOME=`/usr/libexec/java_home`
+JAVA_HOME=/usr/local/jvm/openjdk-17-internal
+#JDK=jvm/openjdk-17-internal
+JLINK=$JAVA_HOME/bin/jlink
+JMOD=$JAVA_HOME/bin/jmod
 ADDMYMODS=""
 for file in `ls $IOBLAKO_HOME/build/jmods/*.jmod`
 do
@@ -18,18 +20,9 @@ echo $ADDMYMODS
 
 
 
-if [ -d $IOBLAKO_HOME/build/jre ] 
+if [ -d $IOBLAKO_HOME/build/EditCalculateAndChart ] 
 then
-rm -rf $IOBLAKO_HOME/build/jre
+rm -rf $IOBLAKO_HOME/build/EditCalculateAndChart
 fi
-#$JLINK --module-path /usr/local/$JDK/jmods/ --module-path $IOBLAKO_HOME/build/jmods/ --add-modules $ADDMYMODS  --output $IOBLAKO_HOME/build/jre
-$JLINK --module-path /usr/local/$JDK/jmods:$IOBLAKO_HOME/build/jmods --add-modules $ADDMYMODS --launcher ecc=org.ioblako.edit/org.ioblako.edit.EditCalculateAndChart --output $IOBLAKO_HOME/build/jre
-if [ -f ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ]; then
-     cp ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ../jre/lib
-else
- START_DIR=`pwd`
- cd ../modules/org.ioblako.edit
- jar -cvf org.ioblako.edit.resources.jar org/ioblako/edit/resources
- cd $START_DIR
-     cp ../modules/org.ioblako.edit/org.ioblako.edit.resources.jar ../jre/lib
-fi
+#$JLINK --module-path $JAVA_HOME/jmods/ --module-path $IOBLAKO_HOME/build/jmods/ --add-modules $ADDMYMODS  --output $IOBLAKO_HOME/build/jre
+$JLINK --module-path $JAVA_HOME/jmods:$IOBLAKO_HOME/build/jmods --add-modules $ADDMYMODS --launcher EditCalculateAndChart=org.ioblako.edit/org.ioblako.edit.EditCalculateAndChart --output $IOBLAKO_HOME/build/EditCalculateAndChart

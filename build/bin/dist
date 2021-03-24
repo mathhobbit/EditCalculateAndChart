@@ -1,0 +1,40 @@
+#!/bin/sh
+IOBLAKO_HOME=/Users/sergey_nikitin/EditCalculateAndChart
+export IOBLAKO_HOME
+#JAVA_HOME=`/usr/libexec/java_home`
+JAVA_HOME=/usr/local/jvm/openjdk-17-internal
+
+JMOD=$JAVA_HOME/bin/jmod
+
+
+ADDMYMODS=""
+for file in `ls $IOBLAKO_HOME/build/jmods/*.jmod`
+do
+  mymod=`$JMOD describe $file|head -n 1`
+if [ ! -z "$ADDMYMODS" ]; then
+   ADDMYMODS=$ADDMYMODS","$mymod
+else
+    ADDMYMODS=$mymod
+fi
+done
+echo $ADDMYMODS
+
+
+#jpackage --type pkg\
+jpackage --type dmg\
+ --dest ~/EditCalculateAndChart/dist\
+ --name EditCalculateAndChart \
+ --app-version "1.2"\
+ --resource-dir $IOBLAKO_HOME/build/Resources\
+ --copyright "Sergey Nikitin 2017"\
+ --description "Editor that can calculate, plot graphs and 3D surfaces"\
+ --add-modules $ADDMYMODS \
+ --module org.ioblako.edit/org.ioblako.edit.EditCalculateAndChart\
+ -p $IOBLAKO_HOME/build/jmods\
+ --license-file $IOBLAKO_HOME/LICENSE\
+ --icon $IOBLAKO_HOME/images/EditCalculateAndChart.icns\
+ --mac-package-identifier EditCalculateAndChart\
+ --mac-package-name EditCalcAndChart
+ #--mac-sign\
+ #--mac-signing-keychain\
+ #--mac-signing-key-user-name 
