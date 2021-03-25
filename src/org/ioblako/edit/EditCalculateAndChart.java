@@ -275,7 +275,7 @@ public void saveFileAs() {
                                         currentFile=fileName;
                                         setTitle(currentFile);
                                         Save.setEnabled(false);
-                                      String dr = dialog.getSelectedFile().getParent();
+                                      String dr = (new File(fileName)).getParent();
                                       if(dr != null)
                                         Config.put("startDir",dr);
                                 }
