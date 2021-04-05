@@ -1,11 +1,35 @@
 #!/bin/sh
-IOBLAKO_HOME=/Users/sergey_nikitin/EditCalculateAndChart
-export IOBLAKO_HOME
-#JAVA_HOME=`/usr/libexec/java_home`
-JAVA_HOME=/usr/local/jvm/openjdk-17-internal
+getDir(){
+  export $2=`dirname $1`
+}
+testJDK(){
+  if test -f $JAVA_HOME/bin/$2 ; then
+      echo "$2 is in jdk"
+      export  $1=$JAVA_HOME/bin/$2
+  else
+      echo "$2 is not a part of your java development kit (jdk)"
+      exit
+  fi
+}
 
-JMOD=$JAVA_HOME/bin/jmod
-
+if test -z $IOBLAKO_HOME ; then
+  IOBLAKO_HOME=`pwd`
+   getDir $IOBLAKO_HOME IOBLAKO_HOME
+   getDir $IOBLAKO_HOME IOBLAKO_HOME
+  echo "IOBLAKO_HOME=$IOBLAKO_HOME"
+fi
+if test -z $JAVA_HOME ; then
+  echo "JAVA_HOME is not defined"
+  echo "export JAVA_HOME=\"your jdk location\""
+  exit
+else
+echo "JAVA_HOME=$JAVA_HOME"
+  testJDK JPACKAGE jpackage
+  testJDK JMOD jmod
+fi
+echo "Environment variables for the script \"$0\""
+echo "JPACKAGE=$JPACKAGE"
+echo "JMOD=$JMOD"
 
 ADDMYMODS=""
 for file in `ls $IOBLAKO_HOME/build/jmods/*.jmod`
@@ -20,8 +44,7 @@ done
 echo $ADDMYMODS
 
 
-#jpackage --type pkg\
-jpackage --type dmg\
+$JPACKAGE --type dmg\
  --dest ~/EditCalculateAndChart/dist\
  --name EditCalculateAndChart \
  --app-version "1.2"\

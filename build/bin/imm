@@ -1,8 +1,44 @@
 #!/bin/sh
-IOBLAKO_HOME=/Users/sergey_nikitin/EditCalculateAndChart
-export IOBLAKO_HOME
 
-#CLASSPATH=`echo $IOBLAKO_HOME/build/lib/*.jar|tr ' ' ':'`
+getDir(){
+  export $2=`dirname $1`
+}
+
+testJDK(){
+  if test -f $JAVA_HOME/bin/$2 ; then
+      echo "$2 is in jdk"
+      export  $1=$JAVA_HOME/bin/$2
+  else
+      echo "$2 is not a part of your java development kit (jdk)"
+      exit
+  fi
+}
+
+if test -z $IOBLAKO_HOME ; then
+  IOBLAKO_HOME=`pwd`
+   getDir $IOBLAKO_HOME IOBLAKO_HOME 
+   getDir $IOBLAKO_HOME IOBLAKO_HOME 
+  echo "IOBLAKO_HOME=$IOBLAKO_HOME"
+fi
+if test -z $JAVA_HOME ; then
+  echo "JAVA_HOME is not defined"
+  echo "export JAVA_HOME=\"your jdk location\""
+  exit
+else
+echo "JAVA_HOME=$JAVA_HOME"
+  testJDK JMOD jmod
+  testJDK JAVA java
+  testJDK JAR jar
+  testJDK JAVAC javac
+fi
+echo "Environment variables for the script \"$0\""
+echo "IOBLAKO_HOME=$IOBLAKO_HOME"
+echo "JAVA_HOME=$JAVA_HOME"
+echo "JAVA=$JAVA"
+echo "JAVAC=$JAVAC"
+echo "JAR=$JAR"
+echo "JMOD=$JMOD"
+
 
 MOD_DIR=$IOBLAKO_HOME/build/modules
 export MOD_DIR
@@ -10,13 +46,6 @@ export MOD_DIR
 CLASSPATH=`echo $MOD_DIR/*|tr ' ' ':'`
 export CLASSPATH
 echo $CLASSPATH
-
-#JAVA_HOME=`/usr/libexec/java_home`
-JAVA_HOME=/usr/local/jvm/openjdk-17-internal
-JAVA=$JAVA_HOME/bin/java
-JAVAC=$JAVA_HOME/bin/javac
-JAR=$JAVA_HOME/bin/jar
-JMOD=$JAVA_HOME/bin/jmod
 
 $JAVA --version
 
