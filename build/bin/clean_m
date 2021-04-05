@@ -1,7 +1,13 @@
 #!/bin/sh
+getDir(){
+  export $2=`dirname $1`
+}
 
-HOME=/Users/sergey_nikitin/work/ECalcAndChart/build
+if test -z $IOBLAKO_HOME ; then
+  IOBLAKO_HOME=`pwd`
+   getDir $IOBLAKO_HOME IOBLAKO_HOME
+  echo "IOBLAKO_HOME=$IOBLAKO_HOME"
+fi
 
-#$HOME/bin/clean_class.sh $HOME/modules/org.jfree
-$HOME/bin/clean_class.sh $HOME/modules/org.ioblako.edit
-$HOME/bin/clean_class.sh $HOME/modules/org.ioblako.math
+$IOBLAKO_HOME/bin/clean_class.sh $IOBLAKO_HOME/modules/org.ioblako.edit
+$IOBLAKO_HOME/bin/clean_class.sh $IOBLAKO_HOME/modules/org.ioblako.math

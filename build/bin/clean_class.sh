@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOME=/Users/sergey_nikitin/work/ECalcAndChart/build/bin
+HOME=`pwd`
 
 for file in `ls -1 $1`
 do
