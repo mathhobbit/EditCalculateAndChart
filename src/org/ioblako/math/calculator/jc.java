@@ -387,10 +387,17 @@ st=processFunctions(st);
 while(st.indexOf('(')!=-1){
 
    part1= st.substring(0,st.indexOf('('));
+
+
    bf = st.substring(st.indexOf('(')+1);
    inside = getInside(bf);
+
    part2=bf.substring(inside.length()+1);
+
+
     bf = eval(inside);
+    if(bf.indexOf('/')!=-1)
+          bf=getFraction(bf).toBigDecimal(MC).toPlainString();
     if(part1.endsWith("/")&&bf.contains("/"))
            st = part1.substring(0,part1.length()-1)+"*"
             + getFraction(bf).invert().toPlainString()+part2;
