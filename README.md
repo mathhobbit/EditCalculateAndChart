@@ -84,9 +84,7 @@ Windows:
 
 set JAVA_HOME=localtion_of_your_jdk
 
-Finally, you can build it as follows.
-
-Change your directory to
+Finally, change your directory to
 
 EditCalculateAndChart/build/bin
 
@@ -95,7 +93,7 @@ and run
 <br/>sh imm
 <br/>sh link
 
-and it will build the application. The script "ecc" will run it.
+and it will build the application. Edit the script "ecc" that will run it.
 
 On MS Windows run cmd and use the respective *.bat files.
 
