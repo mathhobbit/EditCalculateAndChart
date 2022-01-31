@@ -77,6 +77,7 @@ EditCalculateAndChart/build/modules/org.jfree
 Finally, you need to setup the environment variable JAVA_HOME.
 
 Unix (shell):
+
 export JAVA_HOME=localtion_of_your_jdk
 
 Windows:
