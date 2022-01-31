@@ -73,16 +73,24 @@ private final TextEdit TEdit;
                      if(hilites != null) 
                          for (Highlighter.Highlight hilite1 : hilites) {
                              Shift=Shift+hilite1.getStartOffset();
-                             
+                     String exeString="";        
                      for(String input:(txt.substring(hilite1.getStartOffset(), hilite1.getEndOffset())).split("\\r?\\n"))        
                        try {
                            if(input.replace(" ", "").contentEquals("")){
                                   Shift = Shift+input.length()+1;
                                   continue;
                            }
+                          if(input.endsWith("\\")){
+                           exeString = exeString+input.substring(0,input.length()-1);
+                                  Shift = Shift+input.length()+1;
+                                  continue;
+                          }
+                          exeString = exeString+input;
+                          //debug: System.out.println(exeString);
                            //input = txt.substring(hilite1.getStartOffset(), hilite1.getEndOffset());
-                           if (input.trim().startsWith("?")) {
-                               String name=input.trim().substring(1);
+                           //if (input.trim().startsWith("?")) {
+                           if (exeString.trim().startsWith("?")) {
+                               String name=exeString.trim().substring(1);
                                if(name.indexOf('(')!=-1)
                                    name= name.substring(0,name.indexOf('('));
                                try {
@@ -104,15 +112,17 @@ private final TextEdit TEdit;
                                    Shift=Shift+insertIt.length()+1;
                                   }
                                    catch(ClassNotFoundException | InstantiationException | IllegalAccessException exee1){
-                                      TEdit.showDialog("There is no help for \""+input.substring(1)+"\"");
+                                      TEdit.showDialog("There is no help for \""+exeString.substring(1)+"\"");
                                     }
                                }
+                               exeString="";
                                continue;//return;
                            }
-                           if(input.contains("<-") && !input.endsWith("<-")){
+                           //if(input.contains("<-") && !input.endsWith("<-")){
+                           if(exeString.contains("<-") && !exeString.endsWith("<-")){
                                 Shift=Shift+input.length()+1;
-                               mkey = input.trim().substring(0,input.trim().indexOf("<-")).trim();
-                               mvalue = input.substring(input.indexOf("<-")+2).trim();
+                               mkey = exeString.trim().substring(0,exeString.trim().indexOf("<-")).trim();
+                               mvalue = exeString.substring(exeString.indexOf("<-")+2).trim();
                                try{
                                 if(mvalue.length()>5){
                                    switch(mvalue.trim().toLowerCase().substring(0,5)){
@@ -130,17 +140,21 @@ private final TextEdit TEdit;
                                                  if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       TEdit.put(mkey, returnFile(fl));
+                                                         exeString="";
                                                         continue;//return;
                                                  }
                                          
+                                                exeString="";
                                                 continue; //return;
                                            } 
                                         else{
                                                      TEdit.put(mkey, returnFile(fl));
+                                                    exeString="";
                                                     continue; //return;
                                         }
                                        default:
                                            TEdit.put(mkey,mvalue);
+                                                    exeString="";
                                        break;
                                    }
                                 }
@@ -150,10 +164,11 @@ private final TextEdit TEdit;
                                catch(Exception evalEx){
                                    TEdit.showDialog(evalEx.getMessage());
                                }
+                                                    exeString="";
                                continue;//return;
                            }
-                           if (input.endsWith("->")) {
-                               mkey = input.trim().substring(0,input.trim().indexOf("->"));
+                           if (exeString.endsWith("->")) {
+                               mkey = exeString.trim().substring(0,exeString.trim().indexOf("->"));
                                if (TEdit.containsKey(mkey)) {
                                    Shift=Shift+input.length();
                                    insertIt=System.lineSeparator()+mkey+" = "+TEdit.get(mkey)+System.lineSeparator();
@@ -163,11 +178,12 @@ private final TextEdit TEdit;
                                } else {
                                    TEdit.showDialog("Memory does not contain \""+mkey+"\"");
                                }
+                                                    exeString="";
                                continue;//return;
                            }
-                           if(input.contains("->")){
-                               mkey = input.trim().substring(0,input.trim().indexOf("->"));
-                               mvalue = input.substring(input.indexOf("->")+2).trim();
+                           if(exeString.contains("->")){
+                               mkey = exeString.trim().substring(0,exeString.trim().indexOf("->"));
+                               mvalue = exeString.substring(exeString.indexOf("->")+2).trim();
                                 Shift=Shift+input.length()+1;
                                if(TEdit.containsKey(mkey)&&
                                        mvalue.trim().length()>5&&
@@ -181,9 +197,11 @@ private final TextEdit TEdit;
                                                  if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       writeFile(TEdit.get(mkey), fl);
+                                                    exeString="";
                                                         continue;//return;
                                                  }
                                          
+                                                    exeString="";
                                                  continue;//return;
                                            } 
                                         else{
@@ -192,11 +210,13 @@ private final TextEdit TEdit;
                                                  if(dialog.showSaveDialog((Component)TEdit)==JFileChooser.APPROVE_OPTION) {
                                                          fl = new File(dialog.getSelectedFile().getAbsolutePath());
                                                       writeFile(TEdit.get(mkey), fl);
+                                                    exeString="";
                                                        continue; //return;
                                                  }
                                             }
                                             else         
                                                  writeFile(TEdit.get(mkey), fl);
+                                                    exeString="";
                                                     continue; //return;
                                         }
                                }
@@ -206,34 +226,37 @@ private final TextEdit TEdit;
                                else{
                                    TEdit.showDialog("Memory does not contain \""+mkey+"\"");
                                }
+                                                    exeString="";
                                continue;//return;
                            }
-                           if(input.trim().contentEquals("clear")){
+                           if(exeString.trim().contentEquals("clear")){
                                Shift=Shift+input.length()+1;
                                TEdit.clear();
+                                                    exeString="";
                                continue;//return;
                            }
-                           if(input.trim().startsWith("clear") && input.length()>5){
+                           if(exeString.trim().startsWith("clear") && exeString.length()>5){
                                Shift=Shift+input.length()+1;
-                               mkey = input.trim().substring(5).trim();
+                               mkey = exeString.trim().substring(5).trim();
                                if(TEdit.containsKey(mkey)){
                                    TEdit.remove(mkey);
                                }
                                else{
                                    TEdit.showDialog("Memory does not contain \""+mkey+"\"");
                                }
+                                                    exeString="";
                                continue;//return;
                            }
                            int input_length = input.length();
                            
-                           input = substitute(input);
+                           exeString = substitute(exeString);
                           // if(input.startsWith("plot")||
                            //        input.startsWith("plrPlt")){
-                             if(input.trim().startsWith("plot")){
+                             if(exeString.trim().startsWith("plot")){
                                  Shift=Shift+input_length+1;
                               // String inputV=input.trim();
                                FramePlt frm = (FramePlt)Class.forName("org.ioblako.edit.grPlt").getDeclaredConstructor().newInstance();
-                               frm.setInput("grPlt"+input.trim().substring(4));
+                               frm.setInput("grPlt"+exeString.trim().substring(4));
                                UIManager.put("swing.boldMetal", Boolean.FALSE);
                               // MathContext MathC= jc.MC;
                                javax.swing.SwingUtilities.invokeLater(() -> {
@@ -245,12 +268,13 @@ private final TextEdit TEdit;
                                    }
                                });
                               // jc.setMathContext(MathC);
+                                                    exeString="";
                               continue;// return;
                            }
-                           if(input.indexOf('(')!=-1&&
-                                   input.substring(0,input.indexOf('(')).contains("Plt")){
+                           if(exeString.indexOf('(')!=-1&&
+                                   exeString.substring(0,exeString.indexOf('(')).contains("Plt")){
                                Shift=Shift+input_length+1;
-                               String inputV=input.trim();
+                               String inputV=exeString.trim();
                                FramePlt frm = (FramePlt)Class.forName("org.ioblako.edit."+inputV.substring(0,inputV.indexOf('('))).getDeclaredConstructor().newInstance();
                                frm.setInput(inputV);
                                UIManager.put("swing.boldMetal", Boolean.FALSE);
@@ -265,10 +289,11 @@ private final TextEdit TEdit;
                                });
                               // jc.setMathContext(MathC);
                                
+                                                    exeString="";
                                continue;//return;
                            }
-                           if(input.trim().toLowerCase().startsWith("file(")){
-                               File fl = new File(jc.getInside(input.trim().substring(5),'(',')'));
+                           if(exeString.trim().toLowerCase().startsWith("file(")){
+                               File fl = new File(jc.getInside(exeString.trim().substring(5),'(',')'));
                                
                                if(!fl.exists()||fl.isDirectory()){
                                     JFileChooser dialog = TEdit.getFileChooser();
@@ -278,6 +303,7 @@ private final TextEdit TEdit;
                                           insertIt=System.lineSeparator()+returnFile(fl)+System.lineSeparator();
                                             area.insert(insertIt,Shift);
                                             Shift=Shift+insertIt.length()+1;
+                                                    exeString="";
                                             continue;//return;
                                       }
                                }
@@ -286,20 +312,21 @@ private final TextEdit TEdit;
                                    insertIt = System.lineSeparator()+returnFile(fl)+System.lineSeparator();
                                     area.insert(insertIt, Shift);
                                     Shift=Shift+insertIt.length()+1;
+                                                    exeString="";
                                            continue; //return;
                                }
                                
                            }
-                           if(input.indexOf('=')!=-1 &&
-                                   !input.contains("Rec") &&
-                                   !input.contains("Seq") &&
-                                   !input.contains("Int") &&
-                                   !input.contains("xySeq")&&
-                                   !input.contains("plot") &&
-                                   !input.contains("Plt")){
+                           if(exeString.indexOf('=')!=-1 &&
+                                   !exeString.contains("Rec") &&
+                                   !exeString.contains("Seq") &&
+                                   !exeString.contains("Int") &&
+                                   !exeString.contains("xySeq")&&
+                                   !exeString.contains("plot") &&
+                                   !exeString.contains("Plt")){
                                String prev=null;
                                insertIt="";
-                               for(String current : input.split("=")){
+                               for(String current : exeString.split("=")){
                                    if(prev != null){
                                        current=jc.eval(current.trim());
                                        if(current.contentEquals(prev)){
@@ -325,6 +352,7 @@ private final TextEdit TEdit;
                                     Shift=Shift+insertIt.length()+1;
                                  }
                                 jc.Report="";
+                                                    exeString="";
                               continue; // return;
                            }
                            
@@ -335,7 +363,7 @@ private final TextEdit TEdit;
                            else
                      */
                            
-                           insertIt = jc.eval(substitute(input));
+                           insertIt = jc.eval(substitute(exeString));
                            if (jc.Report.contentEquals("")) {
                                insertIt="="+insertIt;
                                Shift=Shift+input_length;
@@ -351,6 +379,7 @@ private final TextEdit TEdit;
                            //hilite.removeHighlight(hilites[i]);
                        }catch(Exception Ex){
                            TEdit.showDialog(Ex.toString());
+                                                    exeString="";
                            return;
                        }
                    }
