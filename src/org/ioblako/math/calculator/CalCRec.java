@@ -40,8 +40,8 @@ String Report="";
 
     @Override
     public String getHelp() {
-        return "Rec(f1(n,x),f2(n,x),..fm(n,x),{x1=a1,x2=a2,..xm=am;N}) returns {x1(0)..xm(0);x1(2),..xm(2);..x1(N),..xm(N)}"+System.lineSeparator()+
-                "where xj(n+1) =  fj(n,x(n)), xj(0) = aj (j=1,..m) and n=0,..N   ";
+        return "Rec(f1(x),f2(x),..fm(x),{x1=a1,x2=a2,..xm=am;N}) returns {x1(0)..xm(0);x1(2),..xm(2);..x1(N),..xm(N)}"+System.lineSeparator()+
+                "where xj(n+1) =  fj(x(n)), xj(0) = aj (j=1,..m) and n=0,..N   ";
     }
  public final String ExceptionMessage="Format Error";
     @Override
