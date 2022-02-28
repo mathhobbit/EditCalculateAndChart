@@ -29,7 +29,7 @@ import org.ioblako.math.linearalgebra.Fraction;
 
 
 public class jc{
-public static String[] SpecialFunctions ={"Rec","Seq","Int","mod","modInverse","pow","EF","modPow","gcd"};
+public static String[] SpecialFunctions ={"dffEq","Rec","Seq","Int","mod","modInverse","pow","EF","modPow","gcd"};
 public static MathContext MC=MathContext.DECIMAL128;
 public static boolean writeReport=false;
 public static void setMathContext(MathContext newMC){
