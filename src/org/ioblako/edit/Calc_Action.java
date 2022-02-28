@@ -318,6 +318,7 @@ private final TextEdit TEdit;
                                
                            }
                            if(exeString.indexOf('=')!=-1 &&
+                                   !exeString.contains("dffEq") &&
                                    !exeString.contains("Rec") &&
                                    !exeString.contains("Seq") &&
                                    !exeString.contains("Int") &&
