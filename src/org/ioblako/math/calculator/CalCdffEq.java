@@ -42,12 +42,12 @@ public final String ExceptionMessage="Format Error";
     @Override
     public String getHelp() {
         return "returns the approximation of the solution for the initital value problem"+ System.lineSeparator()+
-               "dx1/dt = f1(t,x1,...,xm)"+ System.lineSeparator()+
-               "dx2/dt = f2(t,x1,...,xm)"+ System.lineSeparator()+
+               "dx1/dt = f1(t,x1,...,xm),  x1(0)=x10"+ System.lineSeparator()+
+               "dx2/dt = f2(t,x1,...,xm),  x2(0)=x20"+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
-               "dxm/dt = fm(t,x1,...,xm)"+ System.lineSeparator()+
+               "dxm/dt = fm(t,x1,...,xm),  xm(0)=xm0"+ System.lineSeparator()+
                 " dffEq(f1(t,x1,...,xm),...,fm(t,x1,...,xm),t={method,step,Range_left..Range_right},{x1=x10,...,xm=xm0})"+System.lineSeparator()+
                 "where \"method\" can take values: \"Euler\", \"ImprovedEuler\", \"Runge-Kutta\" "+System.lineSeparator()+
                 "If \"method\" is not present (e.g. dffEq(x+y,2*x-y,t={0.1,0..1},{x=1,y=2})) then \"Runge-Kutta\" rule is used by default.";
