@@ -228,6 +228,7 @@ compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/SmartReplace.java org.
 compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalClslv.java org.ioblako.math
 compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCasin.java org.ioblako.math
 compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCatan.java org.ioblako.math
+compileFile $IOBLAKO_HOME/src/org/ioblako/math/calculator/CalCRec.java org.ioblako.math
 #buildMod org/ioblako/math/calculator org.ioblako.math.calculator calculator
 compileFilesInTheDir org/ioblako/math/calculator org.ioblako.math
 #assembleMod org.ioblako.math org.ioblako.math org.ioblako.math.calculator.jc
