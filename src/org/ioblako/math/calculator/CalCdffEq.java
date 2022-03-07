@@ -42,12 +42,12 @@ public final String ExceptionMessage="Format Error";
     @Override
     public String getHelp() {
         return "returns the approximation of the solution for the initital value problem"+ System.lineSeparator()+
-               "dx1/dt = f1(t,x1,...,xm),  x1(0)=x10"+ System.lineSeparator()+
-               "dx2/dt = f2(t,x1,...,xm),  x2(0)=x20"+ System.lineSeparator()+
+               "dx1/dt = f1(t,x1,...,xm)"+ System.lineSeparator()+
+               "dx2/dt = f2(t,x1,...,xm)"+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
                " ."+ System.lineSeparator()+
-               "dxm/dt = fm(t,x1,...,xm),  xm(0)=xm0"+ System.lineSeparator()+
+               "dxm/dt = fm(t,x1,...,xm)"+ System.lineSeparator()+
                 " dffEq(f1(t,x1,...,xm),...,fm(t,x1,...,xm),t={method,step,Range_left..Range_right},{x1=x10,...,xm=xm0})"+System.lineSeparator()+
                 "where \"method\" can take values: \"Euler\", \"ImprovedEuler\", \"Runge-Kutta\" "+System.lineSeparator()+
                 "If \"method\" is not present (e.g. dffEq(x+y,2*x-y,t={0.1,0..1},{x=1,y=2})) then \"Runge-Kutta\" rule is used by default.";
@@ -90,7 +90,7 @@ public final String ExceptionMessage="Format Error";
              throw new Exception(ExceptionMessage);
 
         if(chunks.length > 2){
-            method = chunks[0];
+            method = chunks[0].replace("\"","");
             step = chunks[1];
             timeInitialValue = chunks[2];
            }
@@ -98,6 +98,7 @@ public final String ExceptionMessage="Format Error";
             step = chunks[0];
             timeInitialValue = chunks[1];
            }
+ 
 
         if(!raw[1].contains("}"))
              throw new Exception(ExceptionMessage);
@@ -110,6 +111,9 @@ public final String ExceptionMessage="Format Error";
         System.out.println("timeTerminalValue = "+timeTerminalValue);
 
         //Calculataing number of steps
+        step=jc.eval(step);
+        timeInitialValue = jc.eval(timeInitialValue);
+        timeTerminalValue=jc.eval(timeTerminalValue);
    
         BigInteger NumberOfSteps = BigInteger.ZERO;
         BigDecimal h = (step.contains("/"))?(new Fraction(step)).toBigDecimal(jc.MC):new BigDecimal(step,jc.MC);           
@@ -140,7 +144,7 @@ public final String ExceptionMessage="Format Error";
              throw new Exception(ExceptionMessage);
           
            String Euler = "", stepSize = h.toPlainString();
- 
+          
           for(int i = 0; i < diffEq.length ;i++){
            
              Euler=(Euler.compareTo("")==0)?Euler+
@@ -160,17 +164,84 @@ public final String ExceptionMessage="Format Error";
 //Improved Euler method
 
         if(method.compareToIgnoreCase("ImprovedEuler") == 0){
+			 String[] diffEq = righHandSideDiffEq.split(",");
 
-        throw new UnsupportedOperationException("Improved Euler method is not yet implemented."); 
+
+            String[] vars = InitialValues.split(",");
+         if(diffEq.length != vars.length )
+             throw new Exception(ExceptionMessage);
+          
+         String[] euler = new String[vars.length];
+          
+           String Euler = "",ImprovedEuler="", stepSize = h.toPlainString();
+          String it="";
+          for(int i = 0; i < diffEq.length ;i++)
+             euler[i]=vars[i].substring(0,vars[i].indexOf("="))+"+"+stepSize+"*"+"("+diffEq[i]+")";
+            
+
+
+          for(int i = 0; i < diffEq.length ;i++){
+             it = diffEq[i]; 
+             it =  SmartReplace.get(it,time,time+"+"+stepSize);    
+             System.out.println(it);
+               for(int j = 0 ; j < vars.length; j++){
+                         it = SmartReplace.get(it,vars[j].substring(0,vars[j].indexOf("=")),euler[j]);
+                          System.out.println(it);
+                  }
+              System.out.println(vars[i]); 
+             String impE=vars[i].substring(0,vars[i].indexOf("="))+"+((("+diffEq[i]+")+"+"("+it+"))/2)*"+stepSize;
+                  
+             ImprovedEuler=(ImprovedEuler.compareTo("")==0)?ImprovedEuler+impE:ImprovedEuler+","+impE;
+           }
+             
+             System.out.println(time+"+"+stepSize+","+ImprovedEuler+",{"
+                                                 +time+"="+Start.toPlainString()+","+InitialValues+";"+
+                                                         NumberOfSteps.toString()+"}");
+                 ret = (new CalCRec()).eval(time+"+"+stepSize+","+ImprovedEuler+",{"
+                                                 +time+"="+Start.toPlainString()+","+InitialValues+";"+
+                                                         NumberOfSteps.toString()+"}"); 
+          }
+
+       
  
-              } 
+               
              
 //Runge-Kutta method
 
         if(method.compareToIgnoreCase("Runge-Kutta") == 0){
-
-        throw new UnsupportedOperationException("Runge-Kutta  method is not yet implemented."); 
-
+          String it="";
+         String[] diffEq = righHandSideDiffEq.split(",");
+            String[] vars = InitialValues.split(",");
+         if(diffEq.length != vars.length )
+             throw new Exception(ExceptionMessage);
+          
+           String Rung = "", stepSize = h.toPlainString();
+          
+          for(int i = 0; i < diffEq.length ;i++){
+			 it=it+"+"+stepSize;
+			 String yn=vars[i].substring(0,vars[i].indexOf("="));
+			 String xn="("+timeInitialValue+")"+it;
+             String k1="("+diffEq[i]+")";
+             String k2="("+SmartReplace.get(SmartReplace.get(diffEq[i],"x","(x+("+stepSize+"/2))"),"y","(y+("+stepSize+"/2)*("+k1+"))")+")";
+             String k3="("+SmartReplace.get(SmartReplace.get(diffEq[i],"x","(x+("+stepSize+"/2))"),"y","(y+("+stepSize+"/2)*("+k2+"))")+")";
+             String k4="("+SmartReplace.get(SmartReplace.get(diffEq[i],"x","x+"+stepSize),"y","y+"+stepSize+"*("+k3+")")+")";
+             String methodr="y+("+stepSize+"/6)*("+k1+"+2*"+k2+"+2*"+k3+"+"+k4+")";
+             Rung=(Rung.compareTo("")==0)?Rung+methodr:Rung+","+methodr;
+           }
+             
+             System.out.println(time+"+"+stepSize+","+Rung+",{"
+                                                 +time+"="+Start.toPlainString()+","+InitialValues+";"+
+                                                         NumberOfSteps.toString()+"}");
+                 ret = (new CalCRec()).eval(time+"+"+stepSize+","+Rung+",{"
+                                                 +time+"="+Start.toPlainString()+","+InitialValues+";"+
+                                                         NumberOfSteps.toString()+"}"); 
+/*
+ * Yn+1=Yn+(H/6)(K1+2K2+2K3+K4)
+ * K1=f(Xn,Yn)
+ * K2=f(Xn+(H/2),Yn+(H/2)K1)
+ * K3=f(Xn+(H/2),Yn+(H/2)K2)
+ * K4=f(Xn+h,Yn+HK3)
+ */
               } 
 
 

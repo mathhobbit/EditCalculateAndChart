@@ -47,15 +47,20 @@ public static String get(String st, String Var, String Val){
 st=st.replace(" ","");
        if(Var.contentEquals(""))
             return st;
+       if(st.compareTo(Var)==0)
+              return Val;
+       if(!st.contains(Var))
+           return st;
+    String ret="", bf="";
 
-       if(st.contentEquals(Var))
-           return Val;
-    String ret="";
-
- int i = 0, j, caseNumber=100;
+ int i = 0, j=0, caseNumber=100;
    while(i < st.length()){
+        bf=st.substring(i); 
+        if(!bf.contains(Var))
+            return ret+bf;
+ 
           for( j = 0 ; j < Var.length() ; j++ )
-                 if(st.charAt(i+j)!= Var.charAt(j))
+                 if(i+j==st.length()||st.charAt(i+j)!= Var.charAt(j))
                       break;
            if(j < Var.length()){
               ret = ret + st.charAt(i);
