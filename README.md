@@ -11,10 +11,10 @@ The calculator has the following functions/operations:
 > "acos", "cos", "atan", "tan", "ln", "exp", "sqrt",
 > "abs", "cross", "dot", "powb", "atan2", "hypot", 
 > "min", "max", "det", "rank", "inv", "lslv", "random",
-> "date", "roots", "rroots", "polynomMin", "Int", "Seq",
+> "date", "roots", "rroots", "polynomMin", "Int", "Seq", "Rec",
 > "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
 > "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt",
-> "crvPlt","EF", "FE", "mod", "modInverse", "pow", "getNR"
+> "crvPlt","EF", "FE", "mod", "modInverse", "pow", "getNR", "dffEq"
 
 
   One can get a quick help by evaluating ?name.
