@@ -15,7 +15,7 @@ The calculator has the following functions.
 "powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
 "polynomMin","Int","Seq","Rec","head","tail",
-"pr","EF","FE","mod","modInverse", "pow","getNR"
+"pr","EF","FE","mod","modInverse", "pow","getNR, dffEq"
 
 ----------------------------------------------------------
 
@@ -321,7 +321,27 @@ Plotting a graph of a 3D function
 gr3DPlt(sin(x*y),x={-pi/2..pi/2},y={-pi/2..pi/2})
 
 
-------------------------------------------------------------
+--------------------------------------------------------
+ODE (Ordinary Differential Equations)
+
+In order to solve an initial value problem for ordinary differential equation
+one can use the procedure "dffEq".
+
+For example, consider
+
+dx/dt = y
+dy/dt = -x
+
+with initial conditions
+
+x(0)=0
+y(0)=1.
+
+The following procedure numerically solves this problem on the interval (0,1).
+
+dffEq(y,-x,t={0.1,0..1},{x=0,y=1})
+
+---------------------------------------------------------- 
 
 EF and FE are implementations of Euler-Fermat algorithm introduced
 by S.Nikitin, see 
@@ -334,3 +354,5 @@ by S.Nikitin, see
 
 posted at ResearchGate.net, and 
 https://arxiv.org/abs/1405.5548
+
+------------------------------------------------------------------------
