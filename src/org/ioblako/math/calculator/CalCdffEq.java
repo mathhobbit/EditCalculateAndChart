@@ -26,7 +26,7 @@
  * K1=h*f(t,Yn)
  * K2=h*f(t+(h/2),Yn+(1/2)K1)
  * K3=h*f(t+(h/2),Yn+(1/2)K2)
- * K4=h*f(t,Yn+K3)
+ * K4=h*f(t+h,Yn+K3)
  * 
  * returns the approximation of the solution for the initital value problem:
 dx1/dt = f1(t,x1,...,xm), x1(t0)=x10,
