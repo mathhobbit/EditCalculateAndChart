@@ -30,6 +30,7 @@ import org.jfree.chart3d.Orientation;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JOptionPane;
 import org.jfree.chart.swing.UIUtils;
 
 import org.ioblako.math.calculator.jc;
@@ -116,18 +117,27 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
             throw new Exception(ExceptionMessage);  
         if(Vars.size()<2)
             throw new Exception(ExceptionMessage);
-             
+        String Zlable="Z";
+        if(Vars.size()>2)
+            Zlable=Vars.get(2);
               chart = Chart3DFactory.createSurfaceChart(
                 "", 
                 function, 
-                this, Vars.get(0),"Z",Vars.get(1));
+                this, Vars.get(0),Zlable,Vars.get(1));
         XYZPlot plot = (XYZPlot) chart.getPlot();
        // plot.setDimensions(new Dimension3D(10, 5, 10));
         ValueAxis3D xAxis = plot.getXAxis();
-        //System.out.println(rangeLeft.get(0));
+        //System.out.println("x bounds: "+rangeLeft.get(0));
+        //System.out.println("x bounds: "+rangeRight.get(0));
         xAxis.setRange(Double.valueOf(rangeLeft.get(0)), Double.valueOf(rangeRight.get(0)));
         ValueAxis3D zAxis = plot.getZAxis();
+        //System.out.println("y bounds: "+rangeLeft.get(1));
+        //System.out.println("y bounds: "+rangeRight.get(1));
         zAxis.setRange(Double.valueOf(rangeLeft.get(1)), Double.valueOf(rangeRight.get(1)));
+       if(rangeLeft.size()>2 && rangeRight.size()>2){
+           ValueAxis3D yAxis = plot.getYAxis();
+        yAxis.setRange(Double.valueOf(rangeLeft.get(2)), Double.valueOf(rangeRight.get(2)));
+        }   
         SurfaceRenderer renderer = (SurfaceRenderer) plot.getRenderer();
         renderer.setColorScale(new RainbowScale(new Range(-1.0, 1.0)));
         renderer.setDrawFaceOutlines(false);
@@ -153,16 +163,18 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
     public double getValue(double x, double y) {
         if(function==null)
             return 0.0;
-        double ret;
+        double ret=0.0;
         try{
+       // ret =Double.valueOf(jc.eval(
+       //    SmartReplace.get(SmartReplace.get(function,Vars.get(0),'('+Double.toString(x)+')'),Vars.get(1),'('+ Double.toString(y)+')')));
         ret =Double.valueOf(jc.eval("2dbl("+
            SmartReplace.get(SmartReplace.get(function,Vars.get(0),'('+Double.toString(x)+')'),Vars.get(1),'('+ Double.toString(y)+')')+")"));
            // function.replace(Vars.get(0),'('+Double.toString(x)+')').replace(Vars.get(1),'('+ Double.toString(y)+')')+
           //      ")"));
         }
         catch(Exception e){
-            return 0.0;
-            //JOptionPane.showMessageDialog(this,e.getMessage());
+            //return 0.0;
+            JOptionPane.showMessageDialog(this,e.getMessage());
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     return ret;
@@ -171,8 +183,9 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
     @Override
     public String getHelp() {
         return "Plotting a graph of a 3D function" +System.lineSeparator()+
-                "Example"+System.lineSeparator()+
-                "gr3DPlt(x^2+y^2,x={-1..1},y={-1..1})";
+                "Examples"+System.lineSeparator()+
+                "gr3DPlt(x^2+y^2,x={-1..1},y={-1..1})"+System.lineSeparator()+
+                "gr3DPlt(x^3+y^3+3*x*y,x={-1.5..1.5},y={-1.5..1.5},z={-12.5..12.5})";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
