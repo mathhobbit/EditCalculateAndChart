@@ -120,6 +120,8 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
         String Zlable="Z";
         if(Vars.size()>2)
             Zlable=Vars.get(2);
+        else
+            getZrange();
               chart = Chart3DFactory.createSurfaceChart(
                 "", 
                 function, 
@@ -188,5 +190,32 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
                 "gr3DPlt(x^3+y^3+3*x*y,x={-1.5..1.5},y={-1.5..1.5},z={-12.5..12.5})";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+ private void getZrange(){
+                       double x_left = Double.valueOf(rangeLeft.get(0));
+                       double x_right=Double.valueOf(rangeRight.get(0));
+                       double y_left = Double.valueOf(rangeLeft.get(1));
+                       double y_right=Double.valueOf(rangeRight.get(1));
+
+                     double x_step = (x_right - x_left)/10.0;
+                     double y_step = (y_right - y_left)/10.0;
+
+                   double buf=getValue(x_left,y_left);
+                   double  max=buf, min=buf;
+
+                    for(int n=1; n<11;n++){
+                            for(int m=1;m<11;m++){
+                                    buf = getValue(x_left+n*x_step,y_left+m*y_step); 
+                                    if(buf > max)
+                                           max=buf;
+                                    else
+                                       if(buf < min)
+                                           min=buf;
+                             }            
+                      }
+                      rangeLeft.add(Double.toString(min));
+                      rangeRight.add(Double.toString(max));
+                      Vars.add("Z");
+            }
     
 }
