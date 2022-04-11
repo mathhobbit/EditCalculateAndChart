@@ -203,8 +203,8 @@ public class gr3DPlt extends AbstractFramePlt3D implements FramePlt, Function3D{
                    double buf=getValue(x_left,y_left);
                    double  max=buf, min=buf;
 
-                    for(int n=1; n<11;n++){
-                            for(int m=1;m<11;m++){
+                    for(int n=0; n<11;n++){
+                            for(int m=0;m<11;m++){
                                     buf = getValue(x_left+n*x_step,y_left+m*y_step); 
                                     if(buf > max)
                                            max=buf;
