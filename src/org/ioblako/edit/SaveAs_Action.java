@@ -17,7 +17,7 @@
 package org.ioblako.edit;
 
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 
 public class SaveAs_Action extends AbstractAction {
