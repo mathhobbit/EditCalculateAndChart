@@ -17,7 +17,7 @@
 package org.ioblako.edit;
 
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
