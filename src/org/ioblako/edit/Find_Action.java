@@ -20,7 +20,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.AbstractAction;
 import javax.swing.JTextArea;
-import javax.swing.ImageIcon;;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
