@@ -17,7 +17,7 @@
 package org.ioblako.math.calculator;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;;
+import java.math.MathContext;
 import org.ioblako.math.linearalgebra.Fraction;
 
 public class CalCln implements CalcFunction {
