@@ -18,7 +18,7 @@ package org.ioblako.edit;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
-import javax.swing.ImageIcon;;
+import javax.swing.ImageIcon;
 import javax.swing.text.DefaultEditorKit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
