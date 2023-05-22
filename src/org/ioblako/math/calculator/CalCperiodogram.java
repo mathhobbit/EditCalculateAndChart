@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *=====================================================================
- * The development of this code is done as Honors Enrichment Contruct
+ * The development of this code is done as Honors Enrichment Contract
  * of Evan Nikitin
  * in the framework of Barrett, The Honors College
  * (under the guidance of Dr. S. Nikitin, nikitin@asu.edu).
