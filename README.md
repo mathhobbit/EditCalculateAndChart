@@ -17,8 +17,8 @@ The calculator has the following functions/operations:
 > "crvPlt","EF", "FE", "mod", "modInverse", "pow", "getNR", "dffEq"
 
 
-  One can get a quick help by evaluating ?name.
-For example,
+  One can get a quick help by evaluating ?name. "Evaluating" means highliting "?name" with your mouse by holding left button and then either clicking the calculator button (the last icon) or holding "control" and then typing "m".
+For example, evaluating
 
 "?sin"
  
