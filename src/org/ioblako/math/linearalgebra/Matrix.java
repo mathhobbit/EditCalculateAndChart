@@ -622,7 +622,7 @@ public boolean CheckSanity(){
      * @author Team343
      * @return The number of rows in the matrix
      */
-    public int m()
+    public final int m()
     {
         return M;
     }
@@ -661,7 +661,7 @@ public boolean CheckSanity(){
      * @author Team343
      * @return The number of columns in the matrix
      */
-	public int n()
+	public final int n()
     {
 		return N;
 	}
