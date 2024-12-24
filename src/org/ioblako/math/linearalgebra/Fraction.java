@@ -238,15 +238,11 @@ public static Fraction plainFraction(String number){
     }
 
     /**
-     * If the numerator is negative, return a new Fraction with the
-     * numerator negated. Otherwise, return the caller.
      * @return A nonnegative Fraction representation
      */
     public Fraction abs()
     {
-        if (numerator.compareTo(BigInteger.ZERO) == -1)
-            return new Fraction(denominator,numerator.negate());
-        return this;
+        return new Fraction(denominator.abs(),numerator.abs());
     }
     
     /**
@@ -783,6 +779,17 @@ public static Fraction plainFraction(String number){
 
         return new Fraction(den,num);
     }
-    
+public static void main(String[] argv) throws Exception {
+
+      System.out.println("Testing abs()\n");
+      System.out.println("========================\n");
+      Fraction fr = new Fraction("-4/5");  
+      System.out.println("abs(-4/5) = "+fr.abs().toString()+"\n");
+      System.out.println("========================\n");
+
+      System.out.println(" (new Fraction(\"-4/8\")).toString() = " +(new Fraction("-4/8")).toString()+"\n");
+       
+}
+
 
 }
