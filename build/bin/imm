@@ -283,4 +283,10 @@ assembleMod org.ioblako.core org.ioblako.core
 assembleMod org.ioblako.math org.ioblako.math
 assembleMod org.jfree org.jfree
 assembleMod org.jfree.chart3d org.jfree.chart3d
+#for compiling a file.
+#For example
+#./imm -f ~/program/Java/ioblako/src/org/ioblako/math/linearalgebra/Matrix.java org.ioblako.math
+if [ $1 = "-f" ]; then
+compileFile $2 $3
+fi
 
