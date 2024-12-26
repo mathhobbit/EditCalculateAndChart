@@ -41,6 +41,7 @@ import java.util.*;
  * @author John Burrell
  * @author Teran Chase
  * @author Sharavan Sridhar
+ * @author Sergey Nikitin
  */
 public class Matrix implements Cloneable, java.io.Serializable
 {
