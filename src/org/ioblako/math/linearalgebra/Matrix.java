@@ -55,6 +55,18 @@ public class Matrix implements Cloneable, java.io.Serializable
      */
     private final int N;
 
+   /**
+     * Transporition of the matrix
+     */
+
+   private Matrix Transposed = null;
+
+    /**
+     * Transporition of the matrix
+     */
+
+   private Matrix GramMatrix = null;
+
     /**
      * Contains all the coefficients of the M-by-N array
      */
@@ -836,11 +848,13 @@ public boolean CheckSanity(){
      */
     public Matrix transpose()
     {
-        Matrix A = new Matrix(N, M);
+      if (Transposed == null ) {
+             Transposed = new Matrix(M,N);
         for (int mx = 0; mx < M; mx++)
             for (int nx = 0; nx < N; nx++)
-                A.data[nx][mx] = this.data[mx][nx];
-        return A;
+                Transposed.data[nx][mx] = this.data[mx][nx];
+         }//if
+        return Transposed;
     }
 
     /**
@@ -984,5 +998,20 @@ public Matrix toRREF()
         }
         return M;
     }//RREF method
+ /**
+     * Returns the Gram matrix, see
+     * <a href="http://en.wikipedia.org/wiki/Gram_matrix">
+     * @author Sergey Nikitin
+     * @param A
+     * @return A times A transposed
+     */
+public static  Matrix getGram ( Matrix A ){
+  return A.multiply(A.transpose());
+}//getGram
+public final Matrix getGram(){
+ if(GramMatrix == null )
+   GramMatrix = this.multiply(this.transpose());
+  return GramMatrix;
+}
 
 }//end Matrix class
