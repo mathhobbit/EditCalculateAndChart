@@ -63,7 +63,10 @@ public class Matrix implements Cloneable, java.io.Serializable
    private Matrix Transposed = null;
 
     /**
-     * Transporition of the matrix
+     * The matrix of Gram associated with the matrix
+     * see
+     * https://en.wikipedia.org/wiki/Gram_matrix
+     * for details.
      */
 
    private Matrix GramMatrix = null;
@@ -998,10 +1001,159 @@ public Matrix toRREF()
             lead++;
         }
         return M;
-    }//RREF method
+    }//RREF method  
+  /**
+     * Bring a MxN matrix with M being less or equal to N to an uppertriangular form {A_ij}
+     * such that A_ij = 0 for i < j or i = j. Note that the original MxN matrix is not necessary square,
+     * M = N or M < N.
+     * @author Sergey Nikitin
+     * @param  a MxN matrix with M being less or equal to N
+     * @return an upper triangular matrix A
+     */
+
+
+public static Matrix getUpperTriangular(Matrix A) throws Exception{
+                     return new Matrix(Matrix.getUpperTriangular(A.getArray()));
+}
+   /**
+     * Bring a MxN array with M being less or equal to N to an uppertriangular array {A_ij}
+     * such that A_ij = 0 for i < j or i = j. Note that the original MxN array is not necessary square,
+     * M = N or M < N.
+     * @author Sergey Nikitin
+     * @param  a MxN array with M being less or equal to N
+     * @return an upper triangular array A
+     */
+
+public static Fraction[][] getUpperTriangular(Fraction[][] D) throws Exception{
+ if(D[0][0].equals(Fraction.ZERO) || D[0].length < D.length )
+     throw new Exception("The matrix can not be transformed into an uppertriangular form!!!");
+
+ if (D.length == 1)
+   return D;
+
+  Fraction[][] Ret = new Fraction[D.length][D[0].length];
+  Fraction[][] S = new Fraction[D.length - 1][D[0].length-1];
+
+  for(int i = 0; i < D[0].length;i++)
+      Ret[0][i]=D[0][i];
+  for(int i = 1; i < D.length;i++){
+       Ret[i][0]=Fraction.ZERO;
+    for(int j = 1; j < D[0].length; j++)
+               S[i-1][j-1]=(D[0][0].multiply(D[i][j])).subtract(D[0][j].multiply(D[i][0]));
+  }//for
+
+ Fraction[][]  M = getUpperTriangular(S);
+      for(int i = 1; i < D.length;i++)
+        for(int j = 1; j < D[0].length; j++)
+                Ret[i][j]=M[i-1][j-1];
+
+return Ret;
+}//getUpperTriangular
+   /**
+     * This method returns an array Fraction[][].
+     * Given a MxN array A with M being less or equal to N  the procedure will augment it with the
+     * identity MxM matrix I, i.e., A --> (A|I). Then elementary row operations will transform
+     * (A|I) into (U|L^(-1)), where U is an MxN upper triangular (all entries below the main diagonal are zeroes) and
+     * L^(-1) is the low triangular, in fact, it is the inverse of the low triagular MxM matrix L, such that
+     *   A = LU.
+     * The latter is called the LU factorization of A.
+     * @author Sergey Nikitin
+     * @param  a MxN array A with M being less or equal to N
+     * @return an upper triangular array (U|L^(-1))
+     */
+
+public static Fraction[][] getLU(Fraction[][] A) throws Exception{
+ if( A[0].length < A.length )
+     throw new Exception("The matrix can not be transformed into an uppertriangular form!!!");
+
+ Fraction[][] D = ((new Matrix(A)).augmentMatrix(Matrix.identity(A.length))).getArray();
+    return Matrix.getUpperTriangular(D);
+}//getLU
+
+   /**
+     * This method returns a Matrix class.
+     * Given a MxN array A with M being less or equal to N  the procedure will augment it with the
+     * identity MxM matrix I, i.e., A --> (A|I). Then elementary row operations will transform
+     * (A|I) into (U|L^(-1)), where U is an MxN upper triangular (all entries below the main diagonal are zeroes) and
+     * L^(-1) is the low triangular, in fact, it is the inverse of the low triagular MxM matrix L, such that
+     *   A = LU.
+     * The latter is called the LU factorization of A.
+     * @author Sergey Nikitin
+     * @param  a MxN matrix A with M being less or equal to N
+     * @return an upper triangular matrix (U|L^(-1))
+     */
+public static Matrix getLU(Matrix A) throws Exception{
+ if( A.n() < A.m() )
+     throw new Exception("The matrix can not be transformed into an uppertriangular form!!!");
+
+ Fraction[][] D = (A.augmentMatrix(Matrix.identity(A.m()))).getArray();
+    return new Matrix(Matrix.getUpperTriangular(D));
+}//getLU
+/**
+  * Given A it returns an upper triangular matrix U from an LU factorization of A,
+  * A = LU
+  * @author Sergey Nikitin
+  * @param  a MxN matrix A with M being less or equal to N
+  *  @return an upper triangular matrix U from A = LU
+  */
+
+public static Matrix getUfromLU(Matrix A) throws Exception{
+  if( A.n() < A.m() )
+     throw new Exception("The matrix does not have an LU factorization!!!");
+     return new Matrix(Matrix.getUpperTriangular(A.getArray()));
+}
+/**
+  * Given A it returns a low triangular matrix L^(-1) which is
+  * the inverse of L from an LU factorization of A,
+  * A = LU
+  * @author Sergey Nikitin
+  * @param  a MxN matrix A with M being less or equal to N
+  *  @return a low triangular matrix L from A = LU
+  */
+public static Matrix getInverseOfLfromLU(Matrix A) throws Exception{
+  if( A.n() < A.m() )
+     throw new Exception("The matrix does not have an LU factorization!!!");
+     int Size = A.m();
+     Fraction[][] dataForL= new Fraction[Size][Size];
+     Fraction[][] extendedData = Matrix.getUpperTriangular(Matrix.augmentMatrix(A,Matrix.identity(Size)).getArray());
+     for(int mx=0 ; mx < Size ;mx++){
+          for( int nx = 0; nx < Size ; nx++)
+              dataForL[mx][nx] = extendedData[nx][Size+nx];
+     }
+     return new Matrix(dataForL);
+}
+/**
+  * Given A it returns a low triangular matrix L
+  * from an LU factorization of A,
+  * A = LU
+  * @author Sergey Nikitin
+  * @param  a MxN matrix A with M being less or equal to N
+  *  @return a low triangular matrix L from A = LU
+  */
+
+public static Matrix getLfromLU(Matrix A) throws Exception{
+          return getInverseOfLfromLU(A).inverse();
+}
+
+   /**
+     * This method returns a Matrix class.
+     * The procedure will augment the current Matrix  (referred as "this")  with the
+     * identity MxM matrix I, i.e., "this" --> ("this"|I). Then elementary row operations will transform
+     * ("this"|I) into (U|L^(-1)), where U is an MxN upper triangular (all entries below the main diagonal are zeroes) and
+     * L^(-1) is the low triangular, in fact, it is the inverse of the low triagular MxM matrix L, such that
+     *   "this" = LU.
+     * The latter is called the LU factorization of "this".
+     * @author Sergey Nikitin
+     * @param void ("this")
+     * @return an upper triangular matrix (U|L^(-1))
+     */
+public Matrix getLU()throws Exception{
+  return Matrix.getLU(this);
+}
+	
  /**
      * Returns the Gram matrix, see
-     * <a href="http://en.wikipedia.org/wiki/Gram_matrix">
+     * <a href="http://en.wikipedia.org/wiki/Gram_matrix"> Gram matrix </a>
      * @author Sergey Nikitin
      * @param A
      * @return A times A transposed
