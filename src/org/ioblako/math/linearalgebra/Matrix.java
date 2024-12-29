@@ -323,31 +323,69 @@ public boolean CheckSanity(){
      * @param B A matrix with as many rows as A and an arbitrary number of columns
      * @return Augmented matrix A|B
      */
-	public Matrix augmentMatrix(Matrix B)
+       public Matrix augmentMatrix(Matrix B)
     {
-		Matrix augmentedMatrix = null;
+                Matrix augmentedMatrix = null;
 
-		//Throws an exception if A's M-number and B's M-number aren't equal
-		if (M != B.M)
-			throw new ArrayIndexOutOfBoundsException("Number of rows should be equal between A and B!");
+                //Throws an exception if A's M-number and B's M-number aren't equal
+                if (M != B.M)
+                        throw new ArrayIndexOutOfBoundsException("Number of rows should be equal between A and B!");
 
-		//Create an empty array of Fractions where the number of
+                //Create an empty array of Fractions where the number of
         //rows = the number of rows in A = the number of rows in B
-		Fraction[][] augData = new Fraction[this.data.length][this.data[0].length + B.data[0].length];
 
-        Fraction[] column = new Fraction[B.M];
-		//Fill the augmented matrix's remaining columns with B
-        for (int mx = 0; mx < B.M; mx++)
+                int shift = this.data[0].length;
+                Fraction[][] augData = new Fraction[this.data.length][shift + B.data[0].length];
+
+        for (int mx = 0; mx < this.data.length; mx++)
         {
-            for (int nx = 0; nx < B.N; nx++)
-                column[mx] = B.data[mx][nx];
-            augmentColumn(column);
+            for (int nx = 0; nx < this.data[0].length; nx++)
+                augData[mx][nx] = this.data[mx][nx];
+        }
+         Fraction[][] dataFromB = B.getArray();
+        for (int mx = 0; mx < dataFromB.length; mx++)
+        {
+            for (int nx = 0; nx < dataFromB[0].length; nx++)
+                augData[mx][shift+nx] = dataFromB[mx][nx];
         }
 
-		//Instantiate the augmented matrix using the new array of Fractions
-		augmentedMatrix = new Matrix(augData);
-		return augmentedMatrix;
-	}
+                //Instantiate the augmented matrix using the new array of Fractions
+                augmentedMatrix = new Matrix(augData);
+                return augmentedMatrix;
+        }
+   /**
+     * @author Sergey Nikitin
+     * @param B A matrix with as many rows as A and an arbitrary number of columns
+     * @return Augmented matrix A|B
+     */
+    public static Matrix augmentMatrix(Matrix A, Matrix B){
+                Matrix augmentedMatrix = null;
+
+                //Throws an exception if A's M-number and B's M-number aren't equal
+                if (A.M != B.M)
+                        throw new ArrayIndexOutOfBoundsException("Number of rows should be equal between A and B!");
+
+                Fraction[][] dataFromA = A.getArray();
+                Fraction[][] dataFromB = B.getArray();
+                int shift = dataFromA[0].length;
+                Fraction[][] augData = new Fraction[dataFromA.length][shift + B.data[0].length];
+
+        for (int mx = 0; mx < dataFromA.length; mx++)
+        {
+            for (int nx = 0; nx < dataFromA[0].length; nx++)
+                augData[mx][nx] = dataFromA[mx][nx];
+        }
+        for (int mx = 0; mx < dataFromB.length; mx++)
+        {
+            for (int nx = 0; nx < dataFromB[0].length; nx++)
+                augData[mx][shift+nx] = dataFromB[mx][nx];
+        }
+
+                //Instantiate the augmented matrix using the new array of Fractions
+                augmentedMatrix = new Matrix(augData);
+                return augmentedMatrix;
+
+    }
 
     /**
      * Clones the <tt>Matrix</tt> object
