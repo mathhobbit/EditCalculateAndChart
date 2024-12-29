@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#it works fine with "bash". Otherwise, you might need to tweak it a bit.
 getDir(){
   export $2=`dirname $1`
 }
@@ -286,7 +286,7 @@ assembleMod org.jfree.chart3d org.jfree.chart3d
 #for compiling a file.
 #For example
 #./imm -f ~/program/Java/ioblako/src/org/ioblako/math/linearalgebra/Matrix.java org.ioblako.math
-if [ $1 = "-f" ]; then
-compileFile $2 $3
-fi
+#if [ $1 = "-f" ]; then
+#compileFile $2 $3
+#fi
 
