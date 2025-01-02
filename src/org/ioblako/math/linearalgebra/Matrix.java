@@ -891,7 +891,7 @@ public boolean CheckSanity(){
     public Matrix transpose()
     {
       if (Transposed == null ) {
-             Transposed = new Matrix(M,N);
+             Transposed = new Matrix(N,M);
         for (int mx = 0; mx < M; mx++)
             for (int nx = 0; nx < N; nx++)
                 Transposed.data[nx][mx] = this.data[mx][nx];
