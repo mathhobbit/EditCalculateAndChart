@@ -34,7 +34,7 @@ if(argv.startsWith("{"))
 if(argv.endsWith("}"))
    argv=argv.substring(0, argv.length()-1);
 if(!argv.contains(",")&&!argv.contains(";"))
-  return Double.toString(1/Double.valueOf(argv)); 
+  return Double.toString(Double.valueOf(argv)); 
 
 Matrix A = jc.StringToMatrix(argv);
 
