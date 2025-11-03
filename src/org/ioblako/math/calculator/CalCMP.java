@@ -63,7 +63,7 @@ for(int i  = 1; i < Rows.length; i++)
         } 
 
 
-  return (new Matrix(data)).MP().toString(); 
+  return jc.toStr((new Matrix(data)).MoorePenroseInverse()); 
 }
 public void setReport(String str){
  Report=str;
