@@ -56,9 +56,24 @@ public class Matrix implements Cloneable, java.io.Serializable
      * Number of columns of the matrix
      */
     private final int N;
+	
+ /**
+     * MoorePenroseInverse of the matrix under the condition that it exists.
+     * Otherwise, it is set to null.
+     */
+
+    private Matrix MoorePenroseInverse=null;
+
+    /**
+     * ModifiedGramSchmidt fot the matrix under the condition that it exists.
+     * Otherwise, it is set to null.
+     */
+
+    private Matrix ModifiedGramSchmidt=null;
+    private Fraction[] ModifiedGramSchmidtSquares=null;
 
    /**
-     * Transporition of the matrix
+     * Transposition of the matrix
      */
 
    private Matrix Transposed = null;
@@ -1369,5 +1384,6 @@ private void UpdateMoorePenroseInverse(Matrix Column,Matrix mGScolumn) throws Ex
     }
 
 }//end Matrix class
+
 
 
