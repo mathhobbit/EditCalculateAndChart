@@ -36,12 +36,13 @@ import java.util.*;
  * the National Institute of Standards and Technology (released into the public
  * domain).
  * @author Robert Fruchtman
- * @author Mohamed Abdullah
+ * @author Mohamed Abdullah@author Rohan Vanteri
  * @author Mark Arvieux
  * @author John Burrell
  * @author Teran Chase
  * @author Sharavan Sridhar
  * @author Sergey Nikitin
+ * @author Rohan Vanteri
  */
 public class Matrix implements Cloneable, java.io.Serializable
 {
@@ -1368,4 +1369,5 @@ private void UpdateMoorePenroseInverse(Matrix Column,Matrix mGScolumn) throws Ex
     }
 
 }//end Matrix class
+
 
