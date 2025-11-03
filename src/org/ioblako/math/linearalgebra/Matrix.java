@@ -1377,13 +1377,26 @@ private void UpdateMoorePenroseInverse(Matrix Column,Matrix mGScolumn) throws Ex
         Matrix dp = M1.multiply(M2.transpose());
         return getTrace(dp);
     }
+	
    public Matrix getModifiedGramSchmidtSquares() throws Exception{
               if(ModifiedGramSchmidtSquares == null)
                   ModifiedGramSchmidt();
              return new Matrix(ModifiedGramSchmidtSquares);
     }
+    /**
+     * @param cix A column index for a matrix
+     * @return  a specified column of the calling matrix
+     * @author Team343
+     */
+    public Matrix getColAsMatrix(int cix) {
+        Fraction[][] ret = new Fraction[M][1];
+        for (int mx = 0; mx < M; mx++)
+            ret[mx][0] = this.data[mx][cix];
+        return new Matrix(ret);
+    }
 
 }//end Matrix class
+
 
 
 
