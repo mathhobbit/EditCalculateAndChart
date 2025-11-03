@@ -1204,5 +1204,168 @@ public final Matrix getGram(){
    GramMatrix = this.multiply(this.transpose());
   return GramMatrix;
 }
+   /**
+     * Returns true if vectors are linearly independent. False, otherwise.
+     *
+     * @param vectors
+     * @return boolean true or false
+     * @author Rohan Vanteri
+     */
+
+    public static boolean checkLinearIndependence(ArrayList<Matrix> vectors) {
+        Matrix V1 = vectors.getFirst();
+
+        for (int i = 1; i < vectors.size(); i++) {
+            V1 = V1.augmentColumn(vectors.get(i));
+        }
+        V1 = V1.toRREF();
+
+        return rank(V1) == V1.n();
+    }
+ private void UpdateModifiedGramSchmidt(Matrix Col) throws Exception{
+                  if(ModifiedGramSchmidt == null)
+                        return;
+
+        Matrix V = Col;
+        Matrix toBeAppended = V;
+        Matrix W = null;
+        for(int i = 0 ; i < ModifiedGramSchmidt.n();i++){
+            W = ModifiedGramSchmidt.getColAsMatrix(i);
+            toBeAppended = toBeAppended.subtract(W.multiply(DotProduct(V,W).multiply(ModifiedGramSchmidtSquares[i].invert())));
+        }
+          Fraction  VdotV = DotProduct(toBeAppended, toBeAppended);
+            if (Fraction.ZERO.compareTo(VdotV) == 0){
+                ModifiedGramSchmidt = null;
+                ModifiedGramSchmidtSquares = null;
+                throw new Exception("ModifiedGramSchmidt does not accept matrix with linearly dependent columns!");
+                }
+
+         ModifiedGramSchmidt=ModifiedGramSchmidt.augmentColumn(toBeAppended);
+          ModifiedGramSchmidtSquares[ModifiedGramSchmidt.n()-1] = VdotV;
+          return;
+   }
+  /**
+     * Returns the modified Gram-Schmidt matrix for for V=(V_1, V_2, ..., V_m),
+     * where columns V_1, V_2, ..., V_m are linearly independent.
+     * The algorithm implemented by this code is a well known modification of
+     * Gram-Schmidt method
+     *(see, for example, John R. Rice. Experiments on Gram-Schmidt Orthogonalization. Math. Comp., 20 (1966) 325-328)
+     * @return the modified Gram-Schmidt matrix
+     * @author Rohan Vanteri, Sergey Nikitin
+     */
+
+     public Matrix  ModifiedGramSchmidt() throws Exception {
+        if(ModifiedGramSchmidt != null)
+            return ModifiedGramSchmidt;
+            ModifiedGramSchmidtSquares = new Fraction[n()];
+            for(int i = 0; i < n();i++)
+               ModifiedGramSchmidtSquares[i] = Fraction.ZERO;
+            Matrix V = getColAsMatrix(0);
+          Fraction  VdotV = DotProduct(V, V);
+            if (Fraction.ZERO.compareTo(VdotV) == 0){
+                ModifiedGramSchmidt = null;
+                throw new Exception("ModifiedGramSchmidt does not accept matrix with zero columns!");
+                }
+
+
+             ModifiedGramSchmidt = V;
+             ModifiedGramSchmidtSquares[0] = VdotV;
+        if (n() == 1)
+            return ModifiedGramSchmidt;
+
+         for(int i = 1;i < n(); i++)
+               UpdateModifiedGramSchmidt(getColAsMatrix(i));
+
+
+            return ModifiedGramSchmidt;
+     }
+ /**
+     * Returns the Moore-Penrose inverse for V=(V_1, V_2, ..., V_m),
+     * where columns V_1, V_2, ..., V_m are linearly independent.
+     * The algorithm implemented by this code is published in
+     * <a href="https://www.researchgate.net/publication/395709421_Algorithm_for_calculating_and_updating_Moore-Penrose_inverse">Algorithm for calculating and updating Moore-Penrose inverse</a>
+     *
+     * @return the Moore-Penrose inverse
+     * @author Rohan Vanteri, Sergey Nikitin
+     */
+
+    public Matrix MoorePenroseInverse() throws Exception {
+        if(MoorePenroseInverse != null)
+            return MoorePenroseInverse;
+        //  only 1 vector, find the MP manually
+            Matrix V = getColAsMatrix(0);
+            Fraction VdotV = DotProduct(V, V);
+            if (Fraction.ZERO.compareTo(VdotV) == 0)
+                throw new Exception("The current version of the Moore-Penrose inverse does not accept matrix with zero columns!");
+
+
+             MoorePenroseInverse = (V.multiply(VdotV.invert())).transpose();
+        if (n() == 1)
+            return MoorePenroseInverse;
+
+
+       Matrix mGS= ModifiedGramSchmidt();
+
+        for(int i = 1; i<n();i++)
+           UpdateMoorePenroseInverse(getColAsMatrix(i),mGS.getColAsMatrix(i).multiply(ModifiedGramSchmidtSquares[i].invert()));
+
+           return MoorePenroseInverse;
+
+    }
+private void UpdateMoorePenroseInverse(Matrix Column,Matrix mGScolumn) throws Exception{
+                  if(MoorePenroseInverse == null)
+                        return;
+
+       Matrix MP = MoorePenroseInverse;
+       MP = MP.subtract(MP.multiply(Column).multiply(mGScolumn.transpose()));
+       MoorePenroseInverse = ((MP.transpose()).augmentColumn(mGScolumn)).transpose();
+ }
+
+    public static Fraction Trace(Matrix M) throws Exception {
+        return getTrace(M);
+    }
+
+    public static Fraction getTrace(Matrix M) throws Exception {
+        if (M.n() != M.m())
+            throw new Exception("Trace is define only to square matrices!");
+
+        Fraction[][] dt = M.data;
+        Fraction ret = Fraction.ZERO;
+        for (int i = 0; i < dt.length; i++) {
+            ret = ret.add(dt[i][i]);
+        }
+        return ret;
+
+    }
+   public static Fraction DotProductOfArrays(Fraction[] V, Fraction[] W) throws Exception {
+
+      if(V.length != W.length )
+                 throw new Exception("Dot product is defined only for arrays of the same length!");
+
+       Fraction ret =Fraction.ZERO;
+
+       for(int i = 0; i<V.length;i++)
+             ret = ret.add(V[i].multiply(W[i]));
+        return ret;
+
+   }
+    public static Fraction DotProduct(Matrix M1, Matrix M2) throws Exception {
+        return getDP(M1, M2);
+    }
+
+
+    public static Fraction getDP(Matrix M1, Matrix M2) throws Exception {
+        if (M1.n() != M2.n() || M1.m() != M2.m()) {
+            throw new Exception("The dot product is only defined for matrices with the same number of rows and columns!");
+        }
+        Matrix dp = M1.multiply(M2.transpose());
+        return getTrace(dp);
+    }
+   public Matrix getModifiedGramSchmidtSquares() throws Exception{
+              if(ModifiedGramSchmidtSquares == null)
+                  ModifiedGramSchmidt();
+             return new Matrix(ModifiedGramSchmidtSquares);
+    }
 
 }//end Matrix class
+
