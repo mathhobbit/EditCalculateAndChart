@@ -965,32 +965,10 @@ public boolean CheckSanity(){
 	}
 
 public Matrix inverse() throws Exception{
-  if(N != M)
+    if(N > M)
       throw new Exception("Inverse matrix does not exists!");
 
-Fraction[][]  ident = new Fraction[N][N];
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-        if(i==j)
-            ident[i][j] = Fraction.ONE;
-        else
-            ident[i][j] = Fraction.ZERO;
-Fraction[][] agm = new Fraction[N][2*N];
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-          agm[i][j]=get(i,j);
-for(int i = 0;i<N;i++)
-    for(int j = N; j< 2*N; j++)
-          agm[i][j]=ident[i][j-N];
-
- Matrix A = (new Matrix(agm)).toRREF();
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-          ident[i][j]=A.get(i,N+j);
-return new Matrix(ident);
+    return MoorePenroseInverse();
 }
  /**
      * Converts a matrix to reduced row echelon form by iterating over the
@@ -1396,6 +1374,7 @@ private void UpdateMoorePenroseInverse(Matrix Column,Matrix mGScolumn) throws Ex
     }
 
 }//end Matrix class
+
 
 
 
