@@ -37,38 +37,10 @@ if(!argv.contains(",")&&!argv.contains(";"))
   return Double.toString(1/Double.valueOf(argv)); 
 
 Matrix A = jc.StringToMatrix(argv);
-
-if(A.n() != A.m())
+if(A.n() > A.m())
   throw new Exception("Inverse matrix does not exists!");
 
-int N = A.n();
-
-Fraction[][]  ident = new Fraction[N][N];
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-        if(i==j)
-            ident[i][j] = Fraction.ONE;
-        else
-            ident[i][j] = Fraction.ZERO;
-Fraction[][] agm = new Fraction[N][2*N];
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-          agm[i][j]=A.get(i,j);
-for(int i = 0;i<N;i++)
-    for(int j = N; j< 2*N; j++)
-          agm[i][j]=ident[i][j-N];
-          
-//return jc.toStr(new Matrix(agm));
-                   
-A = (new Matrix(agm)).toRREF();
-
-for(int i = 0;i<N;i++)
-    for(int j = 0; j< N; j++)
-          ident[i][j]=A.get(i,N+j);
-
-return jc.toStr(new Matrix(ident));
+return jc.toStr(A.MoorePenroseInverse());
 }
 public void setReport(String str){
  Report=str;
