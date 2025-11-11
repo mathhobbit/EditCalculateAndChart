@@ -1,0 +1,192 @@
+sin<-eval(Seq(n,sin(n),n={1,1..10000}))
+xyPlt(sin)
+
+
+
+
+
+s<-eval(Seq(n,(1+1/n)^n,n={1,1..100}))
+b<-eval(Seq(0.2,(1+1/n)^n,n={1,1..100}))
+xyPlt(s,b)
+
+
+8.1 Sequences  (p.425)
+--------------
+
+Definition of the limit. p.427
+
+Properties of limits. p. 429
+
+V Example 10, p. 431 {r^n} p.432
+monotonic sequences p.433
+
+WebW. 8.1, 3
+
+B<-eval(Seq(0,1/n+(-1)^n,n={1,1..10}))
+A<-eval(Seq(n,1/n+(-1)^n,n={1,1..10}))
+One<-eval(Seq(n,1,n={1,1..10}))
+MinusOne<-eval(Seq(n,-1,n={1,1..10}))
+xyPlt(A)
+xyPlt(A,One,MinusOne)
+
+
+xyPlt(A,B)
+
+8.1  Sequences
+   --------------
+
+s<-eval(Seq(1/n,n={1,1..10000}))
+sum(s)=9.787606036010=7.485470860539=5.187377517641=2.928968253968
+A<-eval(Seq(n,1/n,n={1,1..50}))
+B<-eval(Seq(0,1/n,n={1,1..50}))
+xyPlt(A,B)
+
+A<-eval(Seq(n,cos(n*pi/6),n={1,1..100}))
+xyPlt(A)
+A<-eval(Seq(m,m*sin(1/m),m={1,1..15}))
+clear
+
+sin(1/2)=0.4794255
+S<-eval(Seq(n,3^n/4^(n+1),n={1,1..100}))
+Y<-eval(Seq(n,(14*n+6)/(16*n+18),n={1,1..100}))
+xyPlt(Y)
+B<-eval(Seq(0.5,n/(1+n),n={1,1..100}))
+A<-eval(Seq(n,n/(1+n),n={1,1..100}))
+
+Examples of sequences on p.425
+
+Limit of a sequence.
+
+A sequence {An} has a limit at L as n --> infinity when
+
+any neighborhood of L contains all members of {An} but a few.
+
+There is only one limit for {An} if at all.
+
+Properties of Limits
+
+  1. limit of the sum is the sum of the limits
+  2. Limit of the product (ratio) is the product (ratio if the bottom is not 0) of the limits
+  3. lim f(An) = f(lim An) as long as f(x) is continuous at lim An
+
+4. Bounded monotonic sequence always has a limit
+5.Squeeze Theorem (p.429 WebAssign)
+
+S<-eval(Seq(n,n*sin(1/n),n={1,1..15}))
+A<-eval(Seq(0,n*sin(1/n),n={1,1..15}))
+xyPlt(S,A)
+
+
+S<-eval(Seq(n,(1+1/n)^n,n={1,1..15}))
+A<-eval(Seq(0,(1+1/n)^n,n={1,1..15}))
+xyPlt(S,A)
+
+n<-1000
+(1+1/1000)^1000
+
+
+WebW. 8.1, 2, 4, 5, 6, 7, 8, 10
+
+A<-eval(Seq(n,(8*n+15)/(16*n+4),n={1,1..15}))
+A<-eval(Seq(n,((-1)^n)*n^4/(n^4+8*n^3+9),n={1,1..100}))
+A<-eval(Seq(n,n^2*e^(-n),n={1,1..100}))
+xyPlt(A)
+
+V Example 10 p.431 (limit r^n)
+p.432,  limit of r^n
+
+
+WebW. 8.1, 3
+
+8.2. Series
+-----------
+
+1+1/2 + 1/3 + 1/4 + 1/5 + ... + 1/n + ...
+S<-eval({Seq(1/n,n={1,1..10000})})
+sum(S)=9.787606036010=7.485470860539=5.187377517641=2.928968253968
+
+
+
+
+
+
+
+
+
+Int(1/n,n={rightsum,1,1..10})
+Definition of convergence p.437
+
+The geometric series p.438  (TEC p.439)
+Exmple 2,V p.438
+ Problem 9 p. 443 (video solution)
+
+WebW. 8.2, 3, 4, 6, 7
+
+
+p.440
+Necessary condition of convergence.
+Theorem
+
+If the series
+
+    a_0 + a_1 + .. + a_n + ..
+
+is convergent then
+
+      a_n ---> 0
+    as n ---> infinity
+
+
+WebW. 8.2, 4, 5
+
+8.3 The integral test. Comparison test.
+ ---------------------------
+
+f(n) is positive and decreasing
+
+int_1^infinity f(x) dx and f(1)+..+f(n)+...
+
+either both converge or both diverge.
+
+
+Comparison test
+----------------
+
+p.450, Example 3
+
+
+8.4. Other convergence tests
+
+Alternating series test
+
+b_{n+1} <= b_n
+
+b_n --> 0  as n ---> infinity
+
+then
+
+b_1-b_2+b_3-.. is convergent
+
+Absolute and conditional convergence
+------------------------------------
+
+
+Ratio and Root tests
+--------------------
+
+WebW. 8.4
+
+
+
+
+
+
+  an = (1 - 1/n)/(4 - 1/n) --> 1/4
+
+
+
+
+
+
+
+
