@@ -1,0 +1,100 @@
+Two kinds of surface integrals
+ (like line integrals)
+  The first kind is only about the
+surface itself and does not care about outside world.
+
+  1st kind integrals are used to measure the area
+  mass, charge etc of the surface itself.
+-----------------------------------------
+
+  The second kind is about the relationsip
+  between the surface and outside world
+  (outside world dynamics is modelled by
+   a vector field)
+
+ 2nd kind are used to calculate a flux of
+media through the surface.
+
+
+     13.6 Surfaces and their areas.
+     ------------------------------
+A<-eval(Seq(u,cos(v),sin(v),u={0.1,-1..1},v={0.1,-pi..pi}))
+
+
+cup <- eval(Seq(u*u,u*sin(v),u*cos(v),u={0.1,0..1},v={0.1,0..2*pi}))
+xyzPlt(cup)
+
+{(h(u,v),u,v), (u,v) in D}
+  (1, -4, -4)
+    x  y   z
+  u = -4, v = -4
+
+    a<-{4,1,0}
+     b<-{-1,0,1}
+
+     cross(a,b)={1,-4,1}
+
+
+
+       1(x-1)-4(y+4)+1(z+4)=0
+  
+        s + t = 3
+        s - t = 1
+
+        s = 2 t=1  
+
+
+     p.798 TEC
+    (examples of parametrized surfaces)
+
+    p.800 TEC
+    (examples of parametrized surfaces)
+
+    p.801, V, Example 8
+    (tangent plane to a parametric surface)
+
+    WebW. 13.6, 2, 3
+A<-eval(Seq(s*t,s+t,s-t,s={0.1,-1..1},t={0.1,-1..1}))
+xyzPlt(A)
+A<-eval(Seq(u*cos(v),u*sin(v),v,v={0.1,0..6*pi},u={0.1,0..1}))
+S <- eval(Seq(u*u*cos(v)*sin(v),u*cos(v)+u*sin(v),u*cos(v)-u*sin(v),u={0.1,0..1},v={0.1,0..2*pi}))
+
+
+H <- eval(Seq(u*cos(v),u*sin(v),v,v={0.1,0..6*pi},u={0.1,0..1}))
+xyzPlt(H)
+6*pi*Int(sqrt(1+u^2),u={0.01,0..1})=21.63535
+    WebA. 13.6, 16
+2*pi*Int(sqrt(4+2*x^2)*x,x={0.01,0..1})=7.012984
+    p.802, 803
+    Surface area.
+
+    p.804, surface area of the graph
+
+    of a function, z = f(x,y).
+     V, Example. 10
+
+     13.6, 4, 5, 6, 7, 8
+
+     WebW. 13.6, 6 (Helicoid)
+
+
+ 13.7 Surface integrals
+      ----------------------
+
+      p. 810 V Example 3 (1st kind integral)
+
+      WebW. 13.7
+
+      p.811 Oriented surfaces, TEC
+
+      p. 814 V Example 5 (2nd kind integral, flux)
+
+       WebW. 13.7, 2,3,6
+
+
+
+
+
+
+
+

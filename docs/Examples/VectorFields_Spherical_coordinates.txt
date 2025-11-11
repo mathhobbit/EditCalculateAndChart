@@ -1,0 +1,80 @@
+          13.1 Vector Fields p.755
+            -----------------------
+    12.7  Triple Integral in Spherical Coordinates
+     -----------------------------------------------------------
+   r<-5
+   h<-5*pi/6
+   a<-2*pi/3    
+             x = r * sin(h) * cos(a)=-1.25000000000005
+             y = r * sin(h) * sin(a)=2.1650635094612
+             z = r * cos(h)=-4.3301270189222
+         v <-{2,5,-2}
+
+          sqrt(dot(v,v)=33)=5.7445626465381
+p. 737  TEC examples of surfaces in cylindrical and spherical coordinates.
+
+Use spherical coordinates to evaluate a triple integral
+WebW. 12.7, 7, 8, 9 (ice cream cone), 10
+WebA. 12.7, 16
+WebW.  12.7, 11 (volume of an ice-cream cone)
+
+Cone <- eval(Seq(x, y, sqrt((x)^2+(y)^2),x={0.1,-sqrt(1-y^2)..sqrt(1-y^2)},y={0.1,-0.8..0.8}))
+ice <- eval(Seq(x, y, sqrt(2-(x)^2-(y)^2),x={0.1,-sqrt(1-y^2)..sqrt(1-y^2)},y={0.1,-0.9..0.9}))
+xyzPlt(Cone,ice)
+x<--1
+1-x^2=0=-1
+2*(2^(3/2)-2)*pi/3=1.736
+WebW. 12.7, 14 (change (x,y,z) to spherical coordinates)
+
+
+Examples of vector fields, p. 757
+WebW. 13.1, 2
+A<-eval(Seq(x,y,y/(1+x^2+y^2),-x/(1+x^2+y^2),x={0.5,-2..2},y={0.5,-2..2}))
+vfPlt(A)
+
+B<-eval(Seq(x,y,y/(1+x^2+y^2),x/(1+x^2+y^2),x={0.5,-3..3},y={0.5,-3..3}))
+vfPlt(B)
+
+C<-eval(Seq(x,y,1/2,sin(y)/2,x={0.5,-5..5},y={0.5,-5..5}))
+
+vfPlt(C)
+
+D<-eval(Seq(x,y,(x-2)/(2+(x-2)^2+y^2),(x+1)/(2+(x-2)^2+y^2),x={0.5,-5..5},y={0.5,-5..5}))
+
+  vfPlt(D)
+
+
+Line Integrals
+--------------
+
+
+     1st type line integral
+
+     2nd type line integral
+
+Review of curves
+------------------
+
+A<-eval(Seq(cos(t),sin(t),t,t={0.01,0..2*pi}))
+xyzPlt(title=3D curves,subtitle=helix,line,helix,A)
+
+  Look at examples of 1st type line integrals
+
+           WebW.
+                13.2, 1,2,3
+
+
+
+            13.3. Fundamental Theorem of Line integrals.
+            -----------------------------------------------------------
+                   WebW.  13.3, 1,2,3
+                    WebAssign. 13.3, 3,4,5, 14,15, 16 , 18 (3D vector field)
+
+            13.4 Green's Theorem
+            ----------------------------
+            WebW. 13.4, 1-5
+
+             WebAssign 13.4, 1,2:
+       Calculate directly and compare with the result
+            of using Green's Theorem
+

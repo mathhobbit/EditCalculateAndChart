@@ -1,0 +1,82 @@
+12.1 Riemann Integrals (p.693, Figure 8)
+
+Riemann Sum
+
+WebW. 12.1, 1
+gr3DPlt(49-x^2-3*y^2,x={0..2},y={0..2})
+
+(A) Int(49-x^2-3*y^2,x={leftsum,1,0..2},y={leftsum,1,0..2})=188
+(B) Int(49-x^2-3*y^2,x={rightsum,1,0..2},y={rightsum,1,0..2})=156
+(C) (190+166)/2=178
+
+WebAssign 12.1, 1
+
+Iterated Integral,   TEC p.696 (Fubini's Theorem)
+
+WebW. 12.1, 3
+Int(3*x^2*y^3,x={0.01,0..4},y={0.01,0..4})
+gr3DPlt(5*x^2*y^3,x={0..4},y={0..4})
+
+WebW 12.1,4
+
+Int(1/(4*x+y)^2,x={0.01,1..2},y={0.01,1..2})=0.01924005
+
+WebW. 12.1, 5
+
+Int(y*cos(x)-2,x={0.001,0..pi/4},y={0.001,3..9})=16.02571Int(3*x^2*y^3,x={0.01,0..4},y={0.01,0..4})=4095.98080002
+5*sqrt(3)+2*pi/3=10.754651
+WebW 12.1, 6
+
+Int(x*y*e^(x+y),x={0.01,5..7},y={0.01,3..7}) =39146730
+
+
+Fubini's theorem is not working for
+gr3DPlt((x-y)/(x+y)^3,x={0.1..1},y={0.1..1})
+---------------------------------------------------
+
+12.2 Double Integrals Over General Regions p.700
+-------------------------------------------
+WebW. 12.2, 1
+
+Int(15*x^2+12*y,y={0.01,1-x..1+x},x={0.01,0..1})=19.5008370375
+
+S<-eval(Seq(x,y,15*x^2+12*y,y={0.1,1-x,1+x},x={0.1,0..0.9}))
+
+WebW.12.2, 4
+
+Int(1-x-y,y={0.01,0..1-x},x={0.01,0..1})=0.166649
+
+WebA. 12.2, 4, 5
+
+
+
+Change the order of integration
+
+WebW. 12.2, 5, 6, 7, 8, 9
+-------------------------------
+Test 2 problem
+V Example 5, p.705
+Evaluate integral by reversing the order ofintegration
+Int(e^(x^2),x={simpson,0.001,3*y..3},y={simpson,0.01,0..1})=1350.361=1323.878=1311.16=1076.646
+
+
+WebW. 12.2, 10, 11
+Textbook  p.708, Ex.43-48
+
+
+Ex. 44 p.708
+--------------------------
+
+
+------------------
+Int(cos(x^2),x={simpson,0.001,y..sqrt(pi)},y={0.01,0..sqrt(pi)})
+---------------
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+Review the concept of a curve .
+
+  C<-eval(Seq(t^2-1,t^3-t,t={0.01,-2..2}))  
+
+  xyPlt(C)
+
+
+A curve in 3D space
+h<-eval(Seq(-5*t,sin(t),cos(t),t={0.1,-4..3}))
+
+xyzPlt(h)
+
+
+
+
