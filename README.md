@@ -10,7 +10,7 @@ The calculator has the following functions/operations:
 > "cbrt", "log10", "expm1", "ln1p", "asin", "sin",
 > "acos", "cos", "atan", "tan", "ln", "exp", "sqrt",
 > "abs", "cross", "dot", "powb", "atan2", "hypot", 
-> "min", "max", "det", "rank", "inv", "lslv", "random",
+> "min", "max", "det", "rank", "inv", "lslv", "random", "MP",
 > "date", "roots", "rroots", "polynomMin", "Int", "Seq", "Rec",
 > "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
 > "xyzPlt", "gr3DPlt", "vfPlt", "xyLinePlt", "linePlt", "barPlt",
