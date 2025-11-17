@@ -25,7 +25,7 @@ where E(a) is the Euler function:
 If r and n are coprime then EF returns the length of the orbit of "r" in the multiplicative group of the ring Z/(n*Z).
  See also function FE which is equal to EF(2,n).
 
-Function FE and EF are described in
+Functions FE and EF are described in
 "Euler-Fermat algorithm." by S. Nikitin (09/18)
 see
 Euler_Fermat_algorithm.pdf
