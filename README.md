@@ -90,8 +90,8 @@ EditCalculateAndChart/build/bin
 
 and run
 
-<br/>sh imm
-<br/>sh link
+<br/>sh ./imm
+<br/>sh ./link
 
 and it will build the application. Edit the script "ecc" that will run it.
 
@@ -100,8 +100,8 @@ On MS Windows run cmd and use the respective *.bat files.
 Good luck! 
 
 PS. To create a Mac OS distribution run 
-sh ./dist 
-in EditCalculateAndChart/build/bin
+<br/>sh ./dist 
+<br/>in EditCalculateAndChart/build/bin
 
 
 
