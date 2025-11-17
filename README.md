@@ -99,6 +99,9 @@ On MS Windows run cmd and use the respective *.bat files.
 
 Good luck! 
 
+PS. To create a Mac OS distribution run 
+sh ./dist 
+in EditCalculateAndChart/build/bin
 
 
 
