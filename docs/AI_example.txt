@@ -24,6 +24,7 @@ Input<-{0,0,1,0,0,\
         1,0,0,0,1}
 AI<-eval(MP(Transpose(Input)))
 
+Testing stability, the largest output entry is set to "1" the smaller entries to "0"s.
 
 AI*{1;0;1;0;1;\
     0;0;1;0;0;\
@@ -48,7 +49,82 @@ AI*{1;0;0;1;1;\
     1;1;1;1;1;\
     1;0;1;1;1;\
     1;1;0;1;1;\
-    1;1;0;0;1}={-1/5;-1/10;1/2;3/5}={0;0;1;0}={-1/5;-1/10;3/4;7/20}
+    1;1;0;0;1}={-1/5;-1/10;1/2;3/5}={0;0;0;1}
+
+
+===============================
+AI with 5 neurons. It knows:
+Roman numbers I, II, III;
+a letter N;
+and Minus "-".
+
+
+Input<-{0,0,1,0,0,\
+        0,0,1,0,0,\
+        0,0,1,0,0,\
+        0,0,1,0,0,\
+        0,0,1,0,0;\
+        0,1,0,1,0,\
+        0,1,0,1,0,\
+        0,1,0,1,0,\
+        0,1,0,1,0,\
+        0,1,0,1,0;\
+        1,0,1,0,1,\
+        1,0,1,0,1,\
+        1,0,1,0,1,\
+        1,0,1,0,1,\
+        1,0,0,0,1;\
+        1,0,0,0,1,\  
+        1,0,0,1,1,\
+        1,0,0,0,1;\
+        0,0,0,0,0,\
+        0,0,0,0,0,\
+        1,1,1,1,1,\
+        0,0,0,0,0,\
+        0,0,0,0,0}
+
+AI<-eval(MP(Transpose(Input)))
+
+  Roman I   <=> 1,0,0,0,0  <=> 0,0,0
+  Roman II  <=> 0,1,0,0,0 <=>  0,0,1
+  Roman III <=> 0,0,1,0,0 <=>  0,1,0
+  Letter N  <=> 0,0,0,1,0 <=>  0,1,1
+  Minus -   <=> 0,0,0,0,1 <=>  1,0,0
+
+Capacity of Neural Net with N neurons is equal to ceil(log_2(N))=ceil(ln(N)/ln(2))
+
+ceil(ln(5)/ln(2))=3
+
+M<-{0,0,0;\
+    0,0,1;\
+    0,1,0;\
+    0,1,1;\
+    1,0,0}
+Output<-eval(Transpose(M))
+MAI<-eval(Output*AI)
+MAI*{0;0;1;0;0;\
+    0;0;1;0;0;\
+    0;0;1;0;0;\
+    0;0;1;0;0;\
+    0;0;1;0;0}={0;0;0}
+MAI*{1;0;0;0;1;\
+        1;1;0;0;1;\
+        1;0;1;0;1;\
+        1;0;0;1;1;\
+        1;0;0;0;1}={0;1;1}
+MAI*{0;0;0;0;0;\
+        0;0;0;0;0;\
+        1;1;1;1;1;\
+        0;0;0;0;0;\
+        0;0;0;0;0}={1;0;0}
+
+
+
+Volume of information (capacity of a neural network) is equal to the number of neurons N.
+Output can be represented by strings of zeroes and ones 
+with the length (number of bits) equal to 
+
+    ceil(ln(N)/ln(2))
 
 
 
