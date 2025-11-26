@@ -9,7 +9,7 @@ The calculator has the following functions/operations:
 > "floor", "dgrs", "rdns", "cosh", "sinh", "tanh",
 > "cbrt", "log10", "expm1", "ln1p", "asin", "sin",
 > "acos", "cos", "atan", "tan", "ln", "exp", "sqrt",
-> "abs", "cross", "dot", "powb", "atan2", "hypot", 
+> "abs", "cross", "dot", "powb", "atan2", "hypot", "length",
 > "min", "max", "det", "rank", "inv", "lslv", "random", "MP",
 > "date", "roots", "rroots", "polynomMin", "Int", "Seq", "Rec",
 > "sum", "memory", "clear", "<-", "->", "plot", "xyPlt",
