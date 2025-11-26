@@ -11,7 +11,7 @@ The calculator has the following functions.
 "2bdcm","2qt","2dbl","rref","I","ceil",
 "floor","dgrs","rdns","cosh","sinh","tanh","cbrt",
 "log10","expm1","ln1p","asin","sin","acos","cos",
-"atan","tan","ln","exp","sqrt","abs",
+"atan","tan","ln","exp","sqrt","abs","length",
 "powb","atan2","hypot","min","max",
 "det","rank","inv","lslv","random","roots",
 "polynomMin","Int","Seq","Rec","head","tail",
