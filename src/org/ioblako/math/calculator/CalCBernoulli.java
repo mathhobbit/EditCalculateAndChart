@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2017 Sergey Nikitin
+ * Copyright (C) 2026 Sergey Nikitin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import org.ioblako.math.linearalgebra.Fraction;
 
 public class CalCBernoulli implements CalcFunction {
 public String getHelp(){
-return "Bernoulli(n)  returns the nth member of the Benoulli sequence. "+System.lineSeparator()+
+return "Bernoulli(n)  returns the nth member of the Bernoulli sequence. "+System.lineSeparator()+
 	"For example, Bernoulli(0)=1, Bernoulli(1)=-1/2, Bernoulli(2*k +1) =0 for all k=1, 2, 3, ...";
 }
 public String eval(String argv) throws Exception{
