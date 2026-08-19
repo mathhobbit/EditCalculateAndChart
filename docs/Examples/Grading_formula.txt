@@ -1,0 +1,29 @@
+
+
+Test1<-100
+Test2<-100
+Test3<-100
+
+Final<-100
+
+Quizzes<-25
+
+HW<-93.56
+
+Work_in_class<-0
+
+(0.8*(Test1+Test2+Test3)+1.5*Quizzes + 1.5*Final+0.5*HW + Work_in_class)*0.2=94.856=93.896
+
+It is D in accordance with the grading policy posted  at
+
+https://www.public.asu.edu/~nikitin/grading/index.html
+
+The grading formula is defined in the syllabus poised at
+
+ https://www.public.asu.edu/~nikitin/MAT266SyllSpr25.pdf
+
+Sincerely,
+Sergey Nikitin
+
+
+
